@@ -36,6 +36,18 @@ gist file:
 
 cookbook 準備了 user , nginx, postgres sql 等自動安裝及自動設定 config template.
 
+補充 knife-solo 的安裝 (摘錄 from Gogojimmy 網頁說明
+在我們的本機，我們先安裝好knife，針對我們所使用的是Chef-Solo，因此我們要安裝的是Knife-Solo
+`gem install knife-solo`
+裝好了knife-solo以後，讓我們使用knife solo init 來開啟一個新專案
+`knife solo init knife-solo-demo`
+再來我們進行下一步之前我們先產生一個chef的設定檔
+`knife configure -r . --defaults`
+
+
+## 往下設定 config 之前請先完成這幾個動作
+1. 把server端的 ~/.ssh/id_rsa.pub 檔案 copy 到本機端的 ~/.ssh/known_host 裡面
+2. 把server端的 ~/.ssh/id_rsa.pub 檔案登記到 github 上面，這樣server 端才可以到github拉檔案
 
 ## 接著請手動調整下列三個 config file
 
@@ -175,3 +187,8 @@ end
 #  - https://github.com/mina-deploy/mina/tree/master/docs
 
 ```
+
+
+參考網站：
+(http://gogojimmy.net/2013/06/01/Chef-Solo-Basic-with-Vagrant/)[http://gogojimmy.net/2013/06/01/Chef-Solo-Basic-with-Vagrant/]
+(https://ruchee.com/notes/2016/deploy_rails_use_ubuntu_nginx_puma_mina.html)[https://ruchee.com/notes/2016/deploy_rails_use_ubuntu_nginx_puma_mina.html]
