@@ -44,10 +44,22 @@ cookbook 準備了 user , nginx, postgres sql 等自動安裝及自動設定 con
 再來我們進行下一步之前我們先產生一個chef的設定檔
 `knife configure -r . --defaults`
 
+在 knife-solo-demo/node 目錄裡面要 create 一個  xx.xx.xx.xx.json 檔案
+這個就是待會 knife-solo 會參照的檔案
 
 ## 往下設定 config 之前請先完成這幾個動作
-1. 把server端的 ~/.ssh/id_rsa.pub 檔案 copy 到本機端的 ~/.ssh/known_host 裡面
+1. 把local端的 ~/.ssh/id_rsa.pub 檔案 copy 到server端的 ~/.ssh/authorized_keys 裡面
 2. 把server端的 ~/.ssh/id_rsa.pub 檔案登記到 github 上面，這樣server 端才可以到github拉檔案
+
+## 啟動 knife-solo ，使其對 server 端開啟自動 chef 的自動化腳本安裝
+這邊有兩種情境
+一種就是一般的 ssh 登入的方式，例如 digital ocean , linode 之類的
+這種就照原本knife-solo的做法就可以
+`knife solo bootstrap server-user-name@xx.xx.xx.xx`
+
+一種就是 AWS 那種要登入到 ec2 instance 的時候，我們的 local 的環境要有一把  xxxx.pem 檔案的私鑰
+這一種就要打這個指令才有辦法讓 knife-solo 去免帳號密碼 遠端驅動 server site 執行 chef-solo
+`solo bootstrap xx.xx.xx.xx(server_ip) --ssh-user ubuntu -i ~/.ssh/your-pem-file-name.pem --node-name xx.xxx.xx.xx`
 
 ## 接著請手動調整下列三個 config file
 
