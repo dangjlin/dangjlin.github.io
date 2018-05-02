@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Week1 Homework Note - 丹哥的技術培養皿</title>
+  <meta name="author" content="Daniel Lin 丹哥">
+
+  
+  <meta name="description" content="今天在把原本在 github 上的 branch 要 clone 下來到 nitrous.io 網站的時候發生了一些問題
+先講到底要怎麼去拉自己在遠端的repo branch .
+假設這個在 github 上的repo 叫做 artstore ,
+有 Master 的主 branch &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dangjlin.github.io/posts/2014/06/12/week1-homework-note/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="丹哥的技術培養皿" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47039951-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">丹哥的技術培養皿</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="dangjlin.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Week1 Homework Note</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-06-12T14:05:00+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>2:05 pm</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>今天在把原本在 github 上的 branch 要 clone 下來到 nitrous.io 網站的時候發生了一些問題
+先講到底要怎麼去拉自己在遠端的repo branch .
+假設這個在 github 上的repo 叫做 artstore ,
+有 Master 的主 branch 以及後來新增加的  add_uploader 這個第二個brnach
+那麼，我在 nitrous.io網站的時候，因為從來沒有同步過這個 repo
+會先下這個指令
+<code>git clone https://github.com/dangjlin/artstore.git</code>
+這樣就會先把 github 上的這個 master branch 同步回 nitrous.io</p>
+
+<p>第二步
+因為想要去拉 add_uploader 這個 branch
+所以會下這個指令
+<code>git checkout --track -b add_uploader origin/add_uploader </code>
+其中第一個 add_uploader 是指 nitrous.io 這一端的 branch 的名稱 ,
+origin 後面的add_uploader 指的是遠端 github上 這個repo 裡面的 branch 的名稱</p>
+
+<p>之後要push 的時候就一樣可以下
+<code>git push origin add_uploader</code></p>
+
+<p>接著當然是要先執行一次 bundle install 重新安裝所需要的 gem file,
+然後再執行 rake db:migrate  create 出應該有的 table,</p>
+
+<p>[補充說明]
+因為後來有從 nitrous.io 的網站 push 新的變更到 github 上面
+結果我回家使用自己的 macbook air 的時候，勢必是一定要再把變動拉回自己的筆電上
+所以要下這個指令
+<code>git pull origin add_uploader</code></p>
+
+<p>第一個 origin 是要跟 git 說請到遠端去 ( 前提是 remote name 如果沒有變更過的話就會是 origin )
+第二個 add_uploader 是本地端的 branch name , 不用擔心,  因為前一次筆電端 push 的時候就已經知道 origin 端也有這個 branch name 了， 所以 git 會去遠端把 add_uploader 這個 branch 的資料 拉回來本機端 然後 merge 本機端的 branch</p>
+
+<p>[補充說明二]
+如何追蹤 fork 的 repo 又有新增的 branch , 要新增到自己的 local site,
+可以參考這篇文章寫得很淺顯易懂
+<a href="http://fireqqtw.logdown.com/posts/200871-github-sync-fork-project">http://fireqqtw.logdown.com/posts/200871-github-sync-fork-project</a>
+=== ===</p>
+
+<p>[補充說明三]
+這是個不錯的簡表
+<a href="http://railsbridge.github.io/bridge_troll/">How to Git: a Brief Guide to Making Open-Source Contributions ft. Bridge Troll</a></p>
+
+<p>接著就到了一個卡關的地方，
+因為這次的專案在使用者認證系統使用了 <code>devise</code> 這個 gem , 所以所有的使用者註冊、權限、驗證、密碼相關問題都由這個 gem去處理。
+因此之前進入 rails console 去 create USER帳號的時候，無論怎麼做都會錯誤，
+一開始我用這個指令 :</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>u = User.new 
+</span><span class='line'>u.update_attribute(:email =&gt; "xxx@xxx.com" , :encrypted_password =&gt; "abcde" ) 
+</span><span class='line'>u.save </span></code></pre></td></tr></table></div></figure>
+
+
+<p>不用說，這就報 error 了， 因為 1) update_attribute 只能更新一個欄位的資料 , 2) 更新一個欄位的格式要這樣寫 :
+<code>u.update_attribute(:email, "xxx@xxx.com)</code>
+所以後來我查了一下我又換了一個方式，</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>u = User.new(:email =&gt; "xxx@xxx.com", :encrypted_password =&gt; "abcde" ) 
+</span><span class='line'>u.save </span></code></pre></td></tr></table></div></figure>
+
+
+<p>用這個指令也還是報 error，百思不得其解，後來google了才知道因為使用者在進入頁面的時候, rails 會用 devise去處理帳號密碼， password 欄位會用 bcrypt 的加密去 hash 過，然後再去跟資料庫的 User table 的 encrypted_password 欄位對比看是否一致。 所以我在 rails console 裡面直接把 encrypted_password 塞 &ldquo;abcde &rdquo; 這樣就被吐error回來了，因為與 bcrypt的 hash 結果格式不相符 [ 這邊是我猜為什麼無法這樣新增的原因 ]</p>
+
+<p>結果回去看了教材才知道要用這個指令才是正確的</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>u = User.new(:email =&gt; "xxx@xxx.com", password =&gt; "abcde" , password_confirmation =&gt; "abcde" ) 
+</span><span class='line'>u.save </span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣一來就會成功的創造一筆資料了， 而後來用 <code>u.encrypted_password</code> 去看，就會看到 abcde 已經被 hash 過了&hellip;.
+至於為什麼會這樣呢?  我還在找資料，我猜想一定是 device 個 rails gem 的作用，意思是 create user 的時候應該經過 password &amp; password_confirmation 這兩個變數的資料，然後 device 會自動拿 bcrypt 的函示庫去做密碼加密的動作，然後再塞到User Table 的密碼欄位當中。</p>
+
+<p>基本上一開始的外觀應該就可以直接使用twitter bootstrap 這個超棒的前端 framework 來美化我們的版面</p>
+
+<p>新手一開始的動作很簡單，有三個步驟</p>
+
+<ol>
+<li><p>在Gemfile.rb 中添加 bootstrap Gem
+<code>gem 'bootstrap-sass'</code></p></li>
+<li><p>在 app/assets/stylesheets 的  application.css 要加上這一行</p></li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*= require bootstrap 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>但是因為我發現為什麼下拉式選單竟然跳不下來，原因是因為那是javascript 的效果
+所以還要記得在 app/assets/javascrtip 的 application.js 要加上這一行</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>﻿//= require bootstrap</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣之後才可以開始放肆的改各式樣的版面調整了~</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Daniel Lin 丹哥</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-06-12T14:05:00+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>2:05 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dangjlin.github.io/posts/2014/06/12/week1-homework-note/" data-via="" data-counturl="http://dangjlin.github.io/posts/2014/06/12/week1-homework-note/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/2014/06/08/web-scraping/" title="Previous Post: web-scraping ">&laquo; web-scraping </a>
+      
+      
+        <a class="basic-alignment right" href="/posts/2014/06/22/week2-homework-note/" title="Next Post: week2 homework note">week2 homework note &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2018/05/02/test-for-new-post/">Test for New Post</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/">如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/10/how-to-get-improved-to-write-clean-code/">如何寫出clean Code 的參考資料</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/10/05/rails-using-aws-ses-send-mail-service/">Rails Using AWS SES Send Mail Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/">Redmine 串 AWS S3 遇到的問題 Hack Workaround</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Daniel Lin 丹哥 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dangjlin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dangjlin.github.io/posts/2014/06/12/week1-homework-note/';
+        var disqus_url = 'http://dangjlin.github.io/posts/2014/06/12/week1-homework-note/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

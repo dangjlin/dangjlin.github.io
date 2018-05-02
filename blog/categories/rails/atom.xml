@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Rails | 丹哥的技術培養皿]]></title>
+  <link href="http://dangjlin.github.io/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://dangjlin.github.io/"/>
+  <updated>2018-05-02T17:24:37+08:00</updated>
+  <id>http://dangjlin.github.io/</id>
+  <author>
+    <name><![CDATA[Daniel Lin 丹哥]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx]]></title>
+    <link href="http://dangjlin.github.io/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/"/>
+    <updated>2017-02-22T17:39:14+08:00</updated>
+    <id>http://dangjlin.github.io/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx</id>
+    <content type="html"><![CDATA[<h1>從provision VM 到自動安裝軟體、到使用 mina 自動化部署 Rails App</h1>
+
+<h2>provision 一台新 ubuntu server</h2>
+
+<p>自動裝機 script , 分兩段:</p>
+
+<p>1- 第一段自動裝軟體 ,
+curl -L <a href="https://gist.githubusercontent.com/dangjlin/2dd09f80d114e54b54be89ce8b9c6336/raw/d94cfd5eb92905c45899cb41a86c64b9f868efb5/init_install.sh">https://gist.githubusercontent.com/dangjlin/2dd09f80d114e54b54be89ce8b9c6336/raw/d94cfd5eb92905c45899cb41a86c64b9f868efb5/init_install.sh</a> | sh</p>
+
+<p>gist file: (<a href="https://gist.github.com/dangjlin/2dd09f80d114e54b54be89ce8b9c6336">https://gist.github.com/dangjlin/2dd09f80d114e54b54be89ce8b9c6336</a>)[<a href="https://gist.github.com/dangjlin/2dd09f80d114e54b54be89ce8b9c6336">https://gist.github.com/dangjlin/2dd09f80d114e54b54be89ce8b9c6336</a>]</p>
+
+<p>很重要的是：
+<em>裝完之後需手動 source ~/.bashrc 重新載入環境變數</em>
+才可以再繼續run 第二段</p>
+
+<p>2- 一段自動裝 rbenv  &amp; 安裝 ruby 2.3.0
+curl -L <a href="https://gist.githubusercontent.com/dangjlin/f57d8713352bfc8b0d35c31327658790/raw/efe262d3c030fa32d479b2eb9d852b41edc736d8/rbenv_init.sh">https://gist.githubusercontent.com/dangjlin/f57d8713352bfc8b0d35c31327658790/raw/efe262d3c030fa32d479b2eb9d852b41edc736d8/rbenv_init.sh</a> | sh</p>
+
+<p>gist file:
+(<a href="https://gist.github.com/dangjlin/f57d8713352bfc8b0d35c31327658790">https://gist.github.com/dangjlin/f57d8713352bfc8b0d35c31327658790</a>)[<a href="https://gist.github.com/dangjlin/f57d8713352bfc8b0d35c31327658790">https://gist.github.com/dangjlin/f57d8713352bfc8b0d35c31327658790</a>]</p>
+
+<p>如果VPS都永遠在 AWS 或 Digital Ocean or Linode ,
+建議裝好之後自己 create 一個 image file,
+以後就用這個image 去 provision new server</p>
+
+<h2>接著我會使用 chef-solo , knife-solo 自動安裝</h2>
+
+<p>cookbook 準備了 user , nginx, postgres sql 等自動安裝及自動設定 config template.</p>
+
+<p>補充 knife-solo 的安裝 (摘錄 from Gogojimmy 網頁說明
+在我們的本機，我們先安裝好knife，針對我們所使用的是Chef-Solo，因此我們要安裝的是Knife-Solo
+<code>gem install knife-solo</code>
+裝好了knife-solo以後，讓我們使用knife solo init 來開啟一個新專案
+<code>knife solo init knife-solo-demo</code>
+再來我們進行下一步之前我們先產生一個chef的設定檔
+<code>knife configure -r . --defaults</code></p>
+
+<p>在 knife-solo-demo/node 目錄裡面要 create 一個  xx.xx.xx.xx.json 檔案
+這個就是待會 knife-solo 會參照的檔案</p>
+
+<h2>往下設定 config 之前請先完成這幾個動作</h2>
+
+<ol>
+<li>把local端的 ~/.ssh/id_rsa.pub 檔案 copy 到server端的 ~/.ssh/authorized_keys 裡面</li>
+<li>把server端的 ~/.ssh/id_rsa.pub 檔案登記到 github 上面，這樣server 端才可以到github拉檔案</li>
+</ol>
+
+
+<h2>啟動 knife-solo ，使其對 server 端開啟自動 chef 的自動化腳本安裝</h2>
+
+<p>這邊有兩種情境
+一種就是一般的 ssh 登入的方式，例如 digital ocean , linode 之類的
+這種就照原本knife-solo的做法就可以
+<code>knife solo bootstrap server-user-name@xx.xx.xx.xx</code></p>
+
+<p>一種就是 AWS 那種要登入到 ec2 instance 的時候，我們的 local 的環境要有一把  xxxx.pem 檔案的私鑰
+這一種就要打這個指令才有辦法讓 knife-solo 去免帳號密碼 遠端驅動 server site 執行 chef-solo
+<code>solo bootstrap xx.xx.xx.xx(server_ip) --ssh-user ubuntu -i ~/.ssh/your-pem-file-name.pem --node-name xx.xxx.xx.xx</code></p>
+
+<h2>接著請手動調整下列三個 config file</h2>
+
+<p>nginx config file, put it in the site-enable/default  file</p>
+
+<pre><code class="Ruby">upstream app {
+    # Path to Puma SOCK file, as defined previously
+    server unix:/home/ubuntu/site/app/app-name/current/shared/sockets/puma.sock fail_timeout=0;
+}
+
+server {
+    listen 80;
+    server_name localhost;
+
+    root /home/ubuntu/site/app/app-name/current/public;
+
+    try_files $uri/index.html $uri @app;
+
+    location @app {
+        proxy_pass http://app;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+    }
+
+    error_page 500 502 503 504 /500.html;
+    client_max_body_size 4G;
+    keepalive_timeout 10;
+}
+</code></pre>
+
+<p>puma config file in config/puma_production.rb
+```Ruby
+environment &lsquo;production&rsquo;
+threads 2, 64
+workers 2   #depends on how many cores of server CPU</p>
+
+<p>application_path = File.expand_path(&lsquo;..&rsquo;, <strong>dir</strong>)
+directory application_path</p>
+
+<p>pidfile &ldquo;#{application_path}/shared/pids/puma.pid&rdquo;
+state_path &ldquo;#{application_path}/shared/sockets/puma.state&rdquo;
+stdout_redirect &ldquo;#{application_path}/shared/log/puma.stdout.log&rdquo;, &ldquo;#{application_path}/shared/log/puma.stderr.log&rdquo;
+bind &ldquo;unix://#{application_path}/shared/sockets/puma.sock&rdquo;
+activate_control_app &ldquo;unix://#{application_path}/shared/sockets/pumactl.sock&rdquo;</p>
+
+<p>daemonize true
+preload_app!</p>
+
+<pre><code>
+## Mina Setup 步驟執行之後注意事項
+有三件事情要做：
+1- 因為有兩個 config 檔案我們是做 symbolic link 到 shared folder  " shared/config " 目錄裡面
+所以記得要server 上手動增加   database.yml , secret.yml 檔案
+2- 另外還有環境變數也記得手動到server去增加，以利後續 Rails production server 要讀取＆啟動
+3- 在 postgresql 手動 create production 的 database.
+
+mina config file in config/deploy.rb
+</code></pre>
+
+<p>require &lsquo;mina/bundler&rsquo;
+require &lsquo;mina/rails&rsquo;
+require &lsquo;mina/git&rsquo;
+require &lsquo;mina/rbenv&rsquo;
+require &lsquo;mina/puma&rsquo;</p>
+
+<h1>Basic settings:</h1>
+
+<h1>domain       - The hostname to SSH to.</h1>
+
+<h1>deploy_to    - Path to deploy into.</h1>
+
+<h1>repository   - Git repo to clone from. (needed by mina/git)</h1>
+
+<h1>branch       - Branch name to deploy. (needed by mina/git)</h1>
+
+<p>set :application_name, &lsquo;production_app&rsquo;
+set :domain, &lsquo;192.168.99.99&rsquo;
+set :user, &lsquo;ubuntu&rsquo; # Username in the server to SSH to.
+set :deploy_to, &ldquo;/home/#{fetch(:user)}/site/app/#{fetch(:application_name)}&rdquo;
+set :repository, &lsquo;git@github.com:abcdefg/xyz.git&rsquo;
+set :branch, &lsquo;master&rsquo;
+set :rbenv_path, &ldquo;$HOME/.rbenv&rdquo;
+set :database, &lsquo;name_of_production&rsquo;</p>
+
+<h1>shared dirs and files will be symlinked into the app-folder by the &lsquo;deploy:link_shared_paths&rsquo; step.</h1>
+
+<p>set :shared_files, fetch(:shared_files, []).push(&lsquo;config/database.yml&rsquo;, &lsquo;config/secrets.yml&rsquo;)
+set :shared_dirs, fetch(:shared_dirs, []).push(&lsquo;shared/log&rsquo;, &lsquo;tmp/cache&rsquo;, &lsquo;shared/pids&rsquo;, &lsquo;shared/sockets&rsquo;, &lsquo;public&rsquo;, &lsquo;vendor&rsquo;)</p>
+
+<h1>This task is the environment that is loaded for all remote run commands, such as</h1>
+
+<h1><code>mina deploy</code> or <code>mina rake</code>.</h1>
+
+<p>task :environment do
+    invoke :&lsquo;rbenv:load&rsquo;
+end</p>
+
+<p>task :setup do</p>
+
+<p>end</p>
+
+<p>desc &ldquo;Deploys the current version to the server.&rdquo;
+task :deploy do
+  deploy do
+    # Put things that will set up an empty directory into a fully set-up
+    # instance of your project.
+    invoke :&lsquo;git:clone&rsquo;
+    invoke :&lsquo;deploy:link_shared_paths&rsquo;
+    invoke :&lsquo;bundle:install&rsquo;
+    invoke :&lsquo;rails:db_migrate&rsquo;
+    invoke :&lsquo;rails:assets_precompile&rsquo;
+    invoke :&lsquo;deploy:cleanup&rsquo;</p>
+
+<pre><code>on :launch do
+    in_path(fetch(:current_path)) do
+    command %{mkdir -p tmp/}
+    command %{touch tmp/restart.txt}
+    invoke :'puma_restart'
+    end
+end
+</code></pre>
+
+<p>  end
+  # you can use <code>run :local</code> to run tasks on local machine before of after the deploy scripts
+  # run(:local){ say &lsquo;done&rsquo; }
+end</p>
+
+<p>task puma_restart: :environment do
+  puma_pid = &ldquo;#{fetch(:current_path)}/shared/pids/puma.pid&rdquo;
+  command %[
+    if [ -e &lsquo;#{puma_pid}&rsquo; ]; then
+      bundle exec pumactl -F config/puma_production.rb stop
+      bundle exec pumactl -F config/puma_production.rb start
+    else
+      bundle exec pumactl -F config/puma_production.rb start
+    fi
+  ]
+end</p>
+
+<h1>For help in making your deploy script, see the Mina documentation:</h1>
+
+<h1>- <a href="https://github.com/mina-deploy/mina/tree/master/docs">https://github.com/mina-deploy/mina/tree/master/docs</a></h1>
+
+<p>```</p>
+
+<p>參考網站：
+(<a href="http://gogojimmy.net/2013/06/01/Chef-Solo-Basic-with-Vagrant/">http://gogojimmy.net/2013/06/01/Chef-Solo-Basic-with-Vagrant/</a>)[<a href="http://gogojimmy.net/2013/06/01/Chef-Solo-Basic-with-Vagrant/">http://gogojimmy.net/2013/06/01/Chef-Solo-Basic-with-Vagrant/</a>]
+(<a href="https://ruchee.com/notes/2016/deploy_rails_use_ubuntu_nginx_puma_mina.html">https://ruchee.com/notes/2016/deploy_rails_use_ubuntu_nginx_puma_mina.html</a>)[<a href="https://ruchee.com/notes/2016/deploy_rails_use_ubuntu_nginx_puma_mina.html">https://ruchee.com/notes/2016/deploy_rails_use_ubuntu_nginx_puma_mina.html</a>]</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[如何寫出clean Code 的參考資料]]></title>
+    <link href="http://dangjlin.github.io/posts/2017/02/10/how-to-get-improved-to-write-clean-code/"/>
+    <updated>2017-02-10T14:32:20+08:00</updated>
+    <id>http://dangjlin.github.io/posts/2017/02/10/how-to-get-improved-to-write-clean-code</id>
+    <content type="html"><![CDATA[<h1>如何設計好的程式架構跟安排，寫出clean code</h1>
+
+<p>這是在臉書上徵詢請教大大的筆記資料</p>
+
+<h2>thanks TaiAn suggestions:</h2>
+
+<p>Leetcode 主要還是演算法
+如果是 OO (Objective Oriented) 的話，
+0. Confident Ruby
+1. Practical Object oriented design in ruby
+2. Implementation pattern
+3. The art of readable code</p>
+
+<p>我記得後三本都有中文。如果不是 ruby 的話，第 0 本可以省略。也有人推薦 code complete 2，但是實在很厚，語氣也有點教條。</p>
+
+<p><a href="https://sourcemaking.com/refactoring">https://sourcemaking.com/refactoring</a></p>
+
+<h2>thanks Scott Tsai suggestions:</h2>
+
+<ol>
+<li>閱讀某篇 coding style 規範 (e.g. Google 的) 思考辯證其中規則 (e.g. 命名，變數長度與可見範圍)</li>
+<li>閱讀某高品質的 open source 專案的程式，或可從 <a href="http://aosabook.org/en/index.html">http://aosabook.org/en/index.html</a> 找個目標。 500 lines or less 的程式也頗適合。</li>
+</ol>
+
+
+<p>附註：Leetcode 只求解出演算法題目，會鼓勵實作快速、執行也夠快的程式碼，與寫出 &ldquo;clean code&rdquo; 的目標應是背道而馳。</p>
+
+<h2>thank unknow friend</h2>
+
+<p>一本聖經叫clean code</p>
+
+<h2>thanks Jason</h2>
+
+<p>裝rubocop，養成每次git commit 之前跑檢查，把檢查出的錯誤堅持修掉，然後隨經驗的累積調整 rubocop 的設定</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails Using AWS SES Send Mail Service]]></title>
+    <link href="http://dangjlin.github.io/posts/2016/10/05/rails-using-aws-ses-send-mail-service/"/>
+    <updated>2016-10-05T17:24:59+08:00</updated>
+    <id>http://dangjlin.github.io/posts/2016/10/05/rails-using-aws-ses-send-mail-service</id>
+    <content type="html"><![CDATA[<h1>Ruby on Rails 如何使用AWS SES 的寄送MAIL服務</h1>
+
+<p>網站可以 send mail 了 , 感謝 AWS SES service.</p>
+
+<p>有幾個小坑要注意一下：</p>
+
+<ol>
+<li><p>使用 devise gem 時， initializers 目錄裡面的 devise.rb 這一行請不要亂打，AWS會驗證是不是已 verified domain , 否則會拒絕,不讓你寄信．
+config.mailer_sender = &lsquo;<a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#111;&#x3a;&#115;&#101;&#x72;&#x76;&#105;&#x63;&#101;&#64;&#x61;&#97;&#97;&#46;&#x62;&#98;&#98;&#x2e;&#99;&#99;&#x63;">&#115;&#x65;&#x72;&#x76;&#x69;&#99;&#101;&#64;&#97;&#x61;&#x61;&#x2e;&#98;&#x62;&#98;&#x2e;&#x63;&#x63;&#x63;</a>&rsquo;</p></li>
+<li><p>username &amp; password 要在 SES 的管理頁面 「SMTP Settings」那邊有一個 create SMTP credentials ，才可以產生 SMTP 的 user &amp; password ,  不是自己跑去 IAM 生一組。</p></li>
+<li><p>測試的時候，請先在SES 管理頁面，左邊有一個 「Email Addresses」先把要測試的收信的 mail address 打進去並且經過驗證，否則填入未經驗證的收信信箱，測試的時候SES也不讓你寄。</p></li>
+<li><p>其餘的話就是在 environment/production.rb 把下面內容設定好</p></li>
+</ol>
+
+
+<p>  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { :host => &lsquo;<a href="http://aaa.bbb.ccc/">http://aaa.bbb.ccc/</a>&rsquo;}</p>
+
+<p>  config.action_mailer.smtp_settings = {
+    :address => &lsquo;email-smtp.us-west-2.amazonaws.com&rsquo;,
+    :port => 465,
+    :authentication => :login,
+    :user_name => ENV[&lsquo;AWS_SES_USER&rsquo;],
+    :password => ENV[&lsquo;AWS_SES_PASS&rsquo;],
+    :domain => &ldquo;aaa.bbb.ccc&rdquo;,
+    :ssl => true,
+    :tls => true,
+    :enable_starttls_auto => true
+}</p>
+
+<ol>
+<li>確定沒問題之後，要離開 sandbox 到正式環境使用時，就在SES的介面填申請表，AWS會審核開通。</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Redmine 串 AWS S3 遇到的問題 Hack Workaround]]></title>
+    <link href="http://dangjlin.github.io/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/"/>
+    <updated>2016-07-19T08:58:00+08:00</updated>
+    <id>http://dangjlin.github.io/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround</id>
+    <content type="html"><![CDATA[<p>整個安裝的步驟，請參考 sdlong 大的文章：</p>
+
+<p>但是一直做到要把 file upload 串到 AWS S3 的時候，我們使用了 gem <a href="https://github.com/ka8725/redmine_s3">redmine_s3</a></p>
+
+<p>其中 bundle install 的時候會有一個 error 說重複命名的問題
+然後就開始追 code ,  發現是 htmlentities 這個 gem 命名 inodot 變數的時候跟另外一個gem 的命名重複了
+雖然人家 htmlentities 在 4.3.4 的時候修正了變數命名重複的問題，
+ＢＵＴ
+偏偏 redmine_3 的 dependency 又只能綁到 4.3.1
+作者有回應說，我沒辦法綁到 4.3.4喔  因為 bulabulabula （省略一百字）</p>
+
+<p>我剛好想到一個方式去 hack 這件事情
+預設的 gemfile 會使用 bundler 去讀  rubygems.org 上面的檔案
+所以所有的 code &amp; dependency 都會依照 rubygems.org 上面的code所記載的內容運行</p>
+
+<p>我想到我能做的是，我 clone 一份  htmlentities 4.3.1 的 code 回來自己的 github
+然後把 lib/htmlentities/mappings/expanded.rb 檔案裡面的重複的  inotod 刪掉～ push 到自己的github.</p>
+
+<p>然後我在 gemfile 裡面去指定  gem &lsquo;htmlentities&rsquo; 的路徑是要去找我的 github
+這樣被裝到 system library 的 code 就會被改正的了！</p>
+
+<p>` gem &ldquo;htmlentities&rdquo;, github: &ldquo;dangjlin/htmlentities&rdquo;, branch: &ldquo;fix-inodot-problem&rdquo;</p>
+]]></content>
+  </entry>
+  
+</feed>

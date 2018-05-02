@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>發生在 View內的each 迴圈 - Rails N+1 Queries 問題解法 - 丹哥的技術培養皿</title>
+  <meta name="author" content="Daniel Lin 丹哥">
+
+  
+  <meta name="description" content="前幾天在 Rails Tuesday 聚會的時候，與一個朋友在討論 code ，本來是在討論 many to many 的 association 時，要如何在中介的table 當中去查詢到另一個table的欄位資料， 例如，有一個table叫做，使用者，一個table叫做商品， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dangjlin.github.io/posts/2014/07/30/-rails-in-view-of-each-loop-n-plus-1-queries-problem-solution/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="丹哥的技術培養皿" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47039951-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">丹哥的技術培養皿</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="dangjlin.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">發生在 View內的each 迴圈 - Rails N+1 Queries 問題解法</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-30T03:27:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>30</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:27 am</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>前幾天在 Rails Tuesday 聚會的時候，與一個朋友在討論 code ，本來是在討論 many to many 的 association 時，要如何在中介的table 當中去查詢到另一個table的欄位資料， 例如，有一個table叫做，使用者，一個table叫做商品，我們有使用者可以有很多商品，商品也可以有很多使用者，是多對多的關係，因此我們可能會create 一個中介 table 叫做 user_product ，裡面就只有 user_id &amp; product_id 兩個欄位，  但是如果我們希望可以拿到 product.name 時該怎麼做呢? 或者是如果我們在中介 table 內增加一欄了，那要怎麼拿出這一欄呢?  本篇文章沒有要討論這個問題。</p>
+
+<p>因此拿出了 intermediate 課程當中的購物車的 code ， 當打開放入購物車的 index 頁面 code 時，朋友問我說在view 裡面使用 .each  然後還去關聯另一個table 這樣會造成一直重複查詢，我才想到這可能有<strong>n+1 query (N+1查詢)</strong> 的問題。
+經過百思不得其解的奮鬥之後，初步上得到在 view file 內可以使用 includes 的功能去關聯原先沒有拿到的欄位資料，而避免進入到 each 的 iterate 的時候，會重複request 。 以下就是簡單的筆記。</p>
+
+<p>看了兩天的 ActiveRecord Association 發現真的好多東西需要去理解~
+html 原本的 cart index view</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> &lt;tbody&gt;
+</span><span class='line'>        &lt;% current_cart.cart_items.each do |item| %&gt;
+</span><span class='line'>        &lt;tr&gt;
+</span><span class='line'>            &lt;td&gt;
+</span><span class='line'>              &lt;%= link_to(item.product.title, admin_product_path(item.product)) %&gt;
+</span><span class='line'>            &lt;/td&gt;
+</span><span class='line'>            &lt;td&gt; &lt;%= item.product.price %&gt; &lt;/td&gt;
+</span><span class='line'>        &lt;/tr&gt;
+</span><span class='line'>  &lt;/tbody&gt;      
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>原本的 N + 1 queries</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Started</span> <span class="no">GET</span> <span class="s2">&quot;/carts&quot;</span> <span class="k">for</span> <span class="mi">175</span><span class="o">.</span><span class="mi">184</span><span class="o">.</span><span class="mi">245</span><span class="o">.</span><span class="mi">33</span> <span class="n">at</span> <span class="mi">2014</span><span class="o">-</span><span class="mo">07</span><span class="o">-</span><span class="mi">31</span> <span class="mo">07</span><span class="p">:</span><span class="mi">13</span><span class="p">:</span><span class="mo">00</span> <span class="o">+</span><span class="mo">0000</span>
+</span><span class='line'><span class="no">Processing</span> <span class="n">by</span> <span class="no">CartsController</span><span class="c1">#index as HTML                                                                                                                                                       </span>
+</span><span class='line'>  <span class="no">Cart</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">3</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">&quot;carts&quot;</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="s2">&quot;carts&quot;</span>  <span class="no">WHERE</span> <span class="s2">&quot;carts&quot;</span><span class="o">.</span><span class="s2">&quot;id&quot;</span> <span class="o">=</span> <span class="mi">20</span> <span class="no">LIMIT</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="no">CartItem</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">2</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">&quot;cart_items&quot;</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="s2">&quot;cart_items&quot;</span>  <span class="no">WHERE</span> <span class="s2">&quot;cart_items&quot;</span><span class="o">.</span><span class="s2">&quot;cart_id&quot;</span> <span class="o">=</span> <span class="p">?</span>  <span class="o">[[</span><span class="s2">&quot;cart_id&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="o">]]</span>
+</span><span class='line'>  <span class="no">Product</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="s2">&quot;products&quot;</span>  <span class="no">WHERE</span> <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="s2">&quot;id&quot;</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="mi">1</span>  <span class="o">[[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="o">]]</span>
+</span><span class='line'>  <span class="no">Product</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="s2">&quot;products&quot;</span>  <span class="no">WHERE</span> <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="s2">&quot;id&quot;</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="mi">1</span>  <span class="o">[[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="o">]]</span>
+</span><span class='line'>  <span class="no">Product</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="s2">&quot;products&quot;</span>  <span class="no">WHERE</span> <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="s2">&quot;id&quot;</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="mi">1</span>  <span class="o">[[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="o">]]</span>
+</span><span class='line'>  <span class="no">Product</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="s2">&quot;products&quot;</span>  <span class="no">WHERE</span> <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="s2">&quot;id&quot;</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="mi">1</span>  <span class="o">[[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="o">]]</span>
+</span><span class='line'>  <span class="no">Product</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="s2">&quot;products&quot;</span>  <span class="no">WHERE</span> <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="s2">&quot;id&quot;</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="mi">1</span>  <span class="o">[[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="o">]]</span>
+</span><span class='line'>  <span class="no">Product</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">2</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="s2">&quot;products&quot;</span>  <span class="no">WHERE</span> <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="s2">&quot;id&quot;</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="mi">1</span>  <span class="o">[[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="o">]]</span>
+</span><span class='line'>  <span class="no">Product</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="s2">&quot;products&quot;</span>  <span class="no">WHERE</span> <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="s2">&quot;id&quot;</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="mi">1</span>  <span class="o">[[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="o">]]</span>
+</span><span class='line'>  <span class="no">Product</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">2</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="s2">&quot;products&quot;</span>  <span class="no">WHERE</span> <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="s2">&quot;id&quot;</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="mi">1</span>  <span class="o">[[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="o">]]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 .each 前面，在我們要做 iterate 的 object 後面增加一個 include 作法，讓 Rails 處理 Query 的時候，可以一併一次就先做聯集把 Product 的 detail 資料一起查出來，這樣後面就不用連續查 8 次了，</p>
+
+<p>後來的 cart index view , 增加 : includes(:product)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'> <span class="nt">&lt;tbody&gt;</span>
+</span><span class='line'>        <span class="err">&lt;</span>% current_cart.cart_items.includes(:product).each do |item| %&gt;
+</span><span class='line'>        <span class="nt">&lt;tr&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;td&gt;</span>
+</span><span class='line'>              <span class="err">&lt;</span>%= link_to(item.product.title, admin_product_path(item.product)) %&gt;
+</span><span class='line'>            <span class="nt">&lt;/td&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;td&gt;</span> <span class="err">&lt;</span>%= item.product.price %&gt; <span class="nt">&lt;/td&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/tr&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/tbody&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我們可以看到 query 已經從前面的 8+1  變成 剩下 3 個 query , 這麼看可能感受還好，但是當這個畫面是類似查詢訂單那種一撈就是20筆, 40筆, 100筆等地記錄，確實就會大大的把query 從101個降到剩3個而已。</p>
+
+<p>經過增加一個include 後的 query</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="no">Cart</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">3</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">&quot;carts&quot;</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="s2">&quot;carts&quot;</span>  <span class="no">WHERE</span> <span class="s2">&quot;carts&quot;</span><span class="o">.</span><span class="s2">&quot;id&quot;</span> <span class="o">=</span> <span class="mi">20</span> <span class="no">LIMIT</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="no">CartItem</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">2</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">&quot;cart_items&quot;</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="s2">&quot;cart_items&quot;</span>  <span class="no">WHERE</span> <span class="s2">&quot;cart_items&quot;</span><span class="o">.</span><span class="s2">&quot;cart_id&quot;</span> <span class="o">=</span> <span class="p">?</span>  <span class="o">[[</span><span class="s2">&quot;cart_id&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="o">]]</span>
+</span><span class='line'>  <span class="no">Product</span> <span class="no">Load</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">4</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="n">*</span> <span class="no">FROM</span> <span class="s2">&quot;products&quot;</span>  <span class="no">WHERE</span> <span class="s2">&quot;products&quot;</span><span class="o">.</span><span class="s2">&quot;id&quot;</span> <span class="no">IN</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其實我也想過 includes 應該是要放在 controller 或 model 裡面，因為畢竟是要處理 request for data 的動作，怎麼會放在view 裡面? 但目前因為這個購物車網站的 controller 內， current_cart 的 object 是放在 application_controller 裡， view 裡面的  @current_cart.cart_items 是靠著 model 的 association 成立的，所以一時之間就找不到地方去放這個 <code>includes(:product)</code> 了</p>
+
+<p>includes 的用法還有很多，都是為了實現 eager loading ，避免 N+1 queries 的作法。
+可以看官方文件 rails api  ActiveRecord 裡面的 <code>Eager loading of associations</code> 章節
+<a href="http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html#method-i-belongs_to">http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html#method-i-belongs_to</a>
+或簡單一點的官方文件 rails guide ActiveRecord Query 裡面的 <code>N + 1 查询的解决办法</code>
+<a href="http://guides.ruby-china.org/active_record_querying.html">http://guides.ruby-china.org/active_record_querying.html</a></p>
+
+<p>這篇簡單的文章是講放在 controller 裡面的舉例作法
+<a href="http://www.sitepoint.com/silver-bullet-n1-problem/">http://www.sitepoint.com/silver-bullet-n1-problem/</a></p>
+
+<p>另外值得一提的是， eager loading 也不是聖杯，因為一次做額外的關聯table，會把一大堆東西一次查詢出來，放到 object內，因此memory會被占掉，要怎麼找到一個平衡，就是 performance tuning 的技巧了，待未來有學習到時，再另行寫一篇筆記吧。</p>
+
+<h1>補充說明:</h1>
+
+<p>另外還有一個用法是 joins .
+那麼與 includes 的差別在哪呢?
+從上述的說明可以看到使用 includes 的時機是，當我們希望先從 db query 兩個關聯的資料表時，在view 裡面 iterate 的時候不希望造成重複的 query . 那是因為我們需要讀取關聯後的另一個 table 的欄位資料，如上述的 product.title 欄位。</p>
+
+<p>但是，如果我們僅僅需要關聯，而讀取的時候不需要讀取另一個table 的欄位資料時，我們則使用 joins 就好了。
+可以看這篇的說明
+<a href="http://tomdallimore.com/blog/includes-vs-joins-in-rails-when-and-where/">includes vs joins differences in rails</a></p>
+
+<p>明顯的兩段code 就可以感覺出來了</p>
+
+<figure class='code'><figcaption><span>需要讀取 person table 的 name 的欄位, 所以要使用 includes</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Company</span><span class="o">.</span><span class="n">includes</span><span class="p">(</span><span class="ss">:persons</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:persons</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">active</span><span class="p">:</span> <span class="kp">true</span> <span class="p">}</span> <span class="p">)</span><span class="o">.</span><span class="n">all</span>
+</span><span class='line'>
+</span><span class='line'><span class="vi">@companies</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">company</span><span class="o">|</span>
+</span><span class='line'>     <span class="n">company</span><span class="o">.</span><span class="n">person</span><span class="o">.</span><span class="n">name</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>不需要 person table 裡面的欄位,所以使用 joins</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Company</span><span class="o">.</span><span class="n">joins</span><span class="p">(</span><span class="ss">:persons</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:persons</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">active</span><span class="p">:</span> <span class="kp">true</span> <span class="p">}</span> <span class="p">)</span><span class="o">.</span><span class="n">all</span>
+</span><span class='line'>
+</span><span class='line'><span class="vi">@companies</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">company</span><span class="o">|</span>
+</span><span class='line'>     <span class="n">company</span><span class="o">.</span><span class="n">name</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Daniel Lin 丹哥</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-07-30T03:27:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>30</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:27 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dangjlin.github.io/posts/2014/07/30/-rails-in-view-of-each-loop-n-plus-1-queries-problem-solution/" data-via="" data-counturl="http://dangjlin.github.io/posts/2014/07/30/-rails-in-view-of-each-loop-n-plus-1-queries-problem-solution/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/2014/07/27/agile-web-development-with-rails-4-error-handling-error-or-exception-handling/" title="Previous Post: Agile Web Development with Rails 4 - Error Handling 錯誤或例外處理">&laquo; Agile Web Development with Rails 4 - Error Handling 錯誤或例外處理</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/2014/08/08/perfume-love-taiwan/" title="Next Post: Perfume - Love Taiwan !! ">Perfume - Love Taiwan !!  &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2018/05/02/test-for-new-post/">Test for New Post</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/">如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/10/how-to-get-improved-to-write-clean-code/">如何寫出clean Code 的參考資料</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/10/05/rails-using-aws-ses-send-mail-service/">Rails Using AWS SES Send Mail Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/">Redmine 串 AWS S3 遇到的問題 Hack Workaround</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Daniel Lin 丹哥 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dangjlin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dangjlin.github.io/posts/2014/07/30/-rails-in-view-of-each-loop-n-plus-1-queries-problem-solution/';
+        var disqus_url = 'http://dangjlin.github.io/posts/2014/07/30/-rails-in-view-of-each-loop-n-plus-1-queries-problem-solution/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

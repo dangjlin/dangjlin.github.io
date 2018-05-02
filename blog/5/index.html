@@ -1,0 +1,1848 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>丹哥的技術培養皿</title>
+  <meta name="author" content="Daniel Lin 丹哥">
+
+  
+  <meta name="description" content="今天在把原本在 github 上的 branch 要 clone 下來到 nitrous.io 網站的時候發生了一些問題
+先講到底要怎麼去拉自己在遠端的repo branch .
+假設這個在 github 上的repo 叫做 artstore ,
+有 Master 的主 branch &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dangjlin.github.io/blog/5/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="丹哥的技術培養皿" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47039951-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">丹哥的技術培養皿</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="dangjlin.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/06/12/week1-homework-note/">Week1 Homework Note</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-06-12T14:05:00+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>2:05 pm</span></time>
+        
+           | <a href="/posts/2014/06/12/week1-homework-note/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/06/12/week1-homework-note/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今天在把原本在 github 上的 branch 要 clone 下來到 nitrous.io 網站的時候發生了一些問題
+先講到底要怎麼去拉自己在遠端的repo branch .
+假設這個在 github 上的repo 叫做 artstore ,
+有 Master 的主 branch 以及後來新增加的  add_uploader 這個第二個brnach
+那麼，我在 nitrous.io網站的時候，因為從來沒有同步過這個 repo
+會先下這個指令
+<code>git clone https://github.com/dangjlin/artstore.git</code>
+這樣就會先把 github 上的這個 master branch 同步回 nitrous.io</p>
+
+<p>第二步
+因為想要去拉 add_uploader 這個 branch
+所以會下這個指令
+<code>git checkout --track -b add_uploader origin/add_uploader </code>
+其中第一個 add_uploader 是指 nitrous.io 這一端的 branch 的名稱 ,
+origin 後面的add_uploader 指的是遠端 github上 這個repo 裡面的 branch 的名稱</p>
+
+<p>之後要push 的時候就一樣可以下
+<code>git push origin add_uploader</code></p>
+
+<p>接著當然是要先執行一次 bundle install 重新安裝所需要的 gem file,
+然後再執行 rake db:migrate  create 出應該有的 table,</p>
+
+<p>[補充說明]
+因為後來有從 nitrous.io 的網站 push 新的變更到 github 上面
+結果我回家使用自己的 macbook air 的時候，勢必是一定要再把變動拉回自己的筆電上
+所以要下這個指令
+<code>git pull origin add_uploader</code></p>
+
+<p>第一個 origin 是要跟 git 說請到遠端去 ( 前提是 remote name 如果沒有變更過的話就會是 origin )
+第二個 add_uploader 是本地端的 branch name , 不用擔心,  因為前一次筆電端 push 的時候就已經知道 origin 端也有這個 branch name 了， 所以 git 會去遠端把 add_uploader 這個 branch 的資料 拉回來本機端 然後 merge 本機端的 branch</p>
+
+<p>[補充說明二]
+如何追蹤 fork 的 repo 又有新增的 branch , 要新增到自己的 local site,
+可以參考這篇文章寫得很淺顯易懂
+<a href="http://fireqqtw.logdown.com/posts/200871-github-sync-fork-project">http://fireqqtw.logdown.com/posts/200871-github-sync-fork-project</a>
+=== ===</p>
+
+<p>[補充說明三]
+這是個不錯的簡表
+<a href="http://railsbridge.github.io/bridge_troll/">How to Git: a Brief Guide to Making Open-Source Contributions ft. Bridge Troll</a></p>
+
+<p>接著就到了一個卡關的地方，
+因為這次的專案在使用者認證系統使用了 <code>devise</code> 這個 gem , 所以所有的使用者註冊、權限、驗證、密碼相關問題都由這個 gem去處理。
+因此之前進入 rails console 去 create USER帳號的時候，無論怎麼做都會錯誤，
+一開始我用這個指令 :</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>u = User.new 
+</span><span class='line'>u.update_attribute(:email =&gt; "xxx@xxx.com" , :encrypted_password =&gt; "abcde" ) 
+</span><span class='line'>u.save </span></code></pre></td></tr></table></div></figure>
+
+
+<p>不用說，這就報 error 了， 因為 1) update_attribute 只能更新一個欄位的資料 , 2) 更新一個欄位的格式要這樣寫 :
+<code>u.update_attribute(:email, "xxx@xxx.com)</code>
+所以後來我查了一下我又換了一個方式，</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>u = User.new(:email =&gt; "xxx@xxx.com", :encrypted_password =&gt; "abcde" ) 
+</span><span class='line'>u.save </span></code></pre></td></tr></table></div></figure>
+
+
+<p>用這個指令也還是報 error，百思不得其解，後來google了才知道因為使用者在進入頁面的時候, rails 會用 devise去處理帳號密碼， password 欄位會用 bcrypt 的加密去 hash 過，然後再去跟資料庫的 User table 的 encrypted_password 欄位對比看是否一致。 所以我在 rails console 裡面直接把 encrypted_password 塞 &ldquo;abcde &rdquo; 這樣就被吐error回來了，因為與 bcrypt的 hash 結果格式不相符 [ 這邊是我猜為什麼無法這樣新增的原因 ]</p>
+
+<p>結果回去看了教材才知道要用這個指令才是正確的</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>u = User.new(:email =&gt; "xxx@xxx.com", password =&gt; "abcde" , password_confirmation =&gt; "abcde" ) 
+</span><span class='line'>u.save </span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣一來就會成功的創造一筆資料了， 而後來用 <code>u.encrypted_password</code> 去看，就會看到 abcde 已經被 hash 過了&hellip;.
+至於為什麼會這樣呢?  我還在找資料，我猜想一定是 device 個 rails gem 的作用，意思是 create user 的時候應該經過 password &amp; password_confirmation 這兩個變數的資料，然後 device 會自動拿 bcrypt 的函示庫去做密碼加密的動作，然後再塞到User Table 的密碼欄位當中。</p>
+
+<p>基本上一開始的外觀應該就可以直接使用twitter bootstrap 這個超棒的前端 framework 來美化我們的版面</p>
+
+<p>新手一開始的動作很簡單，有三個步驟</p>
+
+<ol>
+<li><p>在Gemfile.rb 中添加 bootstrap Gem
+<code>gem 'bootstrap-sass'</code></p></li>
+<li><p>在 app/assets/stylesheets 的  application.css 要加上這一行</p></li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*= require bootstrap 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>但是因為我發現為什麼下拉式選單竟然跳不下來，原因是因為那是javascript 的效果
+所以還要記得在 app/assets/javascrtip 的 application.js 要加上這一行</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>﻿//= require bootstrap</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣之後才可以開始放肆的改各式樣的版面調整了~</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/06/08/web-scraping/">Web-scraping</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-06-08T18:11:00+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>6:11 pm</span></time>
+        
+           | <a href="/posts/2014/06/08/web-scraping/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/06/08/web-scraping/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://shane.in/2014/01/headless-web-scraping/">Headless web scraping</a></p>
+
+<p><a href="http://railsnshit.blogspot.tw/2013/11/web-scraping-in-ruby-with-mechanize-and.html">Web Scraping in Ruby with Mechanize and Nokogiri</a></p>
+
+<p><a href="http://watirmelon.com/2010/12/14/watir-webdriver-a-detailed-introduction/">Watir-WebDriver: A detailed introduction</a></p>
+
+<p><a href="http://ruby.about.com/od/tasks/a/The-Mechanize-2-0-Handbook.htm">Mechanize 自動化模擬http request 的GEM</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/05/16/it-risk-framework/">IT Risk Framework</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-05-16T07:38:00+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>7:38 am</span></time>
+        
+           | <a href="/posts/2014/05/16/it-risk-framework/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/05/16/it-risk-framework/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://systemi.ca/assets/15/RiskITProcessModelOverview.png">http://systemi.ca/assets/15/RiskITProcessModelOverview.png</a></p>
+
+<p><img src="http://user-image.logdown.io/user/359/blog/359/post/199299/Gvff4f9JQ4yc0OKiic2e_RiskITProcessModelOverview.png" alt="RiskITProcessModelOverview.png" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/05/11/legalist-deals/">法家論述</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-05-11T13:50:00+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>1:50 pm</span></time>
+        
+           | <a href="/posts/2014/05/11/legalist-deals/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/05/11/legalist-deals/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>法家曰:
+人  性本惡
+惡  人之本性
+因人性有惡  才有法度
+天下人生而好利  才有財貨土地之爭奪
+生而貪欲  才有盜賊暴力與殺戮
+生而有奢望 才有聲色犬馬
+人性之惡 必以律法而後正
+以法治防範惡慾
+以法治疏導人性
+人性才能向善有序</p>
+
+<p>孟夫子空言性本善
+將治世之功歸於人性之善
+將亂世罪孽歸於法墨兵三家
+無非是要重申仁政、人治與復古之論
+回到夏商周三代
+此乃縱容惡行  蒙蔽幼稚
+真正的大偽之言</p>
+
+<p>天下治道不在空談，而在力行
+法治也好，人治也好
+誰能融入大爭潮流而強國富民
+誰便是正道
+否則  便是空談大道貽誤天下
+必將為大爭之世所遺棄</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/05/01/tesla/">TESLA</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-05-01T14:20:00+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>2:20 pm</span></time>
+        
+           | <a href="/posts/2014/05/01/tesla/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/05/01/tesla/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://cdn.ifanr.cn/wp-content/uploads/2014/04/evannex_infographic_large.jpg">http://cdn.ifanr.cn/wp-content/uploads/2014/04/evannex_infographic_large.jpg</a></p>
+
+<p><img src="http://user-image.logdown.io/user/359/blog/359/post/196637/61Ez3gPeQFCTZmKBeaGx_evannex_infographic_large.jpg" alt="evannex_infographic_large.jpg" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/03/21/process-linkage-based-on-cobit5-itil3-iso27701-02/">Process Linkage Based on COBIT5 ITIL3 ISO27701-02</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-03-21T03:43:00+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>3:43 am</span></time>
+        
+           | <a href="/posts/2014/03/21/process-linkage-based-on-cobit5-itil3-iso27701-02/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/03/21/process-linkage-based-on-cobit5-itil3-iso27701-02/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="http://www.isaca.org/Blogs/829445/Lists/Photos/635254340234635393.jpg" alt="" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2013/11/27/job-hunting-in-singapore/">Job-Hunting in SIngapore</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-11-27T12:34:00+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:34 pm</span></time>
+        
+           | <a href="/posts/2013/11/27/job-hunting-in-singapore/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2013/11/27/job-hunting-in-singapore/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>第一次跨國找工作，我認為對於大部份的台灣受薪階級來說都是很新的領域。
+誰沒事會想要離開土生土長的故鄉，千里迢迢的跑到其他國家去謀得一份餬口的工作呢？
+通常，可能會納入考慮的國家及城市不外乎是：（中國）北京、上海、廣州、深圳、蘇州、杭州、重慶、成都
+然後就是其他國家英語係國家了，如香港特區、新加坡。
+去日本要會日文、去韓國要會韓文，更遑論薪資水準較低的越南、泰國、菲律賓、馬來西亞吉隆坡了，這些都不予考慮。</p>
+
+<p>這次是以新加坡爲經驗。</p>
+
+<p>要到新加坡工作第一件事情要認識到就是要有工作簽證，依據該國家的人力部 (Ministry of Manpower , 簡稱 MOM )
+工作簽證分為下列幾種：</p>
+
+<p><a href="http://www.mom.gov.sg/foreign-manpower/passes-visas/Pages/default.aspx">資料來源：Ministry of Manpower</a>
+核發工作准証還是要依照 MOM 的審核，不完全只有依照薪資為唯一的判斷。</p>
+
+<p><strong>Professional</strong>
+Employment Pass P1 (簡稱 EP P1 ) ：Fix Monthly Income 8000 SGD 新幣 以上
+Employment Pass P2 (簡稱 EP P2 ) ：Fix Monthly Income 4500 SGD 新幣 以上
+Employment Pass Q1 (簡稱 EP Q1 ) ：Fix Monthly Income 3000 SGD 新幣 以上
+據說2014年開始 Q1 准証的最低要求還要繼續提高到 3300 SGD.</p>
+
+<p><strong>Mid-level skilled workers</strong>
+S Pass : Fix Monthly Income 2200 SGD 新幣以上</p>
+
+<p><strong>foreign unskilled workers.</strong>
+Work Pass : 基本上就是指勞動階層了，最大宗應該就是建築工人。這邊就不多討論了。</p>
+
+<p>不同的工作准證所相對應搭配的是僱主要負擔的成本，以及勞工本身要替自己的配偶、家人申請滯留新加坡簽證時的不同規定以及要求水平。 細節的部分這邊就先不多做解釋了，畢竟申請工作准証還是要以 MOM 審核結果為主。</p>
+
+<p>第二個部分就是，我到底要到哪邊找工作？
+1. 可以先到新加坡政府官方網站上面列出了很多求職網站
+<a href="http://www.contactsingapore.org.sg/find_a_job/jobs_overview/">http://www.contactsingapore.org.sg/find_a_job/jobs_overview/</a></p>
+
+<p>其中比較大宗使用的是
+<a href="http://www.jobstreet.com.sg/">http://www.jobstreet.com.sg/</a>
+和
+<a href="http://www.indeed.com.sg/">http://www.indeed.com.sg/</a>
+<a href="http://www.stjobs.sg/">http://www.stjobs.sg/</a>
+<a href="http://www.monster.com.sg/index.html">http://www.monster.com.sg/index.html</a> &lt;- headhunter都在這邊看到我的履歷，進而打給我，而其他求職網站就沒有，不知道為啥。
+以及
+<a href="http://www.efinancialcareers.sg/">http://www.efinancialcareers.sg/</a> [金融產業職缺為主]
+這幾個網站。</p>
+
+<p>當大家在看這些求職網站的時候，及會發現有大量的 Recruitment Firm （人力資源公司），他們都代理著各大企業在找尋人才，由他們過濾、篩選，媒合求職者以及用人的僱主企業。
+新加坡大大小小登記有案的人力資源公司非常的多，從國際型到小小的一間公司都有。
+我接過三四通不同headhunter打電話過來聊，一定會問的問題就是
+a) 再確認一次你過去工作的年資、及大略上扮演的角色跟責任是什麼
+b) 你前一份工作的薪資是多少，請自行轉換為新加坡幣，以及你期望的薪資是多少
+c) 為什麼你想要離開台灣？為什麼選擇跑到新加坡來工作？
+d) 問你是否有新加坡PR (Permanent Residence 永久居民) 身份、或新加坡公民身份。</p>
+
+<p>最後就是談到，要準備好英文履歷(Resume or CV) 以及 Cover Letter
+對台灣學生或職場上班族來說，以往找工作不外乎就是透過 104 , 1111, yes123 , etc 等等國內知名的求職網站
+鮮少自行準備英文履歷表，更遑論撰寫過任何一封 Cover Letter.
+但當我們踏出台灣之後，迎面而來的是歐美的文化，香港也是、新加坡也是，即便是在中國的外國企業（外企）也是;
+這是人家找尋人才的一套規則，我們要順應它，適應它，克服它。
+台灣人苦幹實幹，肯做願意做；但缺少的是包裝自己的能力，以及表達自己的能力，你我都應該花費時間去練習及琢磨才是。</p>
+
+<p>想到再繼續更新&hellip;.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2013/10/25/multi-worksheets-of-the-excel-table-merged-into-a-file-in-a-different-worksheet-table-vba-code-merge-multiple-files-step-one/">多個EXCEL表的Worksheet (資料表頁籤)，合併至一個檔案內不同的Worksheet(資料表頁籤)之VBA 程式碼 (合併多個檔案，步驟一)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-10-25T03:16:00+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>3:16 am</span></time>
+        
+           | <a href="/posts/2013/10/25/multi-worksheets-of-the-excel-table-merged-into-a-file-in-a-different-worksheet-table-vba-code-merge-multiple-files-step-one/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2013/10/25/multi-worksheets-of-the-excel-table-merged-into-a-file-in-a-different-worksheet-table-vba-code-merge-multiple-files-step-one/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>以下程式碼出處是來自於 <a href="http://blog.bestdaylong.com/2008/07/excelcopy_31.html"><code>彰化一整天的blog http://blog.bestdaylong.com/2008/07/excelcopy_31.html</code></a>  再經過我自身需求的改寫所得出符合我需要的程式碼。</p>
+
+<p>常常工作上可能會遇到需要把很多個同樣格式，但是不同檔案的EXCEL表合併起來，所以要做的動作有兩個：
+1. 先把<code>不同檔案</code>的EXCEL表，每一個檔案裡面的<code>第一個頁籤(worksheet)、工作表</code>，自動複製到<code>一個檔案</code>內的<code>不同頁籤</code>
+2. 接著再把一個檔案內的不同頁簽的資料再全部<code>合併成同一個頁簽</code>內即可。</p>
+
+<p><code>請預先將excel表內的各欄位設計如下，程式碼會自動抓取 G欄位 內各項儲存格的內容，作為參數</code></p>
+
+<p><img src="http://user-image.logdown.io/user/359/blog/359/post/154224/LsoPQFe4TGG9WVjhroqz_muti_worksheet_to2.jpg" alt="muti_worksheet_to2.jpg" /></p>
+
+<h2>以下為第1步驟的程式碼</h2>
+
+<h1>抓取資料夾檔名</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>WorkName = Excel.ActiveWorkbook.Name
+</span><span class='line'>MsgBox Excel.Workbooks(WorkName).Path
+</span><span class='line'>
+</span><span class='line'>file_path = Excel.Workbooks(WorkName).Path
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>fs = Dir(file_path & "\*.*")
+</span><span class='line'>Do Until fs = ""
+</span><span class='line'>r = r + 1
+</span><span class='line'>y = 1
+</span><span class='line'>Cells(y + r, 2) = fs
+</span><span class='line'>fs = Dir
+</span><span class='line'>Loop</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>合併EXCEL檔案檔名</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Dim objsheet As Worksheet
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>n = UCase(Range("G2"))
+</span><span class='line'>m = UCase(Range("G3"))
+</span><span class='line'>x = Range("G4")
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>WorkName = Excel.ActiveWorkbook.Name '此檔案名稱
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>Excel.Workbooks.Add '開新的workbook
+</span><span class='line'>
+</span><span class='line'>desc = Excel.ActiveWorkbook.Name   '新檔案視窗編號
+</span><span class='line'>i = 2
+</span><span class='line'>While Windows(WorkName).ActiveSheet.Range("b" & i) &lt;&gt; ""
+</span><span class='line'>'    Filename = Windows(WorkName).ActiveSheet.Range("b" & i) & ".xlsx"
+</span><span class='line'>    Filename = Windows(WorkName).ActiveSheet.Range("b" & i) & "." & x
+</span><span class='line'>    Workbooks.Open Filename:=Excel.Workbooks(WorkName).Path & "\" & Filename    '開啟檔案
+</span><span class='line'>    Set objsheet = Windows(Filename).ActiveSheet '切換視窗
+</span><span class='line'>
+</span><span class='line'>     '取消篩選
+</span><span class='line'>     ActiveSheet.AutoFilterMode = False
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    '選取來源範圍
+</span><span class='line'>'     objsheet.Range("A1:AZ500").Select
+</span><span class='line'>      objsheet.Range(n & ":" & m).Select
+</span><span class='line'>
+</span><span class='line'>     'copy
+</span><span class='line'>     Selection.Copy
+</span><span class='line'>
+</span><span class='line'>    Windows(desc).Activate '切換視窗
+</span><span class='line'>    Sheets.Add  '增加活頁
+</span><span class='line'>    ActiveSheet.Paste   '貼上
+</span><span class='line'>    ActiveSheet.Range("A1").Select  '將選取範圍取消
+</span><span class='line'>
+</span><span class='line'>    With ActiveSheet
+</span><span class='line'>        .Rows.RowHeight = 20
+</span><span class='line'>    End With
+</span><span class='line'>
+</span><span class='line'>    ActiveSheet.Name = "No_" & (i - 1)
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    'ActiveSheet.Name = Windows(WorkName).ActiveSheet.Range("b" & i)     '將活頁名稱改成檔案名稱
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    '避免copy太多資料時,要關閉檔案時.會問記憶體的資料是否要保留
+</span><span class='line'>    ActiveSheet.Range("A1").Copy
+</span><span class='line'>
+</span><span class='line'>   '將來源檔案關閉
+</span><span class='line'>
+</span><span class='line'>   Workbooks(Filename).Saved = True
+</span><span class='line'>   Windows(Filename).Close
+</span><span class='line'>
+</span><span class='line'>    i = i + 1 '讀取下一個檔案名稱
+</span><span class='line'>Wend
+</span><span class='line'>MsgBox "已將所有檔案匯入各項不同worksheet資料表頁籤中"</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2013/10/25/in-excel-multiple-worksheet-table-into-the-same-worksheet-tables-of-vba-code/">EXCEL內，多個Worksheet(資料表)合併為同一資料表的VBA 程式碼 (合併多個檔案，步驟二)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-10-25T02:43:00+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>2:43 am</span></time>
+        
+           | <a href="/posts/2013/10/25/in-excel-multiple-worksheet-table-into-the-same-worksheet-tables-of-vba-code/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2013/10/25/in-excel-multiple-worksheet-table-into-the-same-worksheet-tables-of-vba-code/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>以下程式碼出處是來自於 <a href="http://blog.bestdaylong.com/2008/10/excel.html"><code>彰化一整天的blog http://blog.bestdaylong.com/2008/10/excel.html</code> </a>  再經過我自身需求的改寫所得出符合我需要的程式碼。</p>
+
+<p>常常工作上可能會遇到需要把很多個同樣格式，但是不同檔案的EXCEL表合併起來，所以要做的動作有兩個：
+1. 先把<code>不同檔案</code>的EXCEL表，每一個檔案裡面的<code>第一個頁籤(worksheet)、工作表</code>，自動複製到<code>一個檔案</code>內的<code>不同頁籤</code>
+2. 接著再把一個檔案內的不同頁簽的資料再全部<code>合併成同一個頁簽</code>內即可。</p>
+
+<p><code>請預先將excel表內的各欄位設計如下，程式碼會自動抓取B欄位內各項儲存格的內容，作為參數</code></p>
+
+<p><img src="http://user-image.logdown.io/user/359/blog/359/post/154220/oqSN5jxQ8akaoP1kQdWw_muti_worksheet_to1.jpg" alt="muti_worksheet_to1.jpg" /></p>
+
+<h2>以下為第2步驟的程式碼</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+<span class='line-number'>193</span>
+<span class='line-number'>194</span>
+<span class='line-number'>195</span>
+<span class='line-number'>196</span>
+<span class='line-number'>197</span>
+<span class='line-number'>198</span>
+<span class='line-number'>199</span>
+<span class='line-number'>200</span>
+<span class='line-number'>201</span>
+<span class='line-number'>202</span>
+<span class='line-number'>203</span>
+<span class='line-number'>204</span>
+<span class='line-number'>205</span>
+<span class='line-number'>206</span>
+<span class='line-number'>207</span>
+<span class='line-number'>208</span>
+<span class='line-number'>209</span>
+<span class='line-number'>210</span>
+<span class='line-number'>211</span>
+<span class='line-number'>212</span>
+<span class='line-number'>213</span>
+<span class='line-number'>214</span>
+<span class='line-number'>215</span>
+<span class='line-number'>216</span>
+<span class='line-number'>217</span>
+<span class='line-number'>218</span>
+<span class='line-number'>219</span>
+<span class='line-number'>220</span>
+<span class='line-number'>221</span>
+<span class='line-number'>222</span>
+<span class='line-number'>223</span>
+<span class='line-number'>224</span>
+<span class='line-number'>225</span>
+<span class='line-number'>226</span>
+<span class='line-number'>227</span>
+<span class='line-number'>228</span>
+<span class='line-number'>229</span>
+<span class='line-number'>230</span>
+<span class='line-number'>231</span>
+<span class='line-number'>232</span>
+<span class='line-number'>233</span>
+<span class='line-number'>234</span>
+<span class='line-number'>235</span>
+<span class='line-number'>236</span>
+<span class='line-number'>237</span>
+<span class='line-number'>238</span>
+<span class='line-number'>239</span>
+<span class='line-number'>240</span>
+<span class='line-number'>241</span>
+<span class='line-number'>242</span>
+<span class='line-number'>243</span>
+<span class='line-number'>244</span>
+<span class='line-number'>245</span>
+<span class='line-number'>246</span>
+<span class='line-number'>247</span>
+<span class='line-number'>248</span>
+<span class='line-number'>249</span>
+<span class='line-number'>250</span>
+<span class='line-number'>251</span>
+<span class='line-number'>252</span>
+<span class='line-number'>253</span>
+<span class='line-number'>254</span>
+<span class='line-number'>255</span>
+<span class='line-number'>256</span>
+<span class='line-number'>257</span>
+<span class='line-number'>258</span>
+<span class='line-number'>259</span>
+<span class='line-number'>260</span>
+<span class='line-number'>261</span>
+<span class='line-number'>262</span>
+<span class='line-number'>263</span>
+<span class='line-number'>264</span>
+<span class='line-number'>265</span>
+<span class='line-number'>266</span>
+<span class='line-number'>267</span>
+<span class='line-number'>268</span>
+<span class='line-number'>269</span>
+<span class='line-number'>270</span>
+<span class='line-number'>271</span>
+<span class='line-number'>272</span>
+<span class='line-number'>273</span>
+<span class='line-number'>274</span>
+<span class='line-number'>275</span>
+<span class='line-number'>276</span>
+<span class='line-number'>277</span>
+<span class='line-number'>278</span>
+<span class='line-number'>279</span>
+<span class='line-number'>280</span>
+<span class='line-number'>281</span>
+<span class='line-number'>282</span>
+<span class='line-number'>283</span>
+<span class='line-number'>284</span>
+<span class='line-number'>285</span>
+<span class='line-number'>286</span>
+<span class='line-number'>287</span>
+<span class='line-number'>288</span>
+<span class='line-number'>289</span>
+<span class='line-number'>290</span>
+<span class='line-number'>291</span>
+<span class='line-number'>292</span>
+<span class='line-number'>293</span>
+<span class='line-number'>294</span>
+<span class='line-number'>295</span>
+<span class='line-number'>296</span>
+<span class='line-number'>297</span>
+<span class='line-number'>298</span>
+<span class='line-number'>299</span>
+<span class='line-number'>300</span>
+<span class='line-number'>301</span>
+<span class='line-number'>302</span>
+<span class='line-number'>303</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Dim a, b, c As Integer '宣告a,b,c為整數
+</span><span class='line'>
+</span><span class='line'>Dim objsheet As Worksheet
+</span><span class='line'>
+</span><span class='line'>Dim sheetname As String '工作表檔名
+</span><span class='line'>
+</span><span class='line'>Dim ispastervalue As String '是否要選擇性貼上值及格式
+</span><span class='line'>
+</span><span class='line'>Source = Excel.ActiveWorkbook.Name '新檔案視窗編號
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>n = Range("b3")
+</span><span class='line'>m = Range("b4")
+</span><span class='line'>
+</span><span class='line'>x = Range("b5")
+</span><span class='line'>y = Range("b6")
+</span><span class='line'>
+</span><span class='line'>display_sheetname = UCase(Range("b7"))
+</span><span class='line'>display_row_sheetname = UCase(Range("b8"))
+</span><span class='line'>insert_page = UCase(Range("b9"))
+</span><span class='line'>insert_row = Range("b10")
+</span><span class='line'>ispastervalue = UCase(Range("b11"))
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'> '將之前合併的結果清除
+</span><span class='line'>Sheet2.Cells.Delete Shift:=xlUp
+</span><span class='line'>
+</span><span class='line'>z = 1
+</span><span class='line'>i = 1
+</span><span class='line'>
+</span><span class='line'>Filename = Range("b" & i) & "." & Range("b2")
+</span><span class='line'>
+</span><span class='line'>FullPath = Excel.Workbooks(Source).Path & "\" & Filename
+</span><span class='line'>
+</span><span class='line'>'檢查檔案是否存在
+</span><span class='line'>If Dir(FullPath) = "" Then '檢查檔案是否存在
+</span><span class='line'>    MsgBox "檔案:" & FullPath & "不存在，請查看是否有拼錯字"
+</span><span class='line'>    Exit Sub
+</span><span class='line'>End If
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>Workbooks.Open Filename:=Excel.Workbooks(Source).Path & "\" & Filename
+</span><span class='line'>
+</span><span class='line'>WorkName = Excel.ActiveWorkbook.Name '此檔案名稱
+</span><span class='line'>
+</span><span class='line'>i = 12
+</span><span class='line'>
+</span><span class='line'>sheetname = Trim(Windows(Source).ActiveSheet.Range("b" & i))
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>If sheetname = "" Then
+</span><span class='line'>   For j = 1 To Sheets.Count
+</span><span class='line'>
+</span><span class='line'>        x = Range("b5")
+</span><span class='line'>        y = Range("b6")
+</span><span class='line'>       Windows(WorkName).Activate
+</span><span class='line'>       Set objsheet = Sheets(j) '切換視窗
+</span><span class='line'>
+</span><span class='line'>       objsheet.Activate
+</span><span class='line'>
+</span><span class='line'>        '讀取來源檔案的X(列數),Y(行數)
+</span><span class='line'>        If x = 0 Then
+</span><span class='line'>            x = n
+</span><span class='line'>
+</span><span class='line'>            Do While True
+</span><span class='line'>                kk = ""
+</span><span class='line'>                For l = 1 To 10
+</span><span class='line'>                    For k = 1 To 10
+</span><span class='line'>                        If IsError(objsheet.Cells(x + l, k)) = False Then
+</span><span class='line'>                            kk = kk & objsheet.Cells(x + l, k)
+</span><span class='line'>                        End If
+</span><span class='line'>                    Next
+</span><span class='line'>                Next
+</span><span class='line'>                If kk = "" Then Exit Do
+</span><span class='line'>                x = x + 1
+</span><span class='line'>            Loop
+</span><span class='line'>        End If
+</span><span class='line'>
+</span><span class='line'>        If y = 0 Then
+</span><span class='line'>              y = m
+</span><span class='line'>
+</span><span class='line'>              Do While True
+</span><span class='line'>                  kk = ""
+</span><span class='line'>                  For l = 1 To 10
+</span><span class='line'>                      For k = 1 To 10
+</span><span class='line'>                          If IsError(objsheet.Cells(k, y + l)) = False Then
+</span><span class='line'>                              kk = kk & objsheet.Cells(k, y + l)
+</span><span class='line'>                          End If
+</span><span class='line'>                      Next
+</span><span class='line'>                  Next l
+</span><span class='line'>                  If kk = "" Then Exit Do
+</span><span class='line'>                  y = y + 1
+</span><span class='line'>              Loop
+</span><span class='line'>        End If
+</span><span class='line'>
+</span><span class='line'>        '選取目的
+</span><span class='line'>        Windows(WorkName).Activate
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        '選取來源範圍
+</span><span class='line'>         objsheet.Range(objsheet.Cells(n, m), objsheet.Cells(x, y)).Select
+</span><span class='line'>
+</span><span class='line'>         'copy
+</span><span class='line'>         Selection.Copy
+</span><span class='line'>
+</span><span class='line'>        Windows(Source).Activate
+</span><span class='line'>
+</span><span class='line'>        Sheet2.Activate
+</span><span class='line'>
+</span><span class='line'>        If (display_row_sheetname = "Y") Then
+</span><span class='line'>            If display_sheetname = "Y" Then
+</span><span class='line'>                Sheet2.Cells(z, 1) = objsheet.Name
+</span><span class='line'>                Sheet2.Cells(z, 2) = objsheet.Name
+</span><span class='line'>            Else
+</span><span class='line'>                Sheet2.Cells(z, 1) = objsheet.Name
+</span><span class='line'>            End If
+</span><span class='line'>            o = 1
+</span><span class='line'>        Else
+</span><span class='line'>            o = 0
+</span><span class='line'>        End If
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        If display_sheetname = "Y" Then
+</span><span class='line'>           Sheet2.Cells(z + o, 2).Select
+</span><span class='line'>           For k = z To z + x - n + o
+</span><span class='line'>              Sheet2.Cells(k, 1) = objsheet.Name
+</span><span class='line'>           Next
+</span><span class='line'>        Else
+</span><span class='line'>           Sheet2.Cells(z + o, 1).Select
+</span><span class='line'>        End If
+</span><span class='line'>
+</span><span class='line'>        If (z &gt; 3 And insert_page = "Y") Then
+</span><span class='line'>            If display_row_sheetname = "Y" Then
+</span><span class='line'>                ActiveWindow.SelectedSheets.HPageBreaks.Add before:=ActiveCell.Offset(-1, 0)
+</span><span class='line'>            Else
+</span><span class='line'>                ActiveWindow.SelectedSheets.HPageBreaks.Add before:=ActiveCell
+</span><span class='line'>            End If
+</span><span class='line'>
+</span><span class='line'>        End If
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        If ispastervalue = "Y" Then
+</span><span class='line'>            Sheet2.Activate
+</span><span class='line'>            Selection.PasteSpecial Paste:=xlPasteValuesAndNumberFormats, Operation:= _
+</span><span class='line'>    xlNone, SkipBlanks:=False, Transpose:=False
+</span><span class='line'>        Else
+</span><span class='line'>            ActiveSheet.Paste
+</span><span class='line'>        End If
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        z = z + x - n + 1 + insert_row + o
+</span><span class='line'>
+</span><span class='line'>       '將來源檔案關閉
+</span><span class='line'>       'Windows(Filename).Close
+</span><span class='line'>
+</span><span class='line'>        i = i + 1 '讀取下一個檔案名稱
+</span><span class='line'>
+</span><span class='line'>        Sheet1.Activate
+</span><span class='line'>
+</span><span class='line'>   Next
+</span><span class='line'>
+</span><span class='line'>Else
+</span><span class='line'>    While sheetname &lt;&gt; ""
+</span><span class='line'>
+</span><span class='line'>       x = Range("b5")
+</span><span class='line'>       y = Range("b6")
+</span><span class='line'>
+</span><span class='line'>       Windows(WorkName).Activate
+</span><span class='line'>
+</span><span class='line'>       '檢查活頁是否存在
+</span><span class='line'>       isfind = False
+</span><span class='line'>       For Each st In Sheets
+</span><span class='line'>           If st.Name = sheetname Then
+</span><span class='line'>              isfind = True
+</span><span class='line'>              Exit For
+</span><span class='line'>           End If
+</span><span class='line'>       Next
+</span><span class='line'>
+</span><span class='line'>       If isfind = False Then
+</span><span class='line'>           MsgBox "工作表:" & sheetname & "不存在，請查看是否有拼錯字"
+</span><span class='line'>           Exit Sub
+</span><span class='line'>       End If
+</span><span class='line'>
+</span><span class='line'>       Set objsheet = Sheets(sheetname) '切換視窗
+</span><span class='line'>
+</span><span class='line'>       objsheet.Activate
+</span><span class='line'>
+</span><span class='line'>        '讀取來源檔案的X(列數),Y(行數)
+</span><span class='line'>        If x = 0 Then
+</span><span class='line'>            x = n
+</span><span class='line'>
+</span><span class='line'>            Do While True
+</span><span class='line'>                kk = ""
+</span><span class='line'>                For l = 1 To 10
+</span><span class='line'>                    For k = 1 To 10
+</span><span class='line'>                        If IsError(objsheet.Cells(x + l, k)) = False Then
+</span><span class='line'>                            kk = kk & objsheet.Cells(x + l, k)
+</span><span class='line'>                        End If
+</span><span class='line'>                    Next
+</span><span class='line'>                Next
+</span><span class='line'>                If kk = "" Then Exit Do
+</span><span class='line'>                x = x + 1
+</span><span class='line'>            Loop
+</span><span class='line'>        End If
+</span><span class='line'>
+</span><span class='line'>        If y = 0 Then
+</span><span class='line'>              y = m
+</span><span class='line'>
+</span><span class='line'>              Do While True
+</span><span class='line'>                  kk = ""
+</span><span class='line'>                  For l = 1 To 10
+</span><span class='line'>                      For k = 1 To 10
+</span><span class='line'>                          If IsError(objsheet.Cells(k, y + l)) = False Then
+</span><span class='line'>                              kk = kk & objsheet.Cells(k, y + l)
+</span><span class='line'>                          End If
+</span><span class='line'>                      Next
+</span><span class='line'>                  Next l
+</span><span class='line'>                  If kk = "" Then Exit Do
+</span><span class='line'>                  y = y + 1
+</span><span class='line'>              Loop
+</span><span class='line'>        End If
+</span><span class='line'>
+</span><span class='line'>        '選取目的
+</span><span class='line'>        Windows(WorkName).Activate
+</span><span class='line'>
+</span><span class='line'>        '選取來源範圍
+</span><span class='line'>         objsheet.Range(objsheet.Cells(n, m), objsheet.Cells(x, y)).Select
+</span><span class='line'>
+</span><span class='line'>         'copy
+</span><span class='line'>         Selection.Copy
+</span><span class='line'>
+</span><span class='line'>        Windows(Source).Activate
+</span><span class='line'>
+</span><span class='line'>        Sheet2.Activate
+</span><span class='line'>
+</span><span class='line'>        If (display_row_sheetname = "Y") Then
+</span><span class='line'>            If display_sheetname = "Y" Then
+</span><span class='line'>                Sheet2.Cells(z, 1) = objsheet.Name
+</span><span class='line'>                Sheet2.Cells(z, 2) = objsheet.Name
+</span><span class='line'>            Else
+</span><span class='line'>                Sheet2.Cells(z, 1) = objsheet.Name
+</span><span class='line'>            End If
+</span><span class='line'>            o = 1
+</span><span class='line'>        Else
+</span><span class='line'>            o = 0
+</span><span class='line'>        End If
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        If display_sheetname = "Y" Then
+</span><span class='line'>           Sheet2.Cells(z + o, 2).Select
+</span><span class='line'>           For k = z To z + x - n + o
+</span><span class='line'>              Sheet2.Cells(k, 1) = objsheet.Name
+</span><span class='line'>           Next
+</span><span class='line'>        Else
+</span><span class='line'>           Sheet2.Cells(z + o, 1).Select
+</span><span class='line'>        End If
+</span><span class='line'>
+</span><span class='line'>        If (z &gt; 3 And insert_page = "Y") Then
+</span><span class='line'>            If display_row_sheetname = "Y" Then
+</span><span class='line'>                ActiveWindow.SelectedSheets.HPageBreaks.Add before:=ActiveCell.Offset(-1, 0)
+</span><span class='line'>            Else
+</span><span class='line'>                ActiveWindow.SelectedSheets.HPageBreaks.Add before:=ActiveCell
+</span><span class='line'>            End If
+</span><span class='line'>
+</span><span class='line'>        End If
+</span><span class='line'>
+</span><span class='line'>        If ispastervalue = "Y" Then
+</span><span class='line'>            Sheet2.Activate
+</span><span class='line'>            Selection.PasteSpecial Paste:=xlPasteValuesAndNumberFormats, Operation:= _
+</span><span class='line'>    xlNone, SkipBlanks:=False, Transpose:=False
+</span><span class='line'>        Else
+</span><span class='line'>            ActiveSheet.Paste
+</span><span class='line'>        End If
+</span><span class='line'>         z = z + x - n + 1 + insert_row + o
+</span><span class='line'>
+</span><span class='line'>       '將來源檔案關閉
+</span><span class='line'>       'Windows(Filename).Close
+</span><span class='line'>
+</span><span class='line'>        i = i + 1 '讀取下一個檔案名稱
+</span><span class='line'>
+</span><span class='line'>        Sheet1.Activate
+</span><span class='line'>
+</span><span class='line'>        sheetname = Windows(Source).ActiveSheet.Range("b" & i)
+</span><span class='line'>
+</span><span class='line'>    Wend
+</span><span class='line'>End If
+</span><span class='line'>Windows(Source).Activate
+</span><span class='line'>Sheet2.Activate
+</span><span class='line'>
+</span><span class='line'>  With ActiveSheet
+</span><span class='line'>  '.Columns.ColumnWidth = .StandardWidth
+</span><span class='line'>  .Rows.RowHeight = 20
+</span><span class='line'>  End With
+</span><span class='line'>
+</span><span class='line'>Sheet2.Cells(1, 1).Select
+</span><span class='line'>
+</span><span class='line'>'將來源檔案關閉
+</span><span class='line'> Workbooks(Filename).Saved = True
+</span><span class='line'> Windows(WorkName).Close
+</span><span class='line'>
+</span><span class='line'> MsgBox "合併完畢,請按底下[工作表]切換回設[參數設定]"
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2013/10/06/convert-excel-to-word-program-code/">EXCEL 內容轉換至 Word 的程式碼</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-10-06T07:34:00+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>7:34 am</span></time>
+        
+           | <a href="/posts/2013/10/06/convert-excel-to-word-program-code/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2013/10/06/convert-excel-to-word-program-code/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>嘔心瀝血到處蒐集拼湊出來的把 excel 內容，自動轉換貼到 word 表格的程式碼
+我受夠了，一直MAINTAIN 兩份不同的檔案了阿。</p>
+
+<p>VBA 裡面要先做一個動作，要去 include word 的函式庫進來
+Step 1 , 先從VBA的選單 <code>" 工具 "</code> -> <code>"設定引用項目"</code>
+Step 2 , 按瀏覽 , 接著去路徑
+<code>  C:\Program Files\Microsoft Office\Office12\</code></p>
+
+<p>裡面會有一個 <code>MSWORD.OLB</code>的檔案 ，再按確定就可以引用完成了。</p>
+
+<p><img src="http://user-image.logdown.io/user/359/blog/359/post/144475/MB3g5k2uQHCfjsEXI1UA_sample.jpg" alt="sample.jpg" /></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Sub transfer()
+</span><span class='line'>
+</span><span class='line'>'宣告指向 Microsoft Word 文件的變數
+</span><span class='line'>Dim appWD As Word.Application
+</span><span class='line'>
+</span><span class='line'>Set appWD = Nothing  '使用完後將appWD變數釋放掉，避免佔用記憶體
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>'在其他應用程式中，使用要處理物件的 OLE 程式識別符號 作為 CreateObject 函數，
+</span><span class='line'>Set appWD = CreateObject("Word.Application")
+</span><span class='line'>
+</span><span class='line'>'如果要檢視其他應用程式的階段作業，請將 Visible 屬性設定為 True。
+</span><span class='line'>appWD.Visible = True
+</span><span class='line'>appWD.Documents.Add
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>' 設定word 版面為橫版面
+</span><span class='line'>
+</span><span class='line'>appWD.ActiveDocument.PageSetup.Orientation = wdOrientLandscape
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>'填入指定格式的文字並而後新增空白段落
+</span><span class='line'>
+</span><span class='line'>appWD.Selection.Font.Size = 22
+</span><span class='line'>appWD.Selection.Font.Bold = True
+</span><span class='line'>appWD.Selection.TypeText ("Excel 2 Word")  '插入指定的文字
+</span><span class='line'>appWD.Selection.TypeParagraph  '插入一個新的空白段落
+</span><span class='line'>
+</span><span class='line'>'複製Excel儲存格某範圍至word檔 -- 評估原則一
+</span><span class='line'>
+</span><span class='line'>appWD.Selection.Font.Size = 16
+</span><span class='line'>appWD.Selection.TypeText ("評估原則一、保護標的與生命循環")  '插入指定的文字
+</span><span class='line'>
+</span><span class='line'>Range("C2:H5").Copy
+</span><span class='line'>appWD.Selection.Paste
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第一段結束")  '插入指定的文字
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>
+</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則二
+</span><span class='line'>
+</span><span class='line'>appWD.Selection.Font.Size = 16
+</span><span class='line'>appWD.Selection.TypeText ("評估原則二、預防損害原則")  '插入指定的文字
+</span><span class='line'>
+</span><span class='line'>Range("C6:H12").Copy
+</span><span class='line'>appWD.Selection.Paste
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第二段結束")  '插入指定的文字
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>
+</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則三
+</span><span class='line'>
+</span><span class='line'>appWD.Selection.Font.Size = 16
+</span><span class='line'>appWD.Selection.TypeText ("評估原則三、告知原則")  '插入指定的文字
+</span><span class='line'>
+</span><span class='line'>Range("C19:H26").Copy
+</span><span class='line'>appWD.Selection.Paste
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第三段結束")  '插入指定的文字
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>
+</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則四
+</span><span class='line'>
+</span><span class='line'>appWD.Selection.Font.Size = 16
+</span><span class='line'>appWD.Selection.TypeText ("評估原則四、蒐集限制原則")  '插入指定的文字
+</span><span class='line'>
+</span><span class='line'>Range("C27:H32").Copy
+</span><span class='line'>appWD.Selection.Paste
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第四段結束")  '插入指定的文字
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>
+</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則五
+</span><span class='line'>
+</span><span class='line'>appWD.Selection.Font.Size = 16
+</span><span class='line'>appWD.Selection.TypeText ("評估原則五、個人資料利用原則")  '插入指定的文字
+</span><span class='line'>
+</span><span class='line'>Range("C33:H36").Copy
+</span><span class='line'>appWD.Selection.Paste
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第五段結束")  '插入指定的文字
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>
+</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則六
+</span><span class='line'>
+</span><span class='line'>appWD.Selection.Font.Size = 16
+</span><span class='line'>appWD.Selection.TypeText ("評估原則六、當事人自主原則及查閱及更正原則")  '插入指定的文字
+</span><span class='line'>
+</span><span class='line'>Range("C37:H39").Copy
+</span><span class='line'>appWD.Selection.Paste
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第六段結束")  '插入指定的文字
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>
+</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則七
+</span><span class='line'>
+</span><span class='line'>appWD.Selection.Font.Size = 16
+</span><span class='line'>appWD.Selection.TypeText ("評估原則七、個人資料完整性原則")  '插入指定的文字
+</span><span class='line'>
+</span><span class='line'>Range("C40:H42").Copy
+</span><span class='line'>appWD.Selection.Paste
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第七段結束")  '插入指定的文字
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>
+</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則八
+</span><span class='line'>
+</span><span class='line'>appWD.Selection.Font.Size = 16
+</span><span class='line'>appWD.Selection.TypeText ("評估原則八、安全管理原則")  '插入指定的文字
+</span><span class='line'>
+</span><span class='line'>Range("C43:H70").Copy
+</span><span class='line'>appWD.Selection.Paste
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第八段結束")  '插入指定的文字
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>
+</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則九
+</span><span class='line'>
+</span><span class='line'>appWD.Selection.Font.Size = 16
+</span><span class='line'>appWD.Selection.TypeText ("評估原則九、責任原則")  '插入指定的文字
+</span><span class='line'>
+</span><span class='line'>Range("C71:H79").Copy
+</span><span class='line'>appWD.Selection.Paste
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第九段結束")  '插入指定的文字
+</span><span class='line'>appWD.Selection.TypeParagraph
+</span><span class='line'>
+</span><span class='line'>For i = 1 To 9
+</span><span class='line'>
+</span><span class='line'>' 設定每一欄位的固定寬度，先至 word  量測過後，再回來調整這邊的數據, 單位是公分
+</span><span class='line'>
+</span><span class='line'>appWD.ActiveDocument.Tables(i).Columns(1).Width = CentimetersToPoints(2)
+</span><span class='line'>appWD.ActiveDocument.Tables(i).Columns(2).Width = CentimetersToPoints(3.5)
+</span><span class='line'>appWD.ActiveDocument.Tables(i).Columns(3).Width = CentimetersToPoints(8)
+</span><span class='line'>appWD.ActiveDocument.Tables(i).Columns(4).Width = CentimetersToPoints(8)
+</span><span class='line'>appWD.ActiveDocument.Tables(i).Columns(5).Width = CentimetersToPoints(2)
+</span><span class='line'>appWD.ActiveDocument.Tables(i).Columns(6).Width = CentimetersToPoints(2)
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>'需設定每個table 裡面的  row 可以跨分頁
+</span><span class='line'>appWD.ActiveDocument.Tables(i).Rows.AllowBreakAcrossPages = True
+</span><span class='line'>
+</span><span class='line'>   ' 網路上找來的解法 : 設定每個table 的第一列為標題列，必須重複
+</span><span class='line'>    Dim oTable As Table
+</span><span class='line'>    Dim oCell As Cell
+</span><span class='line'>    Set oTable = appWD.ActiveDocument.Tables(i)
+</span><span class='line'>    For Each oCell In oTable.Range.Cells
+</span><span class='line'>    If oCell.Range.Information(wdEndOfRangeRowNumber) = 1 Then
+</span><span class='line'>    oCell.Range.Rows.HeadingFormat = True
+</span><span class='line'>    End If
+</span><span class='line'>    Next
+</span><span class='line'>    Set oCell = Nothing
+</span><span class='line'>    Set oTable = Nothing
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>appWD.ActiveDocument.Tables(i).Select
+</span><span class='line'>
+</span><span class='line'>'所有段落統一靠左
+</span><span class='line'>appWD.Selection.Paragraphs.Alignment = wdAlignParagraphLeft
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>'所有段落設定為最小行高
+</span><span class='line'>
+</span><span class='line'>appWD.Selection.ParagraphFormat.LineSpacingRule = wdLineSpaceExactly
+</span><span class='line'>appWD.Selection.ParagraphFormat.LineSpacing = 21
+</span><span class='line'>
+</span><span class='line'>Next i
+</span><span class='line'>
+</span><span class='line'>'複製Excel圖表至word檔
+</span><span class='line'>'ActiveSheet.ChartObjects("圖表 2").Activate
+</span><span class='line'>'ActiveChart.ChartArea.Select
+</span><span class='line'>'ActiveChart.ChartArea.Copy
+</span><span class='line'>'appWD.Selection.PasteAndFormat (wdChartPicture)
+</span><span class='line'>
+</span><span class='line'>Set appWD = Nothing  '使用完後將appWD變數釋放掉，避免佔用記憶體
+</span><span class='line'>
+</span><span class='line'>MsgBox (" Copy to Word is done ")
+</span><span class='line'>'
+</span><span class='line'>End Sub
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/4">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2018/05/02/test-for-new-post/">Test for New Post</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/">如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/10/how-to-get-improved-to-write-clean-code/">如何寫出clean Code 的參考資料</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/10/05/rails-using-aws-ses-send-mail-service/">Rails Using AWS SES Send Mail Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/">Redmine 串 AWS S3 遇到的問題 Hack Workaround</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Daniel Lin 丹哥 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dangjlin';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

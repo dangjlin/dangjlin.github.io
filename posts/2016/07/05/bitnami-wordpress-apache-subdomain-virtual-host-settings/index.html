@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Bitnami Wordpress Apache Subdomain Virtual Host 設定 - 丹哥的技術培養皿</title>
+  <meta name="author" content="Daniel Lin 丹哥">
+
+  
+  <meta name="description" content="bitnami wordpress apache subdomain &amp; virtual host 設定 因為最近要把一個本來住在別的地方還是以 windows server 為 base 的 wordpress 搬家到 AWS
+為了省去還要自己安裝 php , mysql , &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dangjlin.github.io/posts/2016/07/05/bitnami-wordpress-apache-subdomain-virtual-host-settings/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="丹哥的技術培養皿" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47039951-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">丹哥的技術培養皿</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="dangjlin.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Bitnami Wordpress Apache Subdomain Virtual Host 設定</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-07-05T07:04:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>7:04 am</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>bitnami wordpress apache subdomain &amp; virtual host 設定</h1>
+
+<p>因為最近要把一個本來住在別的地方還是以 windows server 為 base 的 wordpress 搬家到 AWS
+為了省去還要自己安裝 php , mysql , wordpress , 搞各種設定檔很麻煩的過繁瑣事務
+看到 AWS 上面有 bitnami 出的 AMI 檔裡面已經有了基本的 LAMP + Wordpress.
+很開心的就用了，結果是個小惡夢</p>
+
+<p>對熟悉的人來說可能還好，但我太久沒有設定 apache 了，明明印象當中 subdomain 就是放到 virtual host 檔案裡面指定好目錄就好啦，但因為這個 AMI 是 Bitnami 綁了 wordpress 包出來的，他把 apache 的設定檔變成了一層包一層</p>
+
+<p>然後又因為我是綁了 wordpress 的關係，現在有幾個設定檔可以設定呢？</p>
+
+<p>/opt/bitnami/apache2/conf/httpd.conf
+/opt/bitnami/apache2/conf/bitnami/bitnami.conf
+/opt/bitnami/apache2/conf/bitnami/httpd.conf  (這個這次不用改 可以忽視他）
+/opt/bitnami/apache2/conf/bitnami/bitnami-apps-prefix.conf
+/opt/bitnami/apache2/conf/bitnami/bitnami-apps-vhosts.conf</p>
+
+<p>你以為這樣就沒了嗎？在 bitnami 所謂的 apps 裡面還有 apache 要讀的設定檔勒
+/opt/bitnami/apps/wordpress/conf/httpd-app.conf
+/opt/bitnami/apps/wordpress/conf/httpd-prefix.conf
+/opt/bitnami/apps/wordpress/conf/httpd-vhosts.conf</p>
+
+<p>我的情境是這樣
+我的主網站放置的地方是  www.example.com
+/opt/bitnami/apps/wordpress/htdocs/MAINSITE
+副站放置的地方是
+/opt/bitnami/apps/wordpress/htdocs/OTHER-A
+/opt/bitnami/apps/wordpress/htdocs/OTHER-B</p>
+
+<p>所以怎麼做？</p>
+
+<h2>bitnami apache wordpress virtual host 修改步驟</h2>
+
+<p>1.打開 <code>/opt/bitnami/apache2/conf/bitnami/bitnami.conf</code> 把下面這行註解掉</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># Include "/opt/bitnami/apps/wordpress/conf/httpd-prefix.conf"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>2.apache 本來會把主站的根目錄指去這裡
+  /opt/bitnami/apps/wordpress/htdocs/
+  因為我們註解掉了之後， 他所謂的 prefix 模式就沒了，所以他變成去讀這個檔案
+  /opt/bitnami/apache2/conf/bitnami/bitnami.conf
+  裡面寫的根目錄路徑
+  /opt/bitnami/apache2/htdocs
+  所以我要把他換掉
+  換成
+  /opt/bitnami/apps/wordpress/htdocs/MAINSITE</p>
+
+<p>3.然後去打開這個檔案 <code>/opt/bitnami/apache2/conf/bitnami/bitnami-apps-vhosts.conf</code>
+加上下面這一行</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> Include "/opt/bitnami/apps/wordpress/conf/httpd-vhosts.conf"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>4.最後，就是我們要編輯 subdomain 副站的目的地了
+打開 <code>/opt/bitnami/apps/wordpress/conf/httpd-vhosts.conf</code>
+把 subdomain 放進去。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;VirtualHost *:80&gt;
+</span><span class='line'>  ServerName Other-A.example.com
+</span><span class='line'>  DocumentRoot "/opt/bitnami/apps/wordpress/htdocs/OTHER-A"
+</span><span class='line'>  &lt;Directory "/opt/bitnami/apps/wordpress/htdocs/OTHER-A"&gt;
+</span><span class='line'>    Options FollowSymLinks MultiViews
+</span><span class='line'>    LanguagePriority en
+</span><span class='line'>    ForceLanguagePriority Prefer Fallback
+</span><span class='line'>
+</span><span class='line'>    AllowOverride All
+</span><span class='line'>    &lt;IfVersion &lt; 2.3 &gt;
+</span><span class='line'>      Order allow,deny
+</span><span class='line'>      Allow from all
+</span><span class='line'>    &lt;/IfVersion&gt;
+</span><span class='line'>    &lt;IfVersion &gt;= 2.3 &gt;
+</span><span class='line'>      Require all granted
+</span><span class='line'>    &lt;/IfVersion&gt;
+</span><span class='line'>  &lt;/Directory&gt;
+</span><span class='line'>&lt;/VirtualHost&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Other B 一樣啦，就不寫了。
+另外 DNS 那邊也要把 subdomain 的 cname給設定好喔！</p>
+
+<p>以下是官網上的wiki document</p>
+
+<blockquote><p>How To Create A Virtual Host?
+Using a Virtual Host allows you to access an application at (for example) <a href="http://SERVER-IP/">http://SERVER-IP/</a> or <a href="http://APPNAME.SERVER-IP">http://APPNAME.SERVER-IP</a> instead of <a href="http://SERVER-IP/APPNAME.">http://SERVER-IP/APPNAME.</a></p>
+
+<p>This example shows how to configure WordPress to be accessible from <a href="http://wordpress.example.com.">http://wordpress.example.com.</a> Follow these steps:</p>
+
+<p>Comment out the line that includes the prefix configuration file in the /opt/bitnami/apache2/conf/bitnami/bitnami-apps-prefix.conf file:</p>
+
+<p> # Include &ldquo;/opt/bitnami/apps/wordpress/conf/httpd-prefix.conf&rdquo;
+Include the virtual host configuration file for WordPress in the /opt/bitnami/apache2/conf/bitnami/bitnami-apps-vhosts.conf file:</p>
+
+<p> Include &ldquo;/opt/bitnami/apps/wordpress/conf/httpd-vhosts.conf&rdquo;
+Update the URL in the application if necessary.</p>
+
+<p>Restart the Apache server:</p>
+
+<p> sudo /opt/bitnami/ctlscript.sh restart apache</p></blockquote>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Daniel Lin 丹哥</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-07-05T07:04:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>7:04 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dangjlin.github.io/posts/2016/07/05/bitnami-wordpress-apache-subdomain-virtual-host-settings/" data-via="" data-counturl="http://dangjlin.github.io/posts/2016/07/05/bitnami-wordpress-apache-subdomain-virtual-host-settings/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/2016/07/05/aws-ses-simple-email-service-service/" title="Previous Post: AWS SES ( Simple Email Service) 服務使用">&laquo; AWS SES ( Simple Email Service) 服務使用</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/2016/07/15/rails-stripe-write-code-for-the-payment-step-abstract/" title="Next Post: Rails 串 Stripe 付款的寫 code 幾個步驟（摘要）">Rails 串 Stripe 付款的寫 code 幾個步驟（摘要） &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2018/05/02/test-for-new-post/">Test for New Post</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/">如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/10/how-to-get-improved-to-write-clean-code/">如何寫出clean Code 的參考資料</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/10/05/rails-using-aws-ses-send-mail-service/">Rails Using AWS SES Send Mail Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/">Redmine 串 AWS S3 遇到的問題 Hack Workaround</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Daniel Lin 丹哥 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dangjlin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dangjlin.github.io/posts/2016/07/05/bitnami-wordpress-apache-subdomain-virtual-host-settings/';
+        var disqus_url = 'http://dangjlin.github.io/posts/2016/07/05/bitnami-wordpress-apache-subdomain-virtual-host-settings/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,1723 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>丹哥的技術培養皿</title>
+  <meta name="author" content="Daniel Lin 丹哥">
+
+  
+  <meta name="description" content="以下是更新的指令，前提是你的版本中沒有尚未commit的東西，不然會更複雜一些。
+git remote add upstream &ldquo;來源的git位置&rdquo;
+git fetch upstream
+git checkout master
+git merge upstream/ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dangjlin.github.io/blog/4/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="丹哥的技術培養皿" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47039951-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">丹哥的技術培養皿</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="dangjlin.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/07/21/continuous-updates-sync-follow-the-fork-the-repo/">持續更新 Sync (Follow) Fork下來的repo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-21T17:20:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>5:20 pm</span></time>
+        
+           | <a href="/posts/2014/07/21/continuous-updates-sync-follow-the-fork-the-repo/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/07/21/continuous-updates-sync-follow-the-fork-the-repo/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>以下是更新的指令，前提是你的版本中沒有尚未commit的東西，不然會更複雜一些。
+git remote add upstream &ldquo;來源的git位置&rdquo;
+git fetch upstream
+git checkout master
+git merge upstream/master 或 git rebase upstream/master
+git push origin (這一步一般是用在更新 github，當然如果有另外的 git server 也有用)</p>
+
+<p>建議還可以參考鴉七寫得很詳細的 git rebase 解說
+<a href="http://blog.yorkxin.org/posts/2011/07/29/git-rebase">Git-rebase 小筆記</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/07/21/quickly-generate-project-template-gem/">快速產生專案的template GEM</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-21T08:19:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>8:19 am</span></time>
+        
+           | <a href="/posts/2014/07/21/quickly-generate-project-template-gem/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/07/21/quickly-generate-project-template-gem/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>From 這篇:　<a href="http://blog.roachking.net/blog/2014/02/01/my-rails-template/">我的 Rails Template</a>
+Feb 1st, 2014 | 1 Comment</p>
+
+<p>Github 上有非常多的 Rails template，例如 Rails Composer, RailsBricks, Bootstrappers，這些都是很好的 Template，有他們自己很棒的 Practice，但是不管這些 Template 有多好，生成出來的東西，有些還是不符合自己的需求，還是需要砍掉部分不需要的，加入一些自己習慣用的。</p>
+
+<p>有鑑於每次產生出來以後還要做很多事情，所以，最近用了 Rails Apps Composer 製作了自己的 Rails template，可以一行指令就產生我自己常用的 Gems, Settings, Views…等等：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rails new project_name -m https://raw.github.com/tonilin/rails_recipe/master/template.rb</span></code></pre></td></tr></table></div></figure>
+
+
+<p>( project_name 可以換成你想要的專案名稱。)
+需求</p>
+
+<pre><code>Rails 4.0
+Ruby 2.1.0
+RVM
+Mysql
+使用 capistrano deploy
+Server side 使用 Unicorn 當 Server
+</code></pre>
+
+<p>因為是自己的 Best Practice 所以就裡面只會問你資料庫帳號密碼，其他一律是用我習慣使用的，不會用一堆命令行問你資料庫想用哪種，要不要裝 Devise 之類的。如果不是你習慣用的可以 fork tonilin / rails-recipe 回去改，或是用比較有彈性的 Rails Composer 或 RailsBricks。</p>
+
+<p>有興趣自己寫 template 的，改天會開一篇文章教大家如何用 Rails Apps Composer 產生自己習慣的 Rails template。
+內容</p>
+
+<p>使用 Rails Apps Composer 可以讓 recipe 看起來很乾淨，看 code 就可以知道包含了什麼，所以參考 <a href="https://github.com/tonilin/rails-recipe/blob/master/roachking.rb%EF%BC%8C%E5%A4%A7%E6%A6%82%E5%8F%AF%E4%BB%A5%E7%9F%A5%E9%81%93%E5%8C%85%E4%BA%86%E4%BB%80%E9%BA%BC%E6%9D%B1%E8%A5%BF%E9%80%B2%E5%8E%BB%E3%80%82">https://github.com/tonilin/rails-recipe/blob/master/roachking.rb%EF%BC%8C%E5%A4%A7%E6%A6%82%E5%8F%AF%E4%BB%A5%E7%9F%A5%E9%81%93%E5%8C%85%E4%BA%86%E4%BB%80%E9%BA%BC%E6%9D%B1%E8%A5%BF%E9%80%B2%E5%8E%BB%E3%80%82</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/07/20/search-column-to-add-autocomplete-function/">搜尋列內增加自動完成功能</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-20T15:59:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:59 pm</span></time>
+        
+           | <a href="/posts/2014/07/20/search-column-to-add-autocomplete-function/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/07/20/search-column-to-add-autocomplete-function/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>此篇文章的練習來自於這篇原作文章
+<a href="http://josephndungu.com/tutorials/fast-autocomplete-search-terms-rails">Fast autocomplete search term - Rails APP</a></p>
+
+<p>先大致翻譯一下這篇文章的安裝步驟如下</p>
+
+<p>前言: 要實現在搜尋列內 (Search Form)內快速地跳出跳出猜測的字 (Fast Autocomplete)，並且可以用不同分類的方式呈現，要使用到 NO SQL 資料庫: Redis、RAILS 裡面存取 Redis 的GEM: soulmate ，以及 CSS 和 jQuery 語法來呈現。
+完成的範例可以看這個網站: <a href="https://seatgeek.com/">seatgeek</a></p>
+
+<p>1.要先安裝 Redis Server ，Redis 是什麼呢?  是一套開放原始碼的 NO SQL 資料庫 (一種 key-value 的資料庫，或稱為一種資料結構型態的資料庫) ，可以想成進階版的memcached，它提供了更多種資料結構的存放以及Operator 的控制；
+主要的特色是 快!! 因為資料會 load 進記憶體後來與呼叫他的程式做IO的反應，所以放在這種要 search auto complete 的地方是相當有效果的。
+MAC 我們可以使用homebrew ，用這個指令安裝 : <code>brew install redis</code></p>
+
+<p>裝好之後呢，就可以打下面的指令來啟動這套資料庫</p>
+
+<blockquote><p>$ redis-server</p></blockquote>
+
+<p>2.好了，我們可以開一個新的 rails 專案來練習一下這套工具怎麼使用。</p>
+
+<blockquote><p>$ rails new fast-autocomplete</p></blockquote>
+
+<p>3.在 Gemfile 裡面增加這些項目，然後 bundle install</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem 'faker', github: 'stympy/faker'
+</span><span class='line'>gem 'rack-contrib'
+</span><span class='line'>gem 'soulmate', :require =&gt; 'soulmate/server'</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>faker 這套 gem 是待會要用來產生假資料的，使用在 seed.rb 檔案內</p></blockquote>
+
+<p>4.接著使用 scaffold 快速建造出兩套骨架，用來demo用的</p>
+
+<blockquote><p>$ rails g scaffold noun name:string
+$ rails g scaffold verb name:string</p></blockquote>
+
+<p>5.產生後先執行 rake db:migrate</p>
+
+<p>6.接著編輯生成假資料的檔案  seeds.rb</p>
+
+<figure class='code'><figcaption><span>seeds.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># create 300 nouns</span>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Creating nouns&quot;</span>
+</span><span class='line'><span class="mi">300</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
+</span><span class='line'>  <span class="no">Noun</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="no">Faker</span><span class="o">::</span><span class="no">Hacker</span><span class="o">.</span><span class="n">noun</span><span class="p">)</span>
+</span><span class='line'>  <span class="no">Noun</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="no">Faker</span><span class="o">::</span><span class="no">Commerce</span><span class="o">.</span><span class="n">product_name</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># create 300 verbs</span>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Creating verbs&quot;</span>
+</span><span class='line'><span class="mi">300</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
+</span><span class='line'>  <span class="no">Verb</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="no">Faker</span><span class="o">::</span><span class="no">Hacker</span><span class="o">.</span><span class="n">verb</span><span class="p">)</span>
+</span><span class='line'>  <span class="no">Verb</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="no">Faker</span><span class="o">::</span><span class="no">Hacker</span><span class="o">.</span><span class="n">ingverb</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>檔案編輯好後 就執行  <code>rake db:seed</code> 來生成假資料到DB內，這時候<strong>還不是</strong>把資料複製到到 redis 記憶體喔~ 是先在資料庫生成假資料。</p>
+
+<p>7.接著我們將會編輯 Noun 和 Verb 這兩個類型的 model 檔案， 我們會使用 after_save 的 call back 方式來把存到資料庫的資料抄一份去 redis 記憶體上。 什麼時候存過去呢? 就是這段 load_into_soulmate method  以及在資料庫內的資料要被刪除之前， 會使用 before_destroy 的 callback 去把在 redis 記憶體上的資料先移除掉。 是另一段 remove_from_soulmate 的 method 的作用</p>
+
+<p>程式碼如下</p>
+
+<figure class='code'><figcaption><span>noun.rb </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Noun</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">after_save</span> <span class="ss">:load_into_soulmate</span>
+</span><span class='line'>  <span class="n">before_destroy</span> <span class="ss">:remove_from_soulmate</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">validates_uniqueness_of</span> <span class="ss">:name</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">private</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">load_into_soulmate</span>
+</span><span class='line'>      <span class="n">loader</span> <span class="o">=</span> <span class="no">Soulmate</span><span class="o">::</span><span class="no">Loader</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;nouns&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">loader</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;term&quot;</span> <span class="o">=&gt;</span> <span class="nb">name</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span> <span class="o">=&gt;</span> <span class="nb">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span><span class='line'>          <span class="s2">&quot;link&quot;</span> <span class="o">=&gt;</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span><span class="o">.</span><span class="n">noun_path</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">})</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">remove_from_soulmate</span>
+</span><span class='line'>      <span class="n">loader</span> <span class="o">=</span> <span class="no">Soulmate</span><span class="o">::</span><span class="no">Loader</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;nouns&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">loader</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;id&quot;</span> <span class="o">=&gt;</span> <span class="nb">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>verb.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Verb</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">after_save</span> <span class="ss">:load_into_soulmate</span>
+</span><span class='line'>  <span class="n">before_destroy</span> <span class="ss">:remove_from_soulmate</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">validates_uniqueness_of</span> <span class="ss">:name</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">private</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">load_into_soulmate</span>
+</span><span class='line'>      <span class="n">loader</span> <span class="o">=</span> <span class="no">Soulmate</span><span class="o">::</span><span class="no">Loader</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;verbs&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">loader</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;term&quot;</span> <span class="o">=&gt;</span> <span class="nb">name</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span> <span class="o">=&gt;</span> <span class="nb">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span><span class='line'>          <span class="s2">&quot;link&quot;</span> <span class="o">=&gt;</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span><span class="o">.</span><span class="n">verb_path</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">})</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">remove_from_soulmate</span>
+</span><span class='line'>      <span class="n">loader</span> <span class="o">=</span> <span class="no">Soulmate</span><span class="o">::</span><span class="no">Loader</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;verbs&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">loader</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;id&quot;</span> <span class="o">=&gt;</span> <span class="nb">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>8.好了，現在我們要來實現把資料庫的資料 load 到記憶體去了，我們的假資料剛剛都已經生成了，那怎麼辦呢?
+沒關係，讓我們到 rails console 去，然後分別執行這兩個指令，表示請rails 找出每一筆資料，然後再存檔一次，因此就會觸發 after_save 的 callback method 就自然而然會把資料抄一份到 redis 記憶體了。</p>
+
+<blockquote><p>$ rails console
+2.1.0 :001 >  Noun.find_each(&amp;:save)
+2.1.0 :001 > Verb.find_each(&amp;:save)</p></blockquote>
+
+<p>我們可以再開另一個terminal 視窗，然後輸入</p>
+
+<blockquote><p>$ redis-cli</p></blockquote>
+
+<p>會叫出 redis 的 console端
+我們可以試著打這個指令: <code>hget soulmate-data:nouns 1</code> or <code>hget soulmate-data:verbs 1</code> 看看有沒有出現類似下面的資料，就表示資料有沒有成功的 load 到記憶體內了</p>
+
+<blockquote><p>127.0.0.1:6379> hget soulmate-data:nouns 1
+&ldquo;{\"term\&rdquo;:\&ldquo;alarm\&rdquo;,\&ldquo;id\&rdquo;:1,\&ldquo;data\&rdquo;:{\&ldquo;link\&rdquo;:\&ldquo;/nouns/1\&rdquo;}}
+127.0.0.1:6379> hget soulmate-data:verbs 1
+&ldquo;{\"term\&rdquo;:\&ldquo;calculate\&rdquo;,\&ldquo;id\&rdquo;:1,\&ldquo;data\&rdquo;:{\&ldquo;link\&rdquo;:\&ldquo;/verbs/1\&rdquo;}}"</p></blockquote>
+
+<hr />
+
+<p>接著我們來處理讓 rails app 可以讀到 redis 資料的作法
+首先，我們到 route.rb 上，告訴我們的 rails ，有一套 redis 的 client 端在待命著，</p>
+
+<figure class='code'><figcaption><span>routes.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">mount</span> <span class="no">Soulmate</span><span class="o">::</span><span class="no">Server</span><span class="p">,</span> <span class="ss">:at</span> <span class="o">=&gt;</span> <span class="s2">&quot;/autocomplete&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">resources</span> <span class="ss">:verbs</span>
+</span><span class='line'>  <span class="n">resources</span> <span class="ss">:nouns</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">root</span> <span class="s1">&#39;home#index&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>改好後重啟server,
+網址打 localhost:3000/autocomplete 看看是否有出現類似這樣的畫面，就表示 soulmate 是否已成功地運行待命著</p>
+
+<blockquote><p>{
+  &ldquo;soulmate&rdquo;: &ldquo;1.0.0&rdquo;,
+  &ldquo;status&rdquo;: &ldquo;ok&rdquo;
+}</p></blockquote>
+
+<p>接著，我們再來測試 redis 的資料是不是可以被 soulmate 這個client 套件讀出來，然後呈現到 rails app 網站上
+我們可以打 <code>http://localhost:3000/autocomplete/search?types[]=nouns&amp;limit=6&amp;term=pro</code> 這串字，來測試當我們再搜尋列打上 <code>pro</code> 的時候， soulmate 會不會去撈出資料， 類似下面這樣
+<img src="http://user-image.logdown.io/user/359/blog/359/post/210955/fP5XG53NQOWFiKUAIXrW_86e50be45a12784301ca852dae49ddb4.png" alt="86e50be45a12784301ca852dae49ddb4.png" /></p>
+
+<blockquote><p>我們是藉由著網址裡面的 &ldquo;type"去告訴 soulmate 我們要去找哪個 table (或是說存到 redis 上哪個類型的資料)
+因此要切記，網址上面的 type 一定要是我們有的 table (或是有存到 redis 記憶體內的類型 )</p></blockquote>
+
+<p>或者我們也可以給定兩種類型，像是這樣 <code>http://localhost:3000/autocomplete/search?types[]=verbs&amp;types[]=nouns&amp;limit=6&amp;term=ha </code> 這表示我們要找 noun 類型及 verb 類型內是否有 ha 開頭的字串 ，找到的話會類似下面這樣</p>
+
+<p><img src="http://user-image.logdown.io/user/359/blog/359/post/210955/NJAMWjxjSdS8n7bp2l4y_2dcd49da89ef88b4876f05b57dc4fd8b.png" alt="2dcd49da89ef88b4876f05b57dc4fd8b.png" /></p>
+
+<hr />
+
+<p>好了，終於要來處理前端的畫面了，這邊不用說，就是要套用 css 和 jQuery (Javascript) 的東西
+soulmate 很棒的地方就是在於有人寫好了傳送到前端畫面的 js 檔案，
+請到這邊抓取壓縮檔，
+<a href="https://github.com/mcrowe/soulmate.js/archive/master.zip">soulmate.js @ github </a>
+是一個壓縮檔案， 請把目錄<code>soulmate.js-master/src/compiled</code>裡面的 <code>jquery.soulmate.js</code>檔案放到 assets/javascripts/ 下吧。
+然後在 assets/javascripts/application.js 裡面掛上</p>
+
+<figure class='code'><figcaption><span>routes.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="sr">//</span><span class="o">=</span> <span class="nb">require</span> <span class="n">jquery</span>
+</span><span class='line'><span class="sr">//</span><span class="o">=</span> <span class="nb">require</span> <span class="n">jquery_ujs</span>
+</span><span class='line'><span class="sr">//</span><span class="o">=</span> <span class="nb">require</span> <span class="n">jquery</span><span class="o">.</span><span class="n">soulmate</span>
+</span><span class='line'><span class="sr">//</span><span class="o">=</span> <span class="nb">require</span> <span class="n">turbolinks</span>
+</span><span class='line'><span class="sr">//</span><span class="o">=</span> <span class="n">require_tree</span> <span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>壓縮檔裡面的 <code>soulmate.js-master/demo</code> 目錄內有 <code>demo.css</code>的檔案 ，請放到 assets/stylesheets/  裡面，然後改檔案名稱為 <code>soulmate.css</code>
+然後在 assets/stylesheets/application.css 裡面掛上</p>
+
+<figure class='code'><figcaption><span>routes.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">*=</span> <span class="n">require_tree</span> <span class="o">.</span>
+</span><span class='line'><span class="o">*=</span> <span class="nb">require</span> <span class="n">soulmate</span>
+</span><span class='line'><span class="o">*=</span> <span class="n">require_self</span>
+</span><span class='line'><span class="o">*/</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>soulmate.css 檔案內容如下</p>
+
+<figure class='code'><figcaption><span>soulmate.css</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nf">#soulmate</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">background-color</span><span class="o">:</span> <span class="m">#fafafa</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">border</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#bbb</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">font</span><span class="o">:</span> <span class="m">12px</span><span class="o">/</span><span class="m">14px</span> <span class="s2">&quot;Helvetica Neue&quot;</span><span class="o">,</span> <span class="n">Helvetica</span><span class="o">,</span> <span class="n">Arial</span><span class="o">,</span> <span class="k">sans-serif</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">font-weight</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">list-style</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">10px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">text-shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="nb">white</span><span class="p">;</span>
+</span><span class='line'>    <span class="c">/* play around with the top and left properties for correct positioning */</span>
+</span><span class='line'>    <span class="k">top</span><span class="o">:</span> <span class="m">201px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">left</span><span class="o">:</span> <span class="m">460px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">width</span><span class="o">:</span> <span class="m">579px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">z-index</span><span class="o">:</span> <span class="m">1000</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">4px</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">4px</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">4px</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">4px</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">khtml</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">4px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">4px</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">4px</span> <span class="m">10px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">2</span><span class="p">);</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">4px</span> <span class="m">10px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">2</span><span class="p">);</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">khtml</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">4px</span> <span class="m">10px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">2</span><span class="p">);</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">4px</span> <span class="m">10px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">2</span><span class="p">);</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">4px</span> <span class="m">10px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">2</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">4px</span> <span class="m">10px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">2</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'> <span class="nf">#soulmate</span> <span class="nc">.soulmate-type-container</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">border-top</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#ddd</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'> <span class="nf">#soulmate</span> <span class="nc">.soulmate-type-container</span><span class="nd">:first-child</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">border-top</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'> <span class="nf">#soulmate</span> <span class="nc">.soulmate-type-suggestions</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">border-left</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#ddd</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">list-style</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">padding</span><span class="o">:</span> <span class="m">5px</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">width</span><span class="o">:</span> <span class="m">490px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">letter-spacing</span><span class="o">:</span> <span class="m">0.5px</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'> <span class="nf">#soulmate</span> <span class="nc">.soulmate-suggestion</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">color</span><span class="o">:</span> <span class="m">#111</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">cursor</span><span class="o">:</span> <span class="k">pointer</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">font-weight</span><span class="o">:</span> <span class="m">500</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">font-size</span><span class="o">:</span> <span class="m">13px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">padding</span><span class="o">:</span> <span class="m">5px</span> <span class="m">0</span> <span class="m">6px</span> <span class="m">12px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">text-decoration</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'> <span class="nf">#soulmate</span> <span class="nc">.soulmate-suggestion.focus</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">margin-left</span><span class="o">:</span> <span class="m">-1px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">margin-right</span><span class="o">:</span> <span class="m">-1px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">padding-left</span><span class="o">:</span> <span class="m">13px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">text-shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">1px</span> <span class="m">#32629b</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">z-index</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">2px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">3</span><span class="p">);</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">2px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">3</span><span class="p">);</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">khtml</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">2px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">3</span><span class="p">);</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">2px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">3</span><span class="p">);</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">2px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">3</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">box</span><span class="o">-</span><span class="n">shadow</span><span class="o">:</span> <span class="m">0</span> <span class="m">1px</span> <span class="m">2px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">3</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">background</span><span class="o">:</span> <span class="m">#545454</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">background</span><span class="o">:</span> <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="k">top</span><span class="o">,</span> <span class="m">#545454</span> <span class="m">0</span><span class="o">,</span> <span class="m">#444444</span> <span class="m">100%</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">background</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">gradient</span><span class="p">(</span><span class="n">linear</span><span class="o">,</span> <span class="m">0</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span> <span class="m">100%</span><span class="o">,</span> <span class="n">from</span><span class="p">(</span><span class="m">#545454</span><span class="p">)</span><span class="o">,</span> <span class="n">to</span><span class="p">(</span><span class="m">#444444</span><span class="p">));</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">filter</span><span class="o">:</span> <span class="s2">&quot;progid: DXImageTransform.Microsoft.gradient(startColorstr=#545454,endColorstr=#444444)&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">filter</span><span class="o">:</span> <span class="n">progid</span><span class="o">:</span> <span class="n">DXImageTransform</span><span class="o">.</span><span class="n">Microsoft</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">startColorstr</span><span class="o">=</span><span class="m">#545454</span><span class="o">,</span><span class="n">endColorstr</span><span class="o">=</span><span class="m">#444444</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'> <span class="nf">#soulmate</span> <span class="nc">.soulmate-type</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">background-color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">font-family</span><span class="o">:</span> <span class="s2">&quot;Helvetica Neue&quot;</span><span class="o">,</span> <span class="n">Helvetica</span><span class="o">,</span> <span class="n">Arial</span><span class="o">,</span> <span class="k">sans-serif</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">font-size</span><span class="o">:</span> <span class="m">11px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">letter-spacing</span><span class="o">:</span> <span class="m">0.5px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">margin-right</span><span class="o">:</span> <span class="m">490px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span> <span class="m">10px</span> <span class="m">0</span> <span class="m">10px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">text-align</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">text-transform</span><span class="o">:</span> <span class="k">capitalize</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">vertical-align</span><span class="o">:</span> <span class="k">top</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">khtml</span><span class="o">-</span><span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">zoom</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'> <span class="nf">#soulmate</span> <span class="nc">.soulmate-type</span><span class="nd">:before</span><span class="o">,</span> <span class="nf">#soulmate</span> <span class="nc">.soulmate-type</span><span class="nd">:after</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">content</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">display</span><span class="o">:</span> <span class="n">table</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'> <span class="nf">#soulmate</span> <span class="nc">.soulmate-type</span><span class="nd">:after</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">clear</span><span class="o">:</span> <span class="k">both</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<p>最後，我們來裝飾查詢門面吧。
+增加一個 controller</p>
+
+<blockquote><p>$ rails g controller home index</p></blockquote>
+
+<p>讓網站的 root 指向這個 home controller  &amp; index action</p>
+
+<figure class='code'><figcaption><span>routes.rb </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">root</span> <span class="sb">`home#index`</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著設計一下 view 的畫面</p>
+
+<figure class='code'><figcaption><span>index.html.erb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;container&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="no">Search</span> <span class="no">Nouns</span> <span class="ow">and</span> <span class="no">Verbs</span><span class="o">&lt;</span><span class="sr">/h2&gt;</span>
+</span><span class='line'><span class="sr"> &lt;%= form_tag do %&gt;</span>
+</span><span class='line'><span class="sr">   &lt;%= text_field_tag &quot;search&quot;, nil, placeholder: &quot;Search&quot; %&gt;</span>
+</span><span class='line'><span class="sr"> &lt;% end %&gt;</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再裝飾一下版面</p>
+
+<figure class='code'><figcaption><span>home.css.scss</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">//</span> <span class="nt">Place</span> <span class="nt">all</span> <span class="nt">the</span> <span class="nt">styles</span> <span class="nt">related</span> <span class="nt">to</span> <span class="nt">the</span> <span class="nt">home</span> <span class="nt">controller</span> <span class="nt">here</span><span class="o">.</span>
+</span><span class='line'><span class="o">//</span> <span class="nt">They</span> <span class="nt">will</span> <span class="nt">automatically</span> <span class="nt">be</span> <span class="nt">included</span> <span class="nt">in</span> <span class="nt">application</span><span class="nc">.css</span><span class="o">.</span>
+</span><span class='line'><span class="o">//</span> <span class="nt">You</span> <span class="nt">can</span> <span class="nt">use</span> <span class="nt">Sass</span> <span class="o">(</span><span class="nt">SCSS</span><span class="o">)</span> <span class="nt">here</span><span class="o">:</span> <span class="nt">http</span><span class="o">://</span><span class="nt">sass-lang</span><span class="nc">.com</span><span class="o">/</span>
+</span><span class='line'><span class="nc">.container</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">500px</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">padding</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">#search</span><span class="p">{</span>
+</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">400px</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>因此搜尋的首頁版面會長這樣:
+<img src="http://user-image.logdown.io/user/359/blog/359/post/210955/CMxqIY0jR02iQr4pDKLi_3e832a9afea232cd44513215aea070e6.png" alt="3e832a9afea232cd44513215aea070e6.png" /></p>
+
+<p>最後一個步驟，我們要讓首頁有一個 javascript (jQuery) 可以偵測我們在搜尋框打的字，然後接著就會去呼叫 soulmate.js的 javascript 進而開始對 soulmate &amp; redis 做呼叫的動作及接到 server 吐回來的結果，進一步顯示到瀏覽器畫面上
+請在 /assets/javascripts/ 裡面增加一個  home.js   (或是把 home.js.coffee 更名為 home.js ) 因為我們要使用的 javascript code 是 pure js code 不是使用  coffee script
+程式碼如下</p>
+
+<figure class='code'><figcaption><span>home.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">ready</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">render</span><span class="p">,</span> <span class="nx">select</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">render</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">term</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">term</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">select</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">term</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">type</span><span class="p">){</span>
+</span><span class='line'>    <span class="c1">// populate our search form with the autocomplete result</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#search&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">term</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// hide our autocomplete results</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;ul#soulmate&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// then redirect to the result&#39;s link </span>
+</span><span class='line'>    <span class="c1">// remember we have the link in the &#39;data&#39; metadata</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">link</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#search&#39;</span><span class="p">).</span><span class="nx">soulmate</span><span class="p">({</span>
+</span><span class='line'>    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;/autocomplete/search&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">types</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;nouns&#39;</span><span class="p">,</span><span class="s1">&#39;verbs&#39;</span><span class="p">],</span>
+</span><span class='line'>    <span class="nx">renderCallback</span> <span class="o">:</span> <span class="nx">render</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">selectCallback</span> <span class="o">:</span> <span class="nx">select</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">minQueryLength</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">maxResults</span>     <span class="o">:</span> <span class="mi">5</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">// when our document is ready, call our ready function</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="nx">ready</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// if using turbolinks, listen to the page:load event and fire our ready function</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;page:load&#39;</span><span class="p">,</span> <span class="nx">ready</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>噹噹!! 大功告成了!!! 如果一切順利的話，當我們在搜尋列打上兩個英文字母，且有match 到資料庫的資料 ( 嚴格說應該是redis 吐回來給 soulmate 再吐給前端 ) ，那麼就會看到類似下面的畫面了。</p>
+
+<p><img src="http://user-image.logdown.io/user/359/blog/359/post/210955/9VInlFFlTlCe1uVMEzDr_3b21e629c8bf9af09cf67f28f79f5b42.png" alt="3b21e629c8bf9af09cf67f28f79f5b42.png" /></p>
+
+<p>以上，收工。</p>
+
+<p>改天再來寫一篇，如何把這樣的技巧 match 到我們自己的網站。
+我想，秘訣應該是在 model 的 code ，就是要怎麼寫 ruby code 把我們想要作為快速 key-value 比對的資料結構，從資料庫存檔的時候抄寫一份過去呢? 以及要動到 javascript 的東西吧 (頭痛)  好好研究一下。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/07/18/rapid-increases-in-accordance-with-table-sorting-paging-function/">快速把表格增加依照欄位排序、分頁功能</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-18T06:08:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>6:08 am</span></time>
+        
+           | <a href="/posts/2014/07/18/rapid-increases-in-accordance-with-table-sorting-paging-function/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/07/18/rapid-increases-in-accordance-with-table-sorting-paging-function/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>之前無意間看到有人推薦了 <code>jquery-datatables-rails</code> 這個GEM
+是用來快速把一個列表的資料依照欄位排序，或是增加分頁的功能，使用了Jquery的作法
+少量的資料可以在 client端排，大量的資料的話應該會造成使用者執行的效能問題
+進階作法會是在server side 排序之後才吐回去給前端顯示出來。</p>
+
+<p>說明文件在這裡
+<a href="https://github.com/dangjlin/jquery-datatables-rails">jquery-datatables-rails</a>
+同時還參考了 Rails Cast 的解說
+<a href="http://railscasts.com/episodes/340-datatables">RailsCast #340 DataTables Apr 11, 2012</a></p>
+
+<p>做法真的相當的簡單
+1 Gemfile 裡面增加
+<code>'jquery-datatables-rails', '~&gt; 2.1.10.0.3'</code>
+2 安裝這個Gem，執行
+<code>bundle install</code>
+3 在 assets/javascript/application.js 裡面增加:
+<code>//= require dataTables/jquery.dataTables</code>
+要注意的是，如果原本的 application.js 裡面有  <code>//= require_tree .</code> 這個包進全部js的內容， 請把上面那行放在 require_tree　前面.
+像是這樣
+/app/assets/javascripts/application.js</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>//= require jquery
+</span><span class='line'>//= require jquery_ujs
+</span><span class='line'>//= require dataTables/jquery.dataTables
+</span><span class='line'>//= require_tree .</span></code></pre></td></tr></table></div></figure>
+
+
+<p>4 在 assets/stylesheets/application.css 裡面增加
+<code>*= require dataTables/jquery.dataTables</code>
+如果原本的 application.css 裡面有或 <code>*= require_tree .</code> 這個包進全部 css 的內容， 請把上面那行放在 require_tree　前面. 像是這樣:
+/app/assets/stylesheets/application.css</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/*
+</span><span class='line'> * This is a manifest file that'll automatically include all the stylesheets available in this directory
+</span><span class='line'> * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+</span><span class='line'> * the top of the compiled file, but it's generally better to create a new file per style scope.
+</span><span class='line'> *= require_self
+</span><span class='line'> *= require dataTables/jquery.dataTables
+</span><span class='line'> *= require_tree .
+</span><span class='line'>*/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著在希望可以產生變化的table 所屬的 js 檔案增加:
+例如，我希望產生變化的view檔案是在  /app/views/patents/index.html.erb<br/>
+所以我就應該去 assets/javascripsts/ 裡面找  patents.js 這個檔案，然後在裡面加上</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">jQuery</span> <span class="o">-&gt;</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#patents&#39;</span><span class="p">).</span><span class="nx">dataTable</span>
+</span><span class='line'>          <span class="nx">sPaginationType</span><span class="o">:</span> <span class="s2">&quot;full_numbers&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第二行是指套上 Jquery 的功能，第三行是指再多增加分頁的功能</p>
+
+<p>接著關鍵的地方就是要到view folder 的 index.html.erb 去設定 table 的一些屬性，讓 Jquery 可以找到這個table
+原本的table那段的code 是這樣</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="err">查詢記錄</span> <span class="o">&lt;</span><span class="sr">/h2&gt;</span>
+</span><span class='line'><span class="sr">&lt;table class=&quot;table table-bpatented&quot; &gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">    &lt;tr&gt;</span>
+</span><span class='line'><span class="sr">      &lt;th&gt;No. &lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span><span class="err">申請號</span><span class="o">&lt;</span><span class="sr">/th&gt;</span>
+</span><span class='line'><span class="sr">      &lt;th&gt;生成時間&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="sr">/tr&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">    &lt;% @patents.each_with_index do |patent, i| %&gt;</span>
+</span><span class='line'><span class="sr">    &lt;tr&gt;</span>
+</span><span class='line'><span class="sr">       &lt;td&gt;&lt;%= i+1  %&gt;&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+</span><span class='line'>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;&lt;</span><span class="sx">%= link_to(patent.apply_no, patent) %&gt; &lt;/td&gt;</span>
+</span><span class='line'><span class="sx">       &lt;td&gt;&lt;%=</span> <span class="n">patent</span><span class="o">.</span><span class="n">created_at</span> <span class="sx">%&gt; &lt;/td&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="sr">/tr&gt;</span>
+</span><span class='line'><span class="sr">    &lt;% end %&gt;</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">table</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>有幾個項目要增加上去: 有 <code>table id</code> , <code>thead</code>  , <code>tbody</code>
+因此加上去後會變成</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="err">查詢記錄</span> <span class="o">&lt;</span><span class="sr">/h2&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;table class=&quot;table table-bpatented&quot; id=&quot;patents&quot;&gt;</span>
+</span><span class='line'><span class="sr">  &lt;thead&gt;</span>
+</span><span class='line'><span class="sr">    &lt;tr&gt;</span>
+</span><span class='line'><span class="sr">      &lt;th&gt;No. &lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span><span class="err">申請號</span><span class="o">&lt;</span><span class="sr">/th&gt;</span>
+</span><span class='line'><span class="sr">      &lt;th&gt;生成時間&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="sr">/tr&gt;</span>
+</span><span class='line'><span class="sr">  &lt;/</span><span class="n">thead</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">tbody</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="sx">% @patents.each_with_index </span><span class="k">do</span> <span class="o">|</span><span class="n">patent</span><span class="p">,</span> <span class="n">i</span><span class="o">|</span> <span class="sx">%&gt;</span>
+</span><span class='line'><span class="sx">    &lt;tr&gt;</span>
+</span><span class='line'>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;&lt;</span><span class="sx">%= i+1  %&gt;&lt;/td&gt;</span>
+</span><span class='line'><span class="sx">       &lt;td&gt;&lt;%=</span> <span class="n">link_to</span><span class="p">(</span><span class="n">patent</span><span class="o">.</span><span class="n">apply_no</span><span class="p">,</span> <span class="n">patent</span><span class="p">)</span> <span class="sx">%&gt; &lt;/td&gt;</span>
+</span><span class='line'>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;&lt;%=</span> <span class="n">patent</span><span class="o">.</span><span class="n">created_at</span> <span class="sx">%&gt; &lt;/td&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="sr">/tr&gt;</span>
+</span><span class='line'><span class="sr">    &lt;% end %&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">  &lt;/</span><span class="n">tbody</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/table&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>要注意到 table 的 id  和 .js 檔案裡面的字串是要一樣的，這樣 jQuery 才會對應到是哪個table 要有變化.
+如此一來就快速的套進了按照欄位排序，以及有基本的分頁功能了。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/07/14/url-to-use-human-identification-with-meaningful-phrases/">網址要使用人類可以辨識帶有意義的字句</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-14T10:04:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:04 am</span></time>
+        
+           | <a href="/posts/2014/07/14/url-to-use-human-identification-with-meaningful-phrases/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/07/14/url-to-use-human-identification-with-meaningful-phrases/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>這個需求應該會是一個普遍上一定會遇到的問題，就是網址不再使用rails因為 RESTful 的設計，不要都是直接抓出各種table的主id鍵值作為KEY值。</p>
+
+<p>查了一些資料之後，發現用最多的應該就是這個gem了 “friendly_ID &ldquo; 將很多 CASE 都有考量進來。</p>
+
+<p>當然另外也有土法煉鋼的方式，就是自己create slug 欄位，然後再存檔的時候，先處理字串，再寫到table的欄位去</p>
+
+<p>先memo第一種做法：friendly_ID 的簡便做法
+從官方網站上面節錄下來： <a href="https://github.com/norman/friendly_id">FriendlyId is the “Swiss Army bulldozer” of slugging and permalink plugins for ActiveRecord</a></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># Gemfile
+</span><span class='line'>gem 'friendly_id', '~&gt; 5.0.0' # Note: You MUST use 5.0.0 or greater for Rails 4.0+
+</span><span class='line'>
+</span><span class='line'>&gt;rails generate friendly_id
+</span><span class='line'>&gt;rake db:migrate
+</span><span class='line'>
+</span><span class='line'># edit app/models/user.rb
+</span><span class='line'>class User &lt; ActiveRecord::Base
+</span><span class='line'>  extend FriendlyId
+</span><span class='line'>  friendly_id :name, use: :slugged
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'># Change User.find to User.friendly.find in your controller
+</span><span class='line'>User.friendly.find(params[:id])
+</span><span class='line'>
+</span><span class='line'># If you're adding FriendlyId to an existing app and need
+</span><span class='line'># to generate slugs for existing users, do this from the
+</span><span class='line'># console, runner, or add a Rake task:
+</span><span class='line'>User.find_each(&:save)
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這邊有幾個重點：
+1. model 裡面把你要置換的網址的欄位寫上去，此範例為使用 User table 的 name 欄位，要用名稱作為網址，而不要使用 xxx/xxx/user/:id  這種網址了。
+2. controller 裡面一定要換成  User.<code>friendly</code>.find(params[:id]
+這樣 rails 才會認得  xxx/user/name/edit or xxx/user/name/show 這種網址<br/>
+3. 當我們要使用這樣的做法去處理每一筆新 create 的資料, FriendlyID都會自動幫我們增加到 slug 的欄位內
+但是舊的怎麼辦呢？  所以就是到 console 裡面使用 <code>User.find_each(&amp;:save)</code> 這樣的指令去對資料庫的資料重新做一次save,  因為 FriendlyID 會在 before_save 做 validation ，因此發現slug 沒有做，就會重新做一次。 （印象中是這種概念，有錯誤請指正我，謝謝）</p>
+
+<p>第二個方法可以參考 TIM 的筆記，但我也還在摸索當中，暫時還看不太懂。
+<a href="http://disco26.logdown.com/posts/171238-30-coder79-day-241-tea-leaf-course-2-week-4-sluggify-posts">Sluggify Post</a>
+<a href="http://disco26.logdown.com/posts/171360-30-coder81-day-242-tea-leaf-course-2-week-4-better-slugs">Better Slug Post</a>
+<a href="http://disco26.logdown.com/posts/171391-30-coder83-day-242-tea-leaf-course-2-week-4-sluggable-module">進階：把很多地方要使用Sluggable Title 封裝為 Sluggable Module</a></p>
+
+<p>另外 stackoverflow 上面也有一篇很有意義的文章
+<a href="http://stackoverflow.com/questions/1302022/best-way-to-generate-slugs-human-readable-ids-in-rails">best way to generate slugs-human readable title in rails</a></p>
+
+<p>補充另一個網友寫的筆記
+<a href="http://arthurpai.logdown.com/posts/2014/06/21/generate-slug">Generate Slug</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/07/14/table-to-be-taken-out-of-the-serial-numbers-of-the-practice/">表格內要帶出序號的做法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-14T09:34:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>9:34 am</span></time>
+        
+           | <a href="/posts/2014/07/14/table-to-be-taken-out-of-the-serial-numbers-of-the-practice/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/07/14/table-to-be-taken-out-of-the-serial-numbers-of-the-practice/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>需求是這樣的，我希望我的表格的第一個欄位是序號（序列號）從 1 開始一直到整個 object 的迴圈讀完．</p>
+
+<p>簡單查了一下，範例的 source code 如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="err">查詢記錄</span><span class="o">&lt;</span><span class="sr">/h2&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;table class=&quot;table table-bpatented&quot;&gt;</span>
+</span><span class='line'><span class="sr">  &lt;thead&gt;</span>
+</span><span class='line'><span class="sr">    &lt;tr&gt;</span>
+</span><span class='line'><span class="sr">      &lt;th&gt;No.&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span><span class="err">申請號</span><span class="o">&lt;</span><span class="sr">/th&gt;</span>
+</span><span class='line'><span class="sr">      &lt;th&gt;生成時間&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="sr">/tr&gt;</span>
+</span><span class='line'><span class="sr">  &lt;/</span><span class="n">thead</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">tbody</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="sx">% @patents.each_with_index </span><span class="k">do</span> <span class="o">|</span><span class="n">patent</span><span class="p">,</span> <span class="n">i</span><span class="o">|</span> <span class="sx">%&gt;</span>
+</span><span class='line'><span class="sx">    &lt;tr&gt;</span>
+</span><span class='line'>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;&lt;</span><span class="sx">%= i+1  %&gt;&lt;/td&gt;</span>
+</span><span class='line'><span class="sx">       &lt;td&gt;&lt;%=</span> <span class="n">link_to</span><span class="p">(</span><span class="n">patent</span><span class="o">.</span><span class="n">apply_no</span><span class="p">,</span> <span class="n">patent</span><span class="p">)</span> <span class="sx">%&gt; &lt;/td&gt;</span>
+</span><span class='line'>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span><span class="mi">11</span><span class="o">.</span><span class="mi">11</span><span class="o">.</span><span class="mi">2014</span> <span class="o">&lt;</span><span class="sr">/td&gt;</span>
+</span><span class='line'><span class="sr">    &lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="sx">% end %&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sx">  &lt;/tbody&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/table&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最最關鍵的地方就是在這個 <code>.each_with_index</code> 這個 method , 搭配上 iterator 的  <code>i</code>
+這樣表格第一欄我們再使用  <code>i+1</code> 這樣，就會從 &ldquo;1 "開始了． 如果沒有加1的話，會從 0 開始顯示．</p>
+
+<p>index 的iterate 變數名稱 一定要放在 |  ,  | 之間的第二個參數位置，例如本例是 <code>i</code></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/07/08/rails-naming-conventions/">Rails 命名慣例</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-08T14:19:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>2:19 pm</span></time>
+        
+           | <a href="/posts/2014/07/08/rails-naming-conventions/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/07/08/rails-naming-conventions/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>此文章是從這個網站來的 ：<a href="http://dearjohn.iteye.com/blog/1625078">Rails中的约定与命名规范</a>
+直接貼過來作為常用的參考
+Rails中的约定与命名规范</p>
+
+<p>博客分类： Ruby On Rails
+Rails</p>
+
+<p>约定优于配置是Rails三大哲学之一。Rails中充满了很多约定，本页面对遇到的约定做一个总结。</p>
+
+<p>单复数的约定
+Model用单数因为它表示一个对象如User，
+数据库表用复数因为它存放的是对象的集合，
+Controller用复数因为它是对对象集合的操作</p>
+
+<p>Routes.rb中定义session一般用resource :session，而不是普通的resources :sessions。因为一般只会操作当前用户的session，不会操作所有session，所以不能定义为复数。
+即如果一个请求一个资源时不需要指定ID，就在routes中用单数，如/profile显示当前登录用户的信息，这样你可以使用单数的/profile而不是/profile/:id。
+也可以用match “profile” => “users#show”</p>
+
+<p>其它
+Controller中可以用变量request，然后可以得到session, request_info, head, method等请求信息
+.与#使用惯例：在阅读书时经常会遇到User.all, users#show这样的表示，其中的点.与井号#使用也是有约定的，点.用于调用类方法，井号#用于调用实例方法。</p>
+
+<p>最重要的是要一致, 不要一会儿单数, 一会儿复数; 一会儿首字母小写, 一会儿首字母大写. 如果不能做到完全一致, 至少努力做大大部分情况下一致.</p>
+
+<p>变量名的单复数和大小写问题</p>
+
+<p>考虑下面三条命令:
+rails generate model user name:string
+rails generate controller user &ndash;no-test-framework
+rails generate integration_test user
+其中比较容我困惑的是user这个单词, 出现在不同的场合可能有下面四种情况:
+user
+users
+User
+Users
+上面的情况在railstutorial这本教程里面出现了至少3种, 在阅读的时候给我造成了很大的困惑. 我想, 到底什么才是最为推荐的? 如果不按照教程上面的例子做会不会有什么问题?</p>
+
+<p>实验的结论:
+首字母大小写是无关紧要的, 最终产生的结果是一致的.
+model一般都用单数, 复数的model会有歧义, 比如当你创建model的一个实例的时候, 会觉得你在创建多个实例
+其它很多地方用复数形式, 比如数据表的名字, 比如routes中的url形式以及url的名称等等.
+既然很多地方都用复数, 那么不如统一用复数形式. 另外经过检验, 统一用单数的方式有点行不通, 到restful routes那块跟Rails现有的设计有冲突. 那么索性就统一用复数形式好了.</p>
+
+<p>最终的解决方案:
+大小写问题已经没有争议了, 都用小写即可
+单复数问题: model名字用单数, 其它场合都用复数</p>
+
+<p>文件名的单复数问题
+经过观察, rails所有的常见的文件名都是小写的. 所以大小写的问题没有争议, 都用小写即可.
+但是单复数问题不太统一, 比如users_contoller.rb, model/user_spec.rb.
+这边总结的规律是:
+跟model相关的东西, 单数居多. 比如model文件, model_spec文件等等
+跟controller相关的东西, 复数居多. 比如 users_contoller文件, request/users_spec文件等等.
+跟view相关的东西也是复数居多. 因为view的文件的创建是在创建contoller的时候自动创建的, 所以它跟contoller基本上是一致的.比如 javascripts/users.js.coffee
+其它场合应该是单复数都可以.
+来自：<a href="http://www.tylerlong.me/1334585824/">http://www.tylerlong.me/1334585824/</a>  <a href="http://rubyer.me/blog/293/">http://rubyer.me/blog/293/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/07/02/week4-homework-note/">Week4 Homework Note</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-02T14:01:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>2:01 pm</span></time>
+        
+           | <a href="/posts/2014/07/02/week4-homework-note/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/07/02/week4-homework-note/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>這是 xdite 的 Ruby on Rails intermidate class 的第四堂課
+主要是在講解一些進階的技巧，例如 rake 這個工具, 前端後端加速優化的技巧, 利用 capistrano deploy 自己的網站, 還有講解求職的一些 Tips.</p>
+
+<p>剛剛先寫了一個簡單的 rake file 的作業</p>
+
+<p><code>利用 Rake 建立 10 個User 假帳號</code></p>
+
+<p>簡單的嘗試了一下,程式碼如下, 請從第三個 desc &ldquo;build account&rdquo; 開始看。</p>
+
+<p><code>desc</code>  用來描述這個 rake 工作是做什麼的
+<code>task</code> 用一個 symbol 來命名這個 rake task ,  搭配範例中第一行的 <code>namepace 為 :dev</code> ,  因此在 shell 端就是直接打  <code>rake dev:build_acc</code> 這樣的指令 就會去執行我要他做的動作。
+經過這樣測試之後，看起來是可以直接把原本在 rails console 要做的指令，搬過來，然後加上迴圈或判斷式加工，就可以做到很多我們想做的動作了。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">namespace</span> <span class="ss">:dev</span> <span class="k">do</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">desc</span> <span class="s2">&quot;Rebuild system&quot;</span>
+</span><span class='line'>  <span class="n">task</span> <span class="ss">:build</span> <span class="o">=&gt;</span> <span class="o">[</span> <span class="s2">&quot;tmp:clear&quot;</span><span class="p">,</span> <span class="s2">&quot;log:clear&quot;</span><span class="p">,</span> <span class="s2">&quot;db:drop&quot;</span><span class="p">,</span> <span class="s2">&quot;db:create&quot;</span><span class="p">,</span> <span class="s2">&quot;db:migrate&quot;</span><span class="p">,</span> <span class="s2">&quot;db:seed&quot;</span> <span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">desc</span> <span class="s2">&quot;demo&quot;</span>
+</span><span class='line'>  <span class="n">task</span> <span class="ss">:demo</span> <span class="o">=&gt;</span> <span class="ss">:environment</span> <span class="k">do</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10</span> <span class="k">do</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="n">i</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">desc</span> <span class="s2">&quot;build_account&quot;</span>
+</span><span class='line'>  <span class="n">task</span> <span class="ss">:build_acc</span> <span class="o">=&gt;</span> <span class="ss">:environment</span> <span class="k">do</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">n</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10</span> <span class="k">do</span>
+</span><span class='line'>      <span class="no">User</span><span class="o">.</span><span class="n">create!</span><span class="p">(</span><span class="ss">:email</span> <span class="o">=&gt;</span> <span class="s2">&quot;abc</span><span class="si">#{</span><span class="n">n</span><span class="si">}</span><span class="s2">@xxx.com&quot;</span><span class="p">,</span> <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="s2">&quot;12345678&quot;</span><span class="p">,</span> <span class="ss">:password_confirmation</span> <span class="o">=&gt;</span> <span class="s2">&quot;12345678&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/07/01/simple-form-nested-nested-table-attribute-rails-to-note-the-points/">Simple_form Nested Attribute 巢狀表格 Rails 要注意的點</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-01T03:56:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>3:56 am</span></time>
+        
+           | <a href="/posts/2014/07/01/simple-form-nested-nested-table-attribute-rails-to-note-the-points/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/07/01/simple-form-nested-nested-table-attribute-rails-to-note-the-points/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>會有這一篇解bug的紀錄是因為發現自己在 edit product 的page 裡面，使用了 simple_form_for 的巢狀表格時，增加引入了 simple_fields_for 這個東西， 結果出現多個上傳照片的按鈕，這很明顯一定是一個bug.</p>
+
+<p>後來查到這一篇在 stackoverflow 上的解法，才知道，應該是第二層的 instant variable 沒有被載入，所以就會create出新的。
+正確的code應該這樣寫:</p>
+
+<p>剛開始的時候使用 <code>simple_form_for [:admin, @product ]</code> 這樣的句法去載入在 namespce admin 下的 @product 變數。
+在第二層的時候使用 <code>simple_fields_for @product, :photos do |c|</code> 這樣的句法去載入 @product 這個變數,
+本來沒寫的時候, 你會發現每次網頁送出一次後，下次再進來就會出現兩列要上傳圖片的列, 看起來就不正確,不論重新上傳多少張,都應該要只有一列而已。 原因就是出現在第二層的表格,他不知道已經有產生過了</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;h2&gt; 新增產品 &lt;/h2&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;%= simple_form_for [:admin, @product ] , :html =&gt; { :class =&gt; "form form-horizontal"  } do |f| %&gt;
+</span><span class='line'>
+</span><span class='line'>  &lt;div class="form-group"&gt;
+</span><span class='line'>      &lt;div class="col-sm-10"&gt;
+</span><span class='line'>      &lt;%= f.input :title %&gt;
+</span><span class='line'>    &lt;/div&gt;
+</span><span class='line'>  &lt;/div&gt;
+</span><span class='line'>
+</span><span class='line'>  &lt;div class="form-group"&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;div class="col-sm-10"&gt;
+</span><span class='line'>      &lt;%= f.input :description, :as =&gt; :text %&gt;
+</span><span class='line'>    &lt;/div&gt;
+</span><span class='line'>  &lt;/div&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  &lt;div class="form-group"&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;div class="col-sm-1"&gt;
+</span><span class='line'>      &lt;%= f.input :quantity %&gt;
+</span><span class='line'>    &lt;/div&gt;
+</span><span class='line'>  &lt;/div&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  &lt;div class="form-group"&gt;
+</span><span class='line'>      &lt;div class="col-sm-1"&gt;
+</span><span class='line'>      &lt;%= f.input :price %&gt;
+</span><span class='line'>    &lt;/div&gt;
+</span><span class='line'>  &lt;/div&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;%= f.simple_fields_for :photos do |c| %&gt;
+</span><span class='line'>      &lt;%= c.input :image , :as =&gt; :file %&gt;
+</span><span class='line'>    &lt;% end %&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  &lt;div class="form-group"&gt;
+</span><span class='line'>    &lt;%= f.submit "Submit", :class =&gt; "btn btn-default" , :disable_with =&gt; 'Submiting...' %&gt;
+</span><span class='line'>  &lt;/div&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;% end %&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/06/22/week2-homework-note/">Week2 Homework Note</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-06-22T14:15:00+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>2:15 pm</span></time>
+        
+           | <a href="/posts/2014/06/22/week2-homework-note/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2014/06/22/week2-homework-note/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>上課的時候有講到一個技巧，如果 controller 的 method 要給 view 用的時候
+可以使用 <code>helper_method</code> 這個技巧</p>
+
+<p>在 controllers/application_controller.rb  可以放入這段 CODE</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'> <span class="n">helper_method</span> <span class="ss">:current_cart</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">current_cart</span>
+</span><span class='line'>    <span class="vi">@current_cart</span> <span class="o">||=</span> <span class="n">find_cart</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">find_cart</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">cart</span> <span class="o">=</span> <span class="no">Cart</span><span class="o">.</span><span class="n">find_by</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="n">session</span><span class="o">[</span><span class="ss">:cart_id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">unless</span>  <span class="n">cart</span><span class="o">.</span><span class="n">present?</span>
+</span><span class='line'>      <span class="n">cart</span> <span class="o">=</span> <span class="no">Cart</span><span class="o">.</span><span class="n">create</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">session</span><span class="o">[</span><span class="ss">:cart_id</span><span class="o">]</span> <span class="o">=</span> <span class="n">cart</span><span class="o">.</span><span class="n">id</span>
+</span><span class='line'>    <span class="n">cart</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中一開始看不懂的是這個符號  &ldquo; ||= &rdquo;  這什麼鬼阿!
+可以看這篇的解釋，
+<a href="http://rubyer.me/blog/568/"> 解釋 ||= 這個符號的意義 </a></p>
+
+<p>因為現在是 many to many 的關聯性 ,
+剛剛採了一個雷
+就是在找購物車的商品的時候，我傳遞了選擇的 product id 去 carts 的 controller, 把 product.id 帶過去
+然後因為我要在 cart_items 這個 table 去找出商品
+所以一開始這樣寫</p>
+
+<blockquote><p>def remove_item</p>
+
+<p> @item = <code>Cart_Item</code>.find_by(product_id: params[:id])
+ if @item.destroy
+   flash[:notice] = &ldquo;你已成功移除這項商品&rdquo;
+   else
+     flash[:warning] = &ldquo;Something Wrong when remove item!&rdquo;
+  end
+   redirect_to carts_path
+end</p></blockquote>
+
+<p>(sorry 為了凸顯那個我錯的地方 ,所以用引用的方式show 程式碼 , 結果無法縮排 )
+雖然 table name 是  cart_items ,  但是在上面的時候正確應該是要打   @item = <code>CartItem</code>.find_by(product_id: params[:id])
+這應該是命名慣例阿~ 踩過一次就記得了吧</p>
+
+<p>問題好多
+1. 信用卡付款之後跳轉訂單畫面，但是應該要清空購物車 ，想法是可以先去走 cart/destory 的controller , 但是裡面會跳出 你已成功清除購物車 ,  理論上結帳過來的動作不應該跳出這段字才對
+2. 不同USER的訂單編號應該都要從 1 開始&hellip;. 而不是直接顯示 order table 裡面的編號 , 那是全部系統訂單的編號
+3.
+4.  如果已經變更了 aasm 裡面的狀態，結果要變更第二次的時候就噴error了，所以應該要有 error handling 的機制</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/5">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/3">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2018/05/02/test-for-new-post/">Test for New Post</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/">如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/10/how-to-get-improved-to-write-clean-code/">如何寫出clean Code 的參考資料</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/10/05/rails-using-aws-ses-send-mail-service/">Rails Using AWS SES Send Mail Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/">Redmine 串 AWS S3 遇到的問題 Hack Workaround</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Daniel Lin 丹哥 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dangjlin';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

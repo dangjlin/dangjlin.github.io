@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Nginx | 丹哥的技術培養皿]]></title>
+  <link href="http://dangjlin.github.io/blog/categories/nginx/atom.xml" rel="self"/>
+  <link href="http://dangjlin.github.io/"/>
+  <updated>2018-05-02T17:24:37+08:00</updated>
+  <id>http://dangjlin.github.io/</id>
+  <author>
+    <name><![CDATA[Daniel Lin 丹哥]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx]]></title>
+    <link href="http://dangjlin.github.io/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/"/>
+    <updated>2017-02-22T17:39:14+08:00</updated>
+    <id>http://dangjlin.github.io/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx</id>
+    <content type="html"><![CDATA[<h1>從provision VM 到自動安裝軟體、到使用 mina 自動化部署 Rails App</h1>
+
+<h2>provision 一台新 ubuntu server</h2>
+
+<p>自動裝機 script , 分兩段:</p>
+
+<p>1- 第一段自動裝軟體 ,
+curl -L <a href="https://gist.githubusercontent.com/dangjlin/2dd09f80d114e54b54be89ce8b9c6336/raw/d94cfd5eb92905c45899cb41a86c64b9f868efb5/init_install.sh">https://gist.githubusercontent.com/dangjlin/2dd09f80d114e54b54be89ce8b9c6336/raw/d94cfd5eb92905c45899cb41a86c64b9f868efb5/init_install.sh</a> | sh</p>
+
+<p>gist file: (<a href="https://gist.github.com/dangjlin/2dd09f80d114e54b54be89ce8b9c6336">https://gist.github.com/dangjlin/2dd09f80d114e54b54be89ce8b9c6336</a>)[<a href="https://gist.github.com/dangjlin/2dd09f80d114e54b54be89ce8b9c6336">https://gist.github.com/dangjlin/2dd09f80d114e54b54be89ce8b9c6336</a>]</p>
+
+<p>很重要的是：
+<em>裝完之後需手動 source ~/.bashrc 重新載入環境變數</em>
+才可以再繼續run 第二段</p>
+
+<p>2- 一段自動裝 rbenv  &amp; 安裝 ruby 2.3.0
+curl -L <a href="https://gist.githubusercontent.com/dangjlin/f57d8713352bfc8b0d35c31327658790/raw/efe262d3c030fa32d479b2eb9d852b41edc736d8/rbenv_init.sh">https://gist.githubusercontent.com/dangjlin/f57d8713352bfc8b0d35c31327658790/raw/efe262d3c030fa32d479b2eb9d852b41edc736d8/rbenv_init.sh</a> | sh</p>
+
+<p>gist file:
+(<a href="https://gist.github.com/dangjlin/f57d8713352bfc8b0d35c31327658790">https://gist.github.com/dangjlin/f57d8713352bfc8b0d35c31327658790</a>)[<a href="https://gist.github.com/dangjlin/f57d8713352bfc8b0d35c31327658790">https://gist.github.com/dangjlin/f57d8713352bfc8b0d35c31327658790</a>]</p>
+
+<p>如果VPS都永遠在 AWS 或 Digital Ocean or Linode ,
+建議裝好之後自己 create 一個 image file,
+以後就用這個image 去 provision new server</p>
+
+<h2>接著我會使用 chef-solo , knife-solo 自動安裝</h2>
+
+<p>cookbook 準備了 user , nginx, postgres sql 等自動安裝及自動設定 config template.</p>
+
+<p>補充 knife-solo 的安裝 (摘錄 from Gogojimmy 網頁說明
+在我們的本機，我們先安裝好knife，針對我們所使用的是Chef-Solo，因此我們要安裝的是Knife-Solo
+<code>gem install knife-solo</code>
+裝好了knife-solo以後，讓我們使用knife solo init 來開啟一個新專案
+<code>knife solo init knife-solo-demo</code>
+再來我們進行下一步之前我們先產生一個chef的設定檔
+<code>knife configure -r . --defaults</code></p>
+
+<p>在 knife-solo-demo/node 目錄裡面要 create 一個  xx.xx.xx.xx.json 檔案
+這個就是待會 knife-solo 會參照的檔案</p>
+
+<h2>往下設定 config 之前請先完成這幾個動作</h2>
+
+<ol>
+<li>把local端的 ~/.ssh/id_rsa.pub 檔案 copy 到server端的 ~/.ssh/authorized_keys 裡面</li>
+<li>把server端的 ~/.ssh/id_rsa.pub 檔案登記到 github 上面，這樣server 端才可以到github拉檔案</li>
+</ol>
+
+
+<h2>啟動 knife-solo ，使其對 server 端開啟自動 chef 的自動化腳本安裝</h2>
+
+<p>這邊有兩種情境
+一種就是一般的 ssh 登入的方式，例如 digital ocean , linode 之類的
+這種就照原本knife-solo的做法就可以
+<code>knife solo bootstrap server-user-name@xx.xx.xx.xx</code></p>
+
+<p>一種就是 AWS 那種要登入到 ec2 instance 的時候，我們的 local 的環境要有一把  xxxx.pem 檔案的私鑰
+這一種就要打這個指令才有辦法讓 knife-solo 去免帳號密碼 遠端驅動 server site 執行 chef-solo
+<code>solo bootstrap xx.xx.xx.xx(server_ip) --ssh-user ubuntu -i ~/.ssh/your-pem-file-name.pem --node-name xx.xxx.xx.xx</code></p>
+
+<h2>接著請手動調整下列三個 config file</h2>
+
+<p>nginx config file, put it in the site-enable/default  file</p>
+
+<pre><code class="Ruby">upstream app {
+    # Path to Puma SOCK file, as defined previously
+    server unix:/home/ubuntu/site/app/app-name/current/shared/sockets/puma.sock fail_timeout=0;
+}
+
+server {
+    listen 80;
+    server_name localhost;
+
+    root /home/ubuntu/site/app/app-name/current/public;
+
+    try_files $uri/index.html $uri @app;
+
+    location @app {
+        proxy_pass http://app;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+    }
+
+    error_page 500 502 503 504 /500.html;
+    client_max_body_size 4G;
+    keepalive_timeout 10;
+}
+</code></pre>
+
+<p>puma config file in config/puma_production.rb
+```Ruby
+environment &lsquo;production&rsquo;
+threads 2, 64
+workers 2   #depends on how many cores of server CPU</p>
+
+<p>application_path = File.expand_path(&lsquo;..&rsquo;, <strong>dir</strong>)
+directory application_path</p>
+
+<p>pidfile &ldquo;#{application_path}/shared/pids/puma.pid&rdquo;
+state_path &ldquo;#{application_path}/shared/sockets/puma.state&rdquo;
+stdout_redirect &ldquo;#{application_path}/shared/log/puma.stdout.log&rdquo;, &ldquo;#{application_path}/shared/log/puma.stderr.log&rdquo;
+bind &ldquo;unix://#{application_path}/shared/sockets/puma.sock&rdquo;
+activate_control_app &ldquo;unix://#{application_path}/shared/sockets/pumactl.sock&rdquo;</p>
+
+<p>daemonize true
+preload_app!</p>
+
+<pre><code>
+## Mina Setup 步驟執行之後注意事項
+有三件事情要做：
+1- 因為有兩個 config 檔案我們是做 symbolic link 到 shared folder  " shared/config " 目錄裡面
+所以記得要server 上手動增加   database.yml , secret.yml 檔案
+2- 另外還有環境變數也記得手動到server去增加，以利後續 Rails production server 要讀取＆啟動
+3- 在 postgresql 手動 create production 的 database.
+
+mina config file in config/deploy.rb
+</code></pre>
+
+<p>require &lsquo;mina/bundler&rsquo;
+require &lsquo;mina/rails&rsquo;
+require &lsquo;mina/git&rsquo;
+require &lsquo;mina/rbenv&rsquo;
+require &lsquo;mina/puma&rsquo;</p>
+
+<h1>Basic settings:</h1>
+
+<h1>domain       - The hostname to SSH to.</h1>
+
+<h1>deploy_to    - Path to deploy into.</h1>
+
+<h1>repository   - Git repo to clone from. (needed by mina/git)</h1>
+
+<h1>branch       - Branch name to deploy. (needed by mina/git)</h1>
+
+<p>set :application_name, &lsquo;production_app&rsquo;
+set :domain, &lsquo;192.168.99.99&rsquo;
+set :user, &lsquo;ubuntu&rsquo; # Username in the server to SSH to.
+set :deploy_to, &ldquo;/home/#{fetch(:user)}/site/app/#{fetch(:application_name)}&rdquo;
+set :repository, &lsquo;git@github.com:abcdefg/xyz.git&rsquo;
+set :branch, &lsquo;master&rsquo;
+set :rbenv_path, &ldquo;$HOME/.rbenv&rdquo;
+set :database, &lsquo;name_of_production&rsquo;</p>
+
+<h1>shared dirs and files will be symlinked into the app-folder by the &lsquo;deploy:link_shared_paths&rsquo; step.</h1>
+
+<p>set :shared_files, fetch(:shared_files, []).push(&lsquo;config/database.yml&rsquo;, &lsquo;config/secrets.yml&rsquo;)
+set :shared_dirs, fetch(:shared_dirs, []).push(&lsquo;shared/log&rsquo;, &lsquo;tmp/cache&rsquo;, &lsquo;shared/pids&rsquo;, &lsquo;shared/sockets&rsquo;, &lsquo;public&rsquo;, &lsquo;vendor&rsquo;)</p>
+
+<h1>This task is the environment that is loaded for all remote run commands, such as</h1>
+
+<h1><code>mina deploy</code> or <code>mina rake</code>.</h1>
+
+<p>task :environment do
+    invoke :&lsquo;rbenv:load&rsquo;
+end</p>
+
+<p>task :setup do</p>
+
+<p>end</p>
+
+<p>desc &ldquo;Deploys the current version to the server.&rdquo;
+task :deploy do
+  deploy do
+    # Put things that will set up an empty directory into a fully set-up
+    # instance of your project.
+    invoke :&lsquo;git:clone&rsquo;
+    invoke :&lsquo;deploy:link_shared_paths&rsquo;
+    invoke :&lsquo;bundle:install&rsquo;
+    invoke :&lsquo;rails:db_migrate&rsquo;
+    invoke :&lsquo;rails:assets_precompile&rsquo;
+    invoke :&lsquo;deploy:cleanup&rsquo;</p>
+
+<pre><code>on :launch do
+    in_path(fetch(:current_path)) do
+    command %{mkdir -p tmp/}
+    command %{touch tmp/restart.txt}
+    invoke :'puma_restart'
+    end
+end
+</code></pre>
+
+<p>  end
+  # you can use <code>run :local</code> to run tasks on local machine before of after the deploy scripts
+  # run(:local){ say &lsquo;done&rsquo; }
+end</p>
+
+<p>task puma_restart: :environment do
+  puma_pid = &ldquo;#{fetch(:current_path)}/shared/pids/puma.pid&rdquo;
+  command %[
+    if [ -e &lsquo;#{puma_pid}&rsquo; ]; then
+      bundle exec pumactl -F config/puma_production.rb stop
+      bundle exec pumactl -F config/puma_production.rb start
+    else
+      bundle exec pumactl -F config/puma_production.rb start
+    fi
+  ]
+end</p>
+
+<h1>For help in making your deploy script, see the Mina documentation:</h1>
+
+<h1>- <a href="https://github.com/mina-deploy/mina/tree/master/docs">https://github.com/mina-deploy/mina/tree/master/docs</a></h1>
+
+<p>```</p>
+
+<p>參考網站：
+(<a href="http://gogojimmy.net/2013/06/01/Chef-Solo-Basic-with-Vagrant/">http://gogojimmy.net/2013/06/01/Chef-Solo-Basic-with-Vagrant/</a>)[<a href="http://gogojimmy.net/2013/06/01/Chef-Solo-Basic-with-Vagrant/">http://gogojimmy.net/2013/06/01/Chef-Solo-Basic-with-Vagrant/</a>]
+(<a href="https://ruchee.com/notes/2016/deploy_rails_use_ubuntu_nginx_puma_mina.html">https://ruchee.com/notes/2016/deploy_rails_use_ubuntu_nginx_puma_mina.html</a>)[<a href="https://ruchee.com/notes/2016/deploy_rails_use_ubuntu_nginx_puma_mina.html">https://ruchee.com/notes/2016/deploy_rails_use_ubuntu_nginx_puma_mina.html</a>]</p>
+]]></content>
+  </entry>
+  
+</feed>

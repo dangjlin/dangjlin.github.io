@@ -1,0 +1,313 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>網址要使用人類可以辨識帶有意義的字句 - 丹哥的技術培養皿</title>
+  <meta name="author" content="Daniel Lin 丹哥">
+
+  
+  <meta name="description" content="這個需求應該會是一個普遍上一定會遇到的問題，就是網址不再使用rails因為 RESTful 的設計，不要都是直接抓出各種table的主id鍵值作為KEY值。 查了一些資料之後，發現用最多的應該就是這個gem了 “friendly_ID &ldquo; 將很多 CASE 都有考量進來。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dangjlin.github.io/posts/2014/07/14/url-to-use-human-identification-with-meaningful-phrases/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="丹哥的技術培養皿" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47039951-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">丹哥的技術培養皿</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="dangjlin.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">網址要使用人類可以辨識帶有意義的字句</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-14T10:04:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:04 am</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>這個需求應該會是一個普遍上一定會遇到的問題，就是網址不再使用rails因為 RESTful 的設計，不要都是直接抓出各種table的主id鍵值作為KEY值。</p>
+
+<p>查了一些資料之後，發現用最多的應該就是這個gem了 “friendly_ID &ldquo; 將很多 CASE 都有考量進來。</p>
+
+<p>當然另外也有土法煉鋼的方式，就是自己create slug 欄位，然後再存檔的時候，先處理字串，再寫到table的欄位去</p>
+
+<p>先memo第一種做法：friendly_ID 的簡便做法
+從官方網站上面節錄下來： <a href="https://github.com/norman/friendly_id">FriendlyId is the “Swiss Army bulldozer” of slugging and permalink plugins for ActiveRecord</a></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># Gemfile
+</span><span class='line'>gem 'friendly_id', '~&gt; 5.0.0' # Note: You MUST use 5.0.0 or greater for Rails 4.0+
+</span><span class='line'>
+</span><span class='line'>&gt;rails generate friendly_id
+</span><span class='line'>&gt;rake db:migrate
+</span><span class='line'>
+</span><span class='line'># edit app/models/user.rb
+</span><span class='line'>class User &lt; ActiveRecord::Base
+</span><span class='line'>  extend FriendlyId
+</span><span class='line'>  friendly_id :name, use: :slugged
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'># Change User.find to User.friendly.find in your controller
+</span><span class='line'>User.friendly.find(params[:id])
+</span><span class='line'>
+</span><span class='line'># If you're adding FriendlyId to an existing app and need
+</span><span class='line'># to generate slugs for existing users, do this from the
+</span><span class='line'># console, runner, or add a Rake task:
+</span><span class='line'>User.find_each(&:save)
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這邊有幾個重點：
+1. model 裡面把你要置換的網址的欄位寫上去，此範例為使用 User table 的 name 欄位，要用名稱作為網址，而不要使用 xxx/xxx/user/:id  這種網址了。
+2. controller 裡面一定要換成  User.<code>friendly</code>.find(params[:id]
+這樣 rails 才會認得  xxx/user/name/edit or xxx/user/name/show 這種網址<br/>
+3. 當我們要使用這樣的做法去處理每一筆新 create 的資料, FriendlyID都會自動幫我們增加到 slug 的欄位內
+但是舊的怎麼辦呢？  所以就是到 console 裡面使用 <code>User.find_each(&amp;:save)</code> 這樣的指令去對資料庫的資料重新做一次save,  因為 FriendlyID 會在 before_save 做 validation ，因此發現slug 沒有做，就會重新做一次。 （印象中是這種概念，有錯誤請指正我，謝謝）</p>
+
+<p>第二個方法可以參考 TIM 的筆記，但我也還在摸索當中，暫時還看不太懂。
+<a href="http://disco26.logdown.com/posts/171238-30-coder79-day-241-tea-leaf-course-2-week-4-sluggify-posts">Sluggify Post</a>
+<a href="http://disco26.logdown.com/posts/171360-30-coder81-day-242-tea-leaf-course-2-week-4-better-slugs">Better Slug Post</a>
+<a href="http://disco26.logdown.com/posts/171391-30-coder83-day-242-tea-leaf-course-2-week-4-sluggable-module">進階：把很多地方要使用Sluggable Title 封裝為 Sluggable Module</a></p>
+
+<p>另外 stackoverflow 上面也有一篇很有意義的文章
+<a href="http://stackoverflow.com/questions/1302022/best-way-to-generate-slugs-human-readable-ids-in-rails">best way to generate slugs-human readable title in rails</a></p>
+
+<p>補充另一個網友寫的筆記
+<a href="http://arthurpai.logdown.com/posts/2014/06/21/generate-slug">Generate Slug</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Daniel Lin 丹哥</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-07-14T10:04:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:04 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dangjlin.github.io/posts/2014/07/14/url-to-use-human-identification-with-meaningful-phrases/" data-via="" data-counturl="http://dangjlin.github.io/posts/2014/07/14/url-to-use-human-identification-with-meaningful-phrases/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/2014/07/14/table-to-be-taken-out-of-the-serial-numbers-of-the-practice/" title="Previous Post: 表格內要帶出序號的做法">&laquo; 表格內要帶出序號的做法</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/2014/07/18/rapid-increases-in-accordance-with-table-sorting-paging-function/" title="Next Post: 快速把表格增加依照欄位排序、分頁功能">快速把表格增加依照欄位排序、分頁功能 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2018/05/02/test-for-new-post/">Test for New Post</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/">如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/10/how-to-get-improved-to-write-clean-code/">如何寫出clean Code 的參考資料</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/10/05/rails-using-aws-ses-send-mail-service/">Rails Using AWS SES Send Mail Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/">Redmine 串 AWS S3 遇到的問題 Hack Workaround</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Daniel Lin 丹哥 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dangjlin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dangjlin.github.io/posts/2014/07/14/url-to-use-human-identification-with-meaningful-phrases/';
+        var disqus_url = 'http://dangjlin.github.io/posts/2014/07/14/url-to-use-human-identification-with-meaningful-phrases/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

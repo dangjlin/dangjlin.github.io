@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Programming | 丹哥的技術培養皿]]></title>
+  <link href="http://dangjlin.github.io/blog/categories/programming/atom.xml" rel="self"/>
+  <link href="http://dangjlin.github.io/"/>
+  <updated>2018-05-02T17:24:37+08:00</updated>
+  <id>http://dangjlin.github.io/</id>
+  <author>
+    <name><![CDATA[Daniel Lin 丹哥]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[如何寫出clean Code 的參考資料]]></title>
+    <link href="http://dangjlin.github.io/posts/2017/02/10/how-to-get-improved-to-write-clean-code/"/>
+    <updated>2017-02-10T14:32:20+08:00</updated>
+    <id>http://dangjlin.github.io/posts/2017/02/10/how-to-get-improved-to-write-clean-code</id>
+    <content type="html"><![CDATA[<h1>如何設計好的程式架構跟安排，寫出clean code</h1>
+
+<p>這是在臉書上徵詢請教大大的筆記資料</p>
+
+<h2>thanks TaiAn suggestions:</h2>
+
+<p>Leetcode 主要還是演算法
+如果是 OO (Objective Oriented) 的話，
+0. Confident Ruby
+1. Practical Object oriented design in ruby
+2. Implementation pattern
+3. The art of readable code</p>
+
+<p>我記得後三本都有中文。如果不是 ruby 的話，第 0 本可以省略。也有人推薦 code complete 2，但是實在很厚，語氣也有點教條。</p>
+
+<p><a href="https://sourcemaking.com/refactoring">https://sourcemaking.com/refactoring</a></p>
+
+<h2>thanks Scott Tsai suggestions:</h2>
+
+<ol>
+<li>閱讀某篇 coding style 規範 (e.g. Google 的) 思考辯證其中規則 (e.g. 命名，變數長度與可見範圍)</li>
+<li>閱讀某高品質的 open source 專案的程式，或可從 <a href="http://aosabook.org/en/index.html">http://aosabook.org/en/index.html</a> 找個目標。 500 lines or less 的程式也頗適合。</li>
+</ol>
+
+
+<p>附註：Leetcode 只求解出演算法題目，會鼓勵實作快速、執行也夠快的程式碼，與寫出 &ldquo;clean code&rdquo; 的目標應是背道而馳。</p>
+
+<h2>thank unknow friend</h2>
+
+<p>一本聖經叫clean code</p>
+
+<h2>thanks Jason</h2>
+
+<p>裝rubocop，養成每次git commit 之前跑檢查，把檢查出的錯誤堅持修掉，然後隨經驗的累積調整 rubocop 的設定</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,631 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Sublime Setting 設置文件中文解說 - 丹哥的技術培養皿</title>
+  <meta name="author" content="Daniel Lin 丹哥">
+
+  
+  <meta name="description" content="本篇來自這裡 Sublime Text 2 設置文件詳解 ，作者是中國的 IT開發者: 金三胖 做個備份。 無侵權之用意。 看來想駕馭好這軟件不弄清楚配置文件是不行了，周末找了時間把配置文件的每條配置信息都加上了中文注釋，現在貼出來和大家共享，裏面有解釋不清楚的也歡迎大家夥來互相討論:) 另外， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dangjlin.github.io/posts/2014/07/24/sublime-setting-configuration-chinese-comment-explaination/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="丹哥的技術培養皿" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47039951-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">丹哥的技術培養皿</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="dangjlin.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Sublime Setting 設置文件中文解說</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-24T07:31:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>7:31 am</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>本篇來自這裡 <a href="http://my.oschina.net/Twitter/blog/139492">Sublime Text 2 設置文件詳解</a> ，作者是中國的 IT開發者: 金三胖</h3>
+
+<blockquote><blockquote><p>做個備份。 無侵權之用意。</p></blockquote></blockquote>
+
+<p> 看來想駕馭好這軟件不弄清楚配置文件是不行了，周末找了時間把配置文件的每條配置信息都加上了中文注釋，現在貼出來和大家共享，裏面有解釋不清楚的也歡迎大家夥來互相討論:)</p>
+
+<p>另外，這也是我的第一篇博客，以後我會多寫些前端方面的文章和大家共享，歡迎一起討論:)</p>
+
+<p>Preferences.sublime-settings文件：</p>
+
+<p>// While you can edit this file, it’s best to put your changes in
+// “User/Preferences.sublime-settings”, which overrides the settings in here.
+//
+// Settings may also be placed in file type specific options files, for
+// example, in Packages/Python/Python.sublime-settings for python files.
+{
+// Sets the colors used within the text area
+// 主題文件的路徑
+“color_scheme”: “Packages/Color Scheme – Default/Monokai.tmTheme”,</p>
+
+<p>// Note that the font_face and font_size are overriden in the platform
+// specific settings file, for example, “Preferences (Linux).sublime-settings”.
+// Because of this, setting them here will have no effect: you must set them
+// in your User File Preferences.
+// 設置字體和大小，必須在Settings-User裏重寫，這裏設置沒有任何效果
+“font_face”: “Consolas”,
+“font_size”: 12,</p>
+
+<p>// Valid options are “no_bold”, “no_italic”, “no_antialias”, “gray_antialias”,
+// “subpixel_antialias” and “no_round” (OS X only)
+// 字體選項：no_bold不顯示粗體字，no_italic不顯示斜體字，no_antialias和no_antialias關閉反鋸齒
+// subpixel_antialias和no_round是OS X系統獨有的
+“font_options”: [],</p>
+
+<p>// Characters that are considered to separate words
+// 在文字上雙擊會全選當前的內容，如果裏面出現以下字符，就會被截斷
+“word_separators”: “./\()\”‘-:,.;&lt;>~!@#$%^&amp;*|+=[]{}`~?”,</p>
+
+<p>// Set to false to prevent line numbers being drawn in the gutter
+// 是否顯示行號
+“line_numbers”: true,</p>
+
+<p>// Set to false to hide the gutter altogether
+// 是否顯示行號邊欄
+“gutter”: true,</p>
+
+<p>// Spacing between the gutter and the text
+// 行號邊欄和文字的間距
+“margin”: 4,</p>
+
+<p>// Fold buttons are the triangles shown in the gutter to fold regions of text
+// 是否顯示代碼折叠按鈕
+“fold_buttons”: true,</p>
+
+<p>// Hides the fold buttons unless the mouse is over the gutter
+// 不管鼠標在不在行號邊欄，代碼折叠按鈕一直顯示
+“fade_fold_buttons”: true,</p>
+
+<p>// Columns in which to display vertical rulers
+//列顯示垂直標尺，在中括號裏填入數字，寬度按字符計算
+“rulers”: [],</p>
+
+<p>// Set to true to turn spell checking on by default
+// 是否打開拼寫檢查
+“spell_check”: false,</p>
+
+<p>// The number of spaces a tab is considered equal to
+// Tab鍵制表符寬度
+“tab_size”: 4,</p>
+
+<p>// Set to true to insert spaces when tab is pressed
+// 設为true時，縮進和遇到Tab鍵時使用空格替代
+“translate_tabs_to_spaces”: false,</p>
+
+<p>// If translate_tabs_to_spaces is true, use_tab_stops will make tab and
+// backspace insert/delete up to the next tabstop
+// translate_tabs_to_spaces設置为true，Tab和Backspace的刪除/插入作用於制表符寬度
+// 否則作用於單個空格
+“use_tab_stops”: true,</p>
+
+<p>// Set to false to disable detection of tabs vs. spaces on load
+// false時禁止在載入的時候檢測制表符和空格
+“detect_indentation”: true,</p>
+
+<p>// Calculates indentation automatically when pressing enter
+// 按回車時，自動與制表位對齊
+“auto_indent”: true,</p>
+
+<p>// Makes auto indent a little smarter, e.g., by indenting the next line
+// after an if statement in C. Requires auto_indent to be enabled.
+//針對C語言的
+“smart_indent”: false,</p>
+
+<p>// Adds whitespace up to the first open bracket when indenting. Requires
+// auto_indent to be enabled.
+// 需要启用auto_indent，第一次打開括號縮進時插入空格？（沒測試出來效果…）
+“indent_to_bracket”: true,</p>
+
+<p>// Trims white space added by auto_indent when moving the caret off the
+// line.
+// 顯示對齊的白線是否根據回車、tab等操作自動填補
+“trim_automatic_white_space”: true,</p>
+
+<p>// Disables horizontal scrolling if enabled.
+// May be set to true, false, or “auto”, where it will be disabled for
+// source code, and otherwise enabled.
+// 是否自動換行，如果選auto，需要加雙引號
+“word_wrap”: false,</p>
+
+<p>// Set to a value other than 0 to force wrapping at that column rather than the
+// window width
+// 設置窗口內文字區域的寬度
+“wrap_width”: 0,</p>
+
+<p>// Set to false to prevent word wrapped lines from being indented to the same
+// level
+// 防止被縮進到同一級的字換行
+“indent_subsequent_lines”: true,</p>
+
+<p>// Draws text centered in the window rather than left aligned
+// 如果沒有定義過，則文件居中顯示（比如新建的文件）
+“draw_centered”: false,</p>
+
+<p>// Controls auto pairing of quotes, brackets etc
+// 自動匹配引號，括號等
+“auto_match_enabled”: true,</p>
+
+<p>// Word list to use for spell checking
+// 拼寫檢查的單詞列表路徑
+“dictionary”: “Packages/Language – English/en_US.dic”,</p>
+
+<p>// Set to true to draw a border around the visible rectangle on the minimap.
+// The color of the border will be determined by the “minimapBorder” key in
+// the color scheme
+// 代碼地圖的可視區域部分是否加上邊框，邊框的顏色可在配色方案上加入minimapBorder鍵
+“draw_minimap_border”: false,</p>
+
+<p>// If enabled, will highlight any line with a caret
+// 突出顯示當前光標所在的行
+“highlight_line”: false,</p>
+
+<p>// Valid values are “smooth”, “phase”, “blink”, “wide” and “solid”.
+// 設置光標閃動方式
+“caret_style”: “smooth”,</p>
+
+<p>// Set to false to disable underlining the brackets surrounding the caret
+// 是否特殊顯示當前光標所在的括號、代碼頭尾閉合標記
+“match_brackets”: true,</p>
+
+<p>// Set to false if you’d rather only highlight the brackets when the caret is
+// next to one
+// 設为false時，只有光標在括號或頭尾閉合標記的兩端時，match_brackets才生效
+“match_brackets_content”: true,</p>
+
+<p>// Set to false to not highlight square brackets. This only takes effect if
+// match_brackets is true
+// 是否突出顯示圓括號，match_brackets为true生效
+“match_brackets_square”: false,</p>
+
+<p>// Set to false to not highlight curly brackets. This only takes effect if
+// match_brackets is true
+// 是否突出顯示大括號，match_brackets为true生效
+“match_brackets_braces”: false,</p>
+
+<p>// Set to false to not highlight angle brackets. This only takes effect if
+// match_brackets is true
+// 是否突出顯示尖括號，match_brackets为true生效
+“match_brackets_angle”: false,</p>
+
+<p>// Enable visualization of the matching tag in HTML and XML
+// html和xml下突出顯示光標所在標簽的兩端，影響HTML、XML、CSS等
+“match_tags”: true,</p>
+
+<p>// Highlights other occurrences of the currently selected text
+// 全文突出顯示和當前選中字符相同的字符
+“match_selection”: true,</p>
+
+<p>// Additional spacing at the top of each line, in pixels
+// 設置每一行到頂部，以像素为單位的間距，效果相當於行距
+“line_padding_top”: 1,</p>
+
+<p>// Additional spacing at the bottom of each line, in pixels
+// 設置每一行到底部，以像素为單位的間距，效果相當於行距
+“line_padding_bottom”: 1,</p>
+
+<p>// Set to false to disable scrolling past the end of the buffer.
+// On OS X, this value is overridden in the platform specific settings, so
+// you’ll need to place this line in your user settings to override it.
+// 設置为false時，滾動到文本的最下方時，沒有緩沖區
+“scroll_past_end”: true,</p>
+
+<p>// This controls what happens when pressing up or down when on the first
+// or last line.
+// On OS X, this value is overridden in the platform specific settings, so
+// you’ll need to place this line in your user settings to override it.
+// 控制向上或向下到第一行或最後一行時發生什麼（沒明白也沒試出來）
+“move_to_limit_on_up_down”: false,</p>
+
+<p>// Set to “none” to turn off drawing white space, “selection” to draw only the
+// white space within the selection, and “all” to draw all white space
+// 按space或tab時，實際會產生白色的點（一個空格一個點）或白色的橫線（tab_size設置的制表符的寬度），選中狀態下才能看到
+// 設置为none時，什麼情況下都不顯示這些點和線
+// 設置为selection時，只顯示選中狀態下的點和線
+// 設置为all時，則一直顯示
+“draw_white_space”: “selection”,</p>
+
+<p>// Set to false to turn off the indentation guides.
+// The color and width of the indent guides may be customized by editing
+// the corresponding .tmTheme file, and specifying the colors “guide”,
+// “activeGuide” and “stackGuide”
+// 制表位的對齊白線是否顯示，顏色可在主題文件裏設置（guide，activeGuide，stackGuide）
+“draw_indent_guides”: true,</p>
+
+<p>// Controls how the indent guides are drawn, valid options are
+// “draw_normal” and “draw_active”. draw_active will draw the indent
+// guides containing the caret in a different color.
+// 制表位的對齊白線，draw_normal为一直顯示，draw_active为只顯示當前光標所在的代碼控制域
+“indent_guide_options”: [&ldquo;draw_normal&rdquo;],</p>
+
+<p>// Set to true to removing trailing white space on save
+// 为true時，保存文件時會刪除每行結束後多餘的空格
+“trim_trailing_white_space_on_save”: false,</p>
+
+<p>// Set to true to ensure the last line of the file ends in a newline
+// character when saving
+// 为true時，保存文件時光標會在文件的最後向下換一行
+“ensure_newline_at_eof_on_save”: false,</p>
+
+<p>// Set to true to automatically save files when switching to a different file
+// or application
+// 切換到其它文件標簽或點擊其它非本軟件區域，文件自動保存
+“save_on_focus_lost”: false,</p>
+
+<p>// The encoding to use when the encoding can’t be determined automatically.
+// ASCII, UTF-8 and UTF-16 encodings will be automatically detected.
+// 編碼時不能自動檢測編碼時，將自動檢測ASCII, UTF-8 和 UTF-16
+“fallback_encoding”: “Western (Windows 1252)”,</p>
+
+<p>// Encoding used when saving new files, and files opened with an undefined
+// encoding (e.g., plain ascii files). If a file is opened with a specific
+// encoding (either detected or given explicitly), this setting will be
+// ignored, and the file will be saved with the encoding it was opened
+// with.
+// 默認編碼格式
+“default_encoding”: “UTF-8″,</p>
+
+<p>// Files containing null bytes are opened as hexadecimal by default
+// 包含空字節的文件被打開默認为十六進制
+“enable_hexadecimal_encoding”: true,</p>
+
+<p>// Determines what character(s) are used to terminate each line in new files.
+// Valid values are ‘system’ (whatever the OS uses), ‘windows’ (CRLF) and
+// ‘unix’ (LF only).
+// 每一行結束的時候用什麼字符做終止符
+“default_line_ending”: “system”,</p>
+
+<p>// When enabled, pressing tab will insert the best matching completion.
+// When disabled, tab will only trigger snippets or insert a tab.
+// Shift+tab can be used to insert an explicit tab when tab_completion is
+// enabled.
+// 設置为enabled時，在一個字符串間按Tab將插入一個制表符
+// 設置为true時，按Tab會根據前後環境進行代碼自動匹配填補
+“tab_completion”: true,</p>
+
+<p>// Enable auto complete to be triggered automatically when typing.
+// 代碼提示
+“auto_complete”: true,</p>
+
+<p>// The maximum file size where auto complete will be automatically triggered.
+// 代碼提示的大小限制
+“auto_complete_size_limit”: 4194304,</p>
+
+<p>// The delay, in ms, before the auto complete window is shown after typing
+// 代碼提示延遲顯示
+“auto_complete_delay”: 50,</p>
+
+<p>// Controls what scopes auto complete will be triggered in
+// 代碼提示的控制範圍
+“auto_complete_selector”: “source – comment”,</p>
+
+<p>// Additional situations to trigger auto complete
+// 觸發代碼提示的其他情況
+“auto_complete_triggers”: [ {&ldquo;selector&rdquo;: &ldquo;text.html&rdquo;, &ldquo;characters&rdquo;: &ldquo;&lt;&rdquo;} ],</p>
+
+<p>// By default, auto complete will commit the current completion on enter.
+// This setting can be used to make it complete on tab instead.
+// Completing on tab is generally a superior option, as it removes
+// ambiguity between committing the completion and inserting a newline.
+// 設为false時，選擇提示的代碼按回車或點擊可以輸出出來，但選擇true時不會輸出而是直接換行
+“auto_complete_commit_on_tab”: false,</p>
+
+<p>// Controls if auto complete is shown when snippet fields are active.
+// Only relevant if auto_complete_commit_on_tab is true.
+// auto_complete_commit_on_tab必須为true，控制代碼提示的活躍度（沒明白…）
+“auto_complete_with_fields”: false,</p>
+
+<p>// By default, shift+tab will only unindent if the selection spans
+// multiple lines. When pressing shift+tab at other times, it’ll insert a
+// tab character – this allows tabs to be inserted when tab_completion is
+// enabled. Set this to true to make shift+tab always unindent, instead of
+// inserting tabs.
+// 設置为false，使用Shift + tab總是插入制表符
+“shift_tab_unindent”: true,</p>
+
+<p>// If true, the selected text will be copied into the find panel when it’s
+// shown.
+// On OS X, this value is overridden in the platform specific settings, so
+// you’ll need to place this line in your user settings to override it.
+// 選中的文本按Ctrl + f時，自動复制到查找面板的文本框裏
+“find_selected_text”: true,</p>
+
+<p>//
+// User Interface Settings
+//</p>
+
+<p>// The theme controls the look of Sublime Text’s UI (buttons, tabs, scroll bars, etc)
+// Data\Packages\Theme – Default\Default.sublime-theme控制軟件的主題
+“theme”: “Default.sublime-theme”,</p>
+
+<p>// Set to 0 to disable smooth scrolling. Set to a value between 0 and 1 to
+// scroll slower, or set to larger than 1 to scroll faster
+// 滾動的速度
+“scroll_speed”: 1.0,</p>
+
+<p>// Controls side bar animation when expanding or collapsing folders
+// 左邊邊欄文件夾動畫
+“tree_animation_enabled”: true,
+// 標簽頁的關閉按鈕
+“show_tab_close_buttons”: true,</p>
+
+<p>// OS X 10.7 only: Set to true to disable Lion style full screen support.
+// Sublime Text must be restarted for this to take effect.
+// 針對OS X
+“use_simple_full_screen”: false,</p>
+
+<p>// Valid values are “system”, “enabled” and “disabled”
+// 水平垂直滾動條：system和disabled为默認顯示方式，enabled为自動隱藏顯示
+“overlay_scroll_bars”: “system”,</p>
+
+<p>//
+// Application Behavior Settings
+//</p>
+
+<p>// Exiting the application with hot_exit enabled will cause it to close
+// immediately without prompting. Unsaved modifications and open files will
+// be preserved and restored when next starting.
+//
+// Closing a window with an associated project will also close the window
+// without prompting, preserving unsaved changes in the workspace file
+// alongside the project.
+// 熱推出功能！退出時不會提示是否保存文件，而是直接退出
+// 下次打開軟件時，文件保持退出前的狀態，沒來得及保存的內容都在，但並沒有真實的寫在原文件裏
+“hot_exit”: true,</p>
+
+<p>// remember_open_files makes the application start up with the last set of
+// open files. Changing this to false will have no effect if hot_exit is
+// true
+// 軟件使用最後的設定打開文件，hot_exit为true時沒有效果
+“remember_open_files”: true,</p>
+
+<p>// OS X only: When files are opened from finder, or by dragging onto the
+// dock icon, this controls if a new window is created or not.
+// 針對OS X
+“open_files_in_new_window”: true,</p>
+
+<p>// Set to true to close windows as soon as the last file is closed, unless
+// there’s a folder open within the window. This is always enabled on OS X,
+// changing it here won’t modify the behavior.
+// 針對OS X
+“close_windows_when_empty”: true,
+// 哪些文件會被顯示到邊欄上
+// folder_exclude_patterns and file_exclude_patterns control which files
+// are listed in folders on the side bar. These can also be set on a per-
+// project basis.
+“folder_exclude_patterns”: [&ldquo;.svn&rdquo;, &ldquo;.git&rdquo;, &ldquo;.hg&rdquo;, &ldquo;CVS&rdquo;],
+“file_exclude_patterns”: [&ldquo;<em>.pyc&rdquo;, &ldquo;</em>.pyo&rdquo;, &ldquo;<em>.exe&rdquo;, &ldquo;</em>.dll&rdquo;, &ldquo;<em>.obj&rdquo;,&ldquo;</em>.o&rdquo;, &ldquo;<em>.a&rdquo;, &ldquo;</em>.lib&rdquo;, &ldquo;<em>.so&rdquo;, &ldquo;</em>.dylib&rdquo;, &ldquo;<em>.ncb&rdquo;, &ldquo;</em>.sdf&rdquo;, &ldquo;<em>.suo&rdquo;, &ldquo;</em>.pdb&rdquo;, &ldquo;<em>.idb&rdquo;, &ldquo;.DS_Store&rdquo;, &ldquo;</em>.class&rdquo;, &ldquo;<em>.psd&rdquo;, &ldquo;</em>.db&rdquo;],
+// These files will still show up in the side bar, but won’t be included in
+// Goto Anything or Find in Files
+“binary_file_patterns”: [&ldquo;<em>.jpg&rdquo;, &ldquo;</em>.jpeg&rdquo;, &ldquo;<em>.png&rdquo;, &ldquo;</em>.gif&rdquo;, &ldquo;<em>.ttf&rdquo;, &ldquo;</em>.tga&rdquo;, &ldquo;<em>.dds&rdquo;, &ldquo;</em>.ico&rdquo;, &ldquo;<em>.eot&rdquo;, &ldquo;</em>.pdf&rdquo;, &ldquo;<em>.swf&rdquo;, &ldquo;</em>.jar&rdquo;, &ldquo;*.zip&rdquo;],</p>
+
+<p>// List any packages to ignore here. When removing entries from this list,
+// a restart may be required if the package contains plugins.
+// 刪除你想要忽略的插件，需要重启
+“ignored_packages”: [&ldquo;Vintage&rdquo;]
+}</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Daniel Lin 丹哥</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-07-24T07:31:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>7:31 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dangjlin.github.io/posts/2014/07/24/sublime-setting-configuration-chinese-comment-explaination/" data-via="" data-counturl="http://dangjlin.github.io/posts/2014/07/24/sublime-setting-configuration-chinese-comment-explaination/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/2014/07/22/ruby-rails-operator-the-priority/" title="Previous Post: Ruby (Rails) 內運算式 (Operator)的優先順序 " && " , " == " ,  " || " 符號">&laquo; Ruby (Rails) 內運算式 (Operator)的優先順序 " && " , " == " ,  " || " 符號</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/2014/07/27/agile-web-development-with-rails-4-cache-fragile/" title="Next Post: Agile Web Development with Rails 4 - 快取緩存 Cache">Agile Web Development with Rails 4 - 快取緩存 Cache &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2018/05/02/test-for-new-post/">Test for New Post</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/">如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/10/how-to-get-improved-to-write-clean-code/">如何寫出clean Code 的參考資料</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/10/05/rails-using-aws-ses-send-mail-service/">Rails Using AWS SES Send Mail Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/">Redmine 串 AWS S3 遇到的問題 Hack Workaround</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Daniel Lin 丹哥 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dangjlin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dangjlin.github.io/posts/2014/07/24/sublime-setting-configuration-chinese-comment-explaination/';
+        var disqus_url = 'http://dangjlin.github.io/posts/2014/07/24/sublime-setting-configuration-chinese-comment-explaination/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

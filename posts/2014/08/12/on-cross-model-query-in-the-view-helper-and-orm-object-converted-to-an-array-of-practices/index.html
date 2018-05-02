@@ -1,0 +1,373 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>關於view 及helper內跨model 查詢及 ORM Object 轉換為array 的作法, View Partial 筆記 - 丹哥的技術培養皿</title>
+  <meta name="author" content="Daniel Lin 丹哥">
+
+  
+  <meta name="description" content="最近在處理一個需求，如果我們有三個 model , 三個table 分別叫做 patents and splitwordAs and splitwordBs
+第一個表是用來存所有的查詢資料，包括 id , apply_number, patent_content (文章的欄位) &hellip; &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dangjlin.github.io/posts/2014/08/12/on-cross-model-query-in-the-view-helper-and-orm-object-converted-to-an-array-of-practices/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="丹哥的技術培養皿" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47039951-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">丹哥的技術培養皿</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="dangjlin.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">關於view 及helper內跨model 查詢及 ORM Object 轉換為array 的作法, View Partial 筆記</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-08-12T08:09:00+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>8:09 am</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>最近在處理一個需求，如果我們有三個 model , 三個table 分別叫做 patents and splitwordAs and splitwordBs
+第一個表是用來存所有的查詢資料，包括 id , apply_number, patent_content (文章的欄位) &hellip;etc ..  不過這個表不重要，不是這次的重點
+第二、三個表是用來存切割文章用的關鍵詞，但是因為又有必須分階段切割段落的需求，還區分為兩大類， 所以就有splitwordAs &amp; splitwordBs 這兩個表用來存放關鍵詞。<br/>
+第二、三個表和第一個表是沒有任何的 association 關聯性的。
+一開始為了到底要怎麼在 Controller 內去查詢不同的 model 資料感到痛苦萬分，一直覺得無法完成，原本的觀念以為 abc controller 只能存取 abc model，後來才發現觀念錯誤，根本就異常的簡單。這代表著觀念不清楚就會花很多冤枉路一直查詢。當然如果一個controller 內充滿了去查詢各式各樣的model好像也很不正確，應該可以用別種手法去更精簡的撰寫。 似乎是叫做 decorator or presenter 的 design pettern  ? 不太確定是否有相關。</p>
+
+<p>言歸正傳，其實只要在 patent controller 裡面下查詢的code，那麼，在 patent 的 view &amp; helper 內就可以任意使用了</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">show</span>
+</span><span class='line'><span class="p">(</span><span class="err">前略</span><span class="p">)</span>
+</span><span class='line'>   <span class="vi">@first_key</span> <span class="o">=</span> <span class="no">Keyworda</span><span class="o">.</span><span class="n">where</span><span class="o">.</span><span class="n">not</span><span class="p">(</span><span class="s1">&#39;keyworda&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">)</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="s1">&#39;priority asc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pluck</span><span class="p">(</span><span class="ss">:keyworda</span><span class="p">)</span>
+</span><span class='line'> <span class="vi">@second_key</span> <span class="o">=</span> <span class="no">Keywordb</span><span class="o">.</span><span class="n">where</span><span class="o">.</span><span class="n">not</span><span class="p">(</span><span class="s1">&#39;keywordb&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">)</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="s1">&#39;priority asc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pluck</span><span class="p">(</span><span class="ss">:keywordb</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>而且透過 pluck 的 method, 可以去透過 activerecord 去抓出我們要的欄位內容，比如說，我這邊只需要每個表裡面的每一個關鍵詞， pluck 會回傳為一個 array , 方便我們之後運用。
+這邊還要注意， order 的 method 要放在 where之後，最後才能接 pluck 的method ，否則會出現錯誤。</p>
+
+<p>另外，透過這次的實驗，我才知道 controller 裡面去指揮 activereocrd 取到資料之後， view 不用說，當然可以直接用這資料。這次發現 helper 也可以用，真是太棒了。我原本以為 controller 的資料一定必須得先傳去 view , 然後我們必須透過 call method 的方式把 值<strong>當作參數</strong>  傳入 helper 內的 method 。 如果真得必須這樣做，那實在是太麻煩了。
+在查詢的過程當中，反而發現其實大多數人比較有問題的是，如何讓屬於 view 的 helper 可以讓 controller 或 model 用呢?</p>
+
+<p>另外筆記一下 view 裡面去 render 兩個區塊，分別是放在不同目錄下的 partial 檔案
+我的需求是， 我有一個主版面，要同時顯示兩個不同 model 的 table 資料,  或是 要同時顯示兩個 form 。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span> <span class="err">增加斷詞組</span> <span class="o">&lt;</span><span class="sr">/h1&gt;</span>
+</span><span class='line'><span class="sr">&lt;div class=&quot;row&quot;&gt;</span>
+</span><span class='line'><span class="sr">  &lt;div class=&quot;col-md-6&quot;&gt;</span>
+</span><span class='line'><span class="sr">    &lt;%= render :partial =&gt; &quot;keywordas/ne</span><span class="n">w</span><span class="s2">&quot;, locals: {keyworda: @keyworda} %&gt;</span>
+</span><span class='line'><span class="s2">  &lt;/div&gt;</span>
+</span><span class='line'><span class="s2">   &lt;div class=&quot;</span><span class="n">col</span><span class="o">-</span><span class="n">md</span><span class="o">-</span><span class="mi">6</span><span class="s2">&quot;&gt;</span>
+</span><span class='line'><span class="s2">    &lt;%= render :partial =&gt; &quot;</span><span class="n">keywordbs</span><span class="o">/</span><span class="kp">new</span><span class="s2">&quot;, locals: {keywordb: @keywordb} %&gt;</span>
+</span><span class='line'><span class="s2">  &lt;/div&gt;</span>
+</span><span class='line'><span class="s2">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這段code表示在另外兩個目錄 <code>keywordas</code> , <code>keywordbs</code> 有  _new.html.erb 這樣的 partial file
+<strong>Partial file 要記得底線!!!</strong></p>
+
+<p>keywordas/html _new.html.erb</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="sx">%= form_for(keyworda, url: keywordas_path) do |f| %&gt;</span>
+</span><span class='line'><span class="sx">    &lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:keyworda</span>  <span class="sx">%&gt;</span>
+</span><span class='line'><span class="sx">    &lt;%= f.text_field :keyworda %&gt;</span>
+</span><span class='line'>    <span class="o">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="s2">&quot; 增加第一步斷詞 &quot;</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">&quot;btn btn-large btn-primary&quot;</span> <span class="sx">%&gt;</span>
+</span><span class='line'><span class="sx">&lt;% end %&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>from rails guide 的說明，放在這邊一起讀作為註解 ，否則每次貼的 code 變數名稱與值都是相同的命名，實在搞不清楚哪個是哪個。</p>
+
+<h2>3.4.6 區域變數</h2>
+
+<p>要在局部頁面裡使用區域變數，在呼叫局部頁面時使用 :as 選項：</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;%=</span> <span class="n">render</span> <span class="ss">partial</span><span class="p">:</span> <span class="s2">&quot;product&quot;</span><span class="p">,</span> <span class="ss">collection</span><span class="p">:</span> <span class="vi">@products</span><span class="p">,</span> <span class="ss">as</span><span class="p">:</span> <span class="ss">:item</span> <span class="o">%&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>這樣修改以後，可以在局部頁面裡，用 item 來存取到 @products 集合裡的成員。也可以使用 locals: {} 選項，給任何的局部頁面，傳入隨意的區域變數。</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;%=</span> <span class="n">render</span> <span class="ss">partial</span><span class="p">:</span> <span class="s2">&quot;product&quot;</span><span class="p">,</span> <span class="ss">collection</span><span class="p">:</span> <span class="vi">@products</span><span class="p">,</span>
+</span><span class='line'>           <span class="ss">as</span><span class="p">:</span> <span class="ss">:item</span><span class="p">,</span> <span class="ss">locals</span><span class="p">:</span> <span class="p">{</span><span class="ss">title</span><span class="p">:</span> <span class="s2">&quot;Products Page&quot;</span><span class="p">}</span> <span class="o">%&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>在這個情況裡，局部頁面裡可以存取到 title 區域變數，值是 &ldquo;Products Page"。
+Rails 也給傳入集合的局部頁面，提供了一個計數器變數。名稱是集合名加上 _counter。譬如在算繪 @products 時，可以在局部頁面裡使用 product_counter，來知道局部頁面被算繪了幾次。但不能和 as: :value 選項一起使用。</p></blockquote>
+
+<p>補充說明
+collection: 的意思是</p>
+
+<blockquote><p>3.4.5 算繪集合
+局部頁面在算繪集合時非常有用。當使用 :collection 選項，會把集合的每個元素插入的局部頁面裡：</p></blockquote>
+
+<p>html index.html.erb</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="no">Products</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span>
+</span><span class='line'><span class="sr">&lt;%= render partial: &quot;product&quot;, collection: @products %&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>html _product.html.erb</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="no">Product</span> <span class="ss">Name</span><span class="p">:</span> <span class="o">&lt;%=</span> <span class="n">product</span><span class="o">.</span><span class="n">name</span> <span class="sx">%&gt;&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>當局部頁面傳入複數形式的集合時，可以在局部頁面裡透過與局部頁面同名的變數來存取到集合的成員。上例裡，局部頁面是 _product，product 則是當下被算繪的實體。</p>
+
+<p>算繪集合有簡寫形式。假設 @products 是 product 實體的集合，則在 index.html.erb 可以這麼寫：</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="no">Products</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span>
+</span><span class='line'><span class="sr">&lt;%= render @products %&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote></blockquote>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Daniel Lin 丹哥</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-08-12T08:09:00+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>8:09 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dangjlin.github.io/posts/2014/08/12/on-cross-model-query-in-the-view-helper-and-orm-object-converted-to-an-array-of-practices/" data-via="" data-counturl="http://dangjlin.github.io/posts/2014/08/12/on-cross-model-query-in-the-view-helper-and-orm-object-converted-to-an-array-of-practices/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/2014/08/08/perfume-love-taiwan/" title="Previous Post: Perfume - Love Taiwan !! ">&laquo; Perfume - Love Taiwan !! </a>
+      
+      
+        <a class="basic-alignment right" href="/posts/2015/04/03/technical-books-to-the-newly-graduated-software-engineer-100-copies/" title="Next Post: 給新畢業的軟體工程師的技術書籍100冊LIST">給新畢業的軟體工程師的技術書籍100冊LIST &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2018/05/02/test-for-new-post/">Test for New Post</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/">如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/10/how-to-get-improved-to-write-clean-code/">如何寫出clean Code 的參考資料</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/10/05/rails-using-aws-ses-send-mail-service/">Rails Using AWS SES Send Mail Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/">Redmine 串 AWS S3 遇到的問題 Hack Workaround</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Daniel Lin 丹哥 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dangjlin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dangjlin.github.io/posts/2014/08/12/on-cross-model-query-in-the-view-helper-and-orm-object-converted-to-an-array-of-practices/';
+        var disqus_url = 'http://dangjlin.github.io/posts/2014/08/12/on-cross-model-query-in-the-view-helper-and-orm-object-converted-to-an-array-of-practices/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

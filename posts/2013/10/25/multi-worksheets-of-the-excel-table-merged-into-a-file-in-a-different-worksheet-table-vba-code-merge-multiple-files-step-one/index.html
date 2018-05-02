@@ -1,0 +1,409 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>多個EXCEL表的Worksheet (資料表頁籤)，合併至一個檔案內不同的Worksheet(資料表頁籤)之VBA 程式碼 (合併多個檔案，步驟一) - 丹哥的技術培養皿</title>
+  <meta name="author" content="Daniel Lin 丹哥">
+
+  
+  <meta name="description" content="以下程式碼出處是來自於 彰化一整天的blog http://blog.bestdaylong.com/2008/07/excelcopy_31.html 再經過我自身需求的改寫所得出符合我需要的程式碼。 常常工作上可能會遇到需要把很多個同樣格式，但是不同檔案的EXCEL表合併起來， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dangjlin.github.io/posts/2013/10/25/multi-worksheets-of-the-excel-table-merged-into-a-file-in-a-different-worksheet-table-vba-code-merge-multiple-files-step-one/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="丹哥的技術培養皿" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47039951-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">丹哥的技術培養皿</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="dangjlin.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">多個EXCEL表的Worksheet (資料表頁籤)，合併至一個檔案內不同的Worksheet(資料表頁籤)之VBA 程式碼 (合併多個檔案，步驟一)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-10-25T03:16:00+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>3:16 am</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>以下程式碼出處是來自於 <a href="http://blog.bestdaylong.com/2008/07/excelcopy_31.html"><code>彰化一整天的blog http://blog.bestdaylong.com/2008/07/excelcopy_31.html</code></a>  再經過我自身需求的改寫所得出符合我需要的程式碼。</p>
+
+<p>常常工作上可能會遇到需要把很多個同樣格式，但是不同檔案的EXCEL表合併起來，所以要做的動作有兩個：
+1. 先把<code>不同檔案</code>的EXCEL表，每一個檔案裡面的<code>第一個頁籤(worksheet)、工作表</code>，自動複製到<code>一個檔案</code>內的<code>不同頁籤</code>
+2. 接著再把一個檔案內的不同頁簽的資料再全部<code>合併成同一個頁簽</code>內即可。</p>
+
+<p><code>請預先將excel表內的各欄位設計如下，程式碼會自動抓取 G欄位 內各項儲存格的內容，作為參數</code></p>
+
+<p><img src="http://user-image.logdown.io/user/359/blog/359/post/154224/LsoPQFe4TGG9WVjhroqz_muti_worksheet_to2.jpg" alt="muti_worksheet_to2.jpg" /></p>
+
+<h2>以下為第1步驟的程式碼</h2>
+
+<h1>抓取資料夾檔名</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>WorkName = Excel.ActiveWorkbook.Name
+</span><span class='line'>MsgBox Excel.Workbooks(WorkName).Path
+</span><span class='line'>
+</span><span class='line'>file_path = Excel.Workbooks(WorkName).Path
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>fs = Dir(file_path & "\*.*")
+</span><span class='line'>Do Until fs = ""
+</span><span class='line'>r = r + 1
+</span><span class='line'>y = 1
+</span><span class='line'>Cells(y + r, 2) = fs
+</span><span class='line'>fs = Dir
+</span><span class='line'>Loop</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>合併EXCEL檔案檔名</h1>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Dim objsheet As Worksheet
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>n = UCase(Range("G2"))
+</span><span class='line'>m = UCase(Range("G3"))
+</span><span class='line'>x = Range("G4")
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>WorkName = Excel.ActiveWorkbook.Name '此檔案名稱
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>Excel.Workbooks.Add '開新的workbook
+</span><span class='line'>
+</span><span class='line'>desc = Excel.ActiveWorkbook.Name   '新檔案視窗編號
+</span><span class='line'>i = 2
+</span><span class='line'>While Windows(WorkName).ActiveSheet.Range("b" & i) &lt;&gt; ""
+</span><span class='line'>'    Filename = Windows(WorkName).ActiveSheet.Range("b" & i) & ".xlsx"
+</span><span class='line'>    Filename = Windows(WorkName).ActiveSheet.Range("b" & i) & "." & x
+</span><span class='line'>    Workbooks.Open Filename:=Excel.Workbooks(WorkName).Path & "\" & Filename    '開啟檔案
+</span><span class='line'>    Set objsheet = Windows(Filename).ActiveSheet '切換視窗
+</span><span class='line'>
+</span><span class='line'>     '取消篩選
+</span><span class='line'>     ActiveSheet.AutoFilterMode = False
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    '選取來源範圍
+</span><span class='line'>'     objsheet.Range("A1:AZ500").Select
+</span><span class='line'>      objsheet.Range(n & ":" & m).Select
+</span><span class='line'>
+</span><span class='line'>     'copy
+</span><span class='line'>     Selection.Copy
+</span><span class='line'>
+</span><span class='line'>    Windows(desc).Activate '切換視窗
+</span><span class='line'>    Sheets.Add  '增加活頁
+</span><span class='line'>    ActiveSheet.Paste   '貼上
+</span><span class='line'>    ActiveSheet.Range("A1").Select  '將選取範圍取消
+</span><span class='line'>
+</span><span class='line'>    With ActiveSheet
+</span><span class='line'>        .Rows.RowHeight = 20
+</span><span class='line'>    End With
+</span><span class='line'>
+</span><span class='line'>    ActiveSheet.Name = "No_" & (i - 1)
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    'ActiveSheet.Name = Windows(WorkName).ActiveSheet.Range("b" & i)     '將活頁名稱改成檔案名稱
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    '避免copy太多資料時,要關閉檔案時.會問記憶體的資料是否要保留
+</span><span class='line'>    ActiveSheet.Range("A1").Copy
+</span><span class='line'>
+</span><span class='line'>   '將來源檔案關閉
+</span><span class='line'>
+</span><span class='line'>   Workbooks(Filename).Saved = True
+</span><span class='line'>   Windows(Filename).Close
+</span><span class='line'>
+</span><span class='line'>    i = i + 1 '讀取下一個檔案名稱
+</span><span class='line'>Wend
+</span><span class='line'>MsgBox "已將所有檔案匯入各項不同worksheet資料表頁籤中"</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Daniel Lin 丹哥</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2013-10-25T03:16:00+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>3:16 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dangjlin.github.io/posts/2013/10/25/multi-worksheets-of-the-excel-table-merged-into-a-file-in-a-different-worksheet-table-vba-code-merge-multiple-files-step-one/" data-via="" data-counturl="http://dangjlin.github.io/posts/2013/10/25/multi-worksheets-of-the-excel-table-merged-into-a-file-in-a-different-worksheet-table-vba-code-merge-multiple-files-step-one/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/posts/2013/10/25/in-excel-multiple-worksheet-table-into-the-same-worksheet-tables-of-vba-code/" title="Previous Post: EXCEL內，多個Worksheet(資料表)合併為同一資料表的VBA 程式碼 (合併多個檔案，步驟二)">&laquo; EXCEL內，多個Worksheet(資料表)合併為同一資料表的VBA 程式碼 (合併多個檔案，步驟二)</a>
+      
+      
+        <a class="basic-alignment right" href="/posts/2013/11/27/job-hunting-in-singapore/" title="Next Post: Job-Hunting in SIngapore">Job-Hunting in SIngapore &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2018/05/02/test-for-new-post/">Test for New Post</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/">如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/10/how-to-get-improved-to-write-clean-code/">如何寫出clean Code 的參考資料</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/10/05/rails-using-aws-ses-send-mail-service/">Rails Using AWS SES Send Mail Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/">Redmine 串 AWS S3 遇到的問題 Hack Workaround</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Daniel Lin 丹哥 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dangjlin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dangjlin.github.io/posts/2013/10/25/multi-worksheets-of-the-excel-table-merged-into-a-file-in-a-different-worksheet-table-vba-code-merge-multiple-files-step-one/';
+        var disqus_url = 'http://dangjlin.github.io/posts/2013/10/25/multi-worksheets-of-the-excel-table-merged-into-a-file-in-a-different-worksheet-table-vba-code-merge-multiple-files-step-one/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

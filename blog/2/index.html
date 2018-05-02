@@ -1,0 +1,1194 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>丹哥的技術培養皿</title>
+  <meta name="author" content="Daniel Lin 丹哥">
+
+  
+  <meta name="description" content="問題: Oscailte 的主題 (theme)安裝後， 部落格頁面無法顯示文章列表 最近自己架設了 Octopress 的部落格，並且放在 github 上吃自己的 domain name. 一切都很順利
+但是一直在找好看，符合需求的 theme 來妝點。發現了 Oscailte &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dangjlin.github.io/blog/2/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="丹哥的技術培養皿" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-47039951-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">丹哥的技術培養皿</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="dangjlin.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2015/12/09/deal-with-octopress-theme-oscailte-articles-list-cannot-show-problem/">解決 Octopress 的 Theme Oscailte 文章列表無法出現的問題</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-12-09T15:22:00+08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:22 pm</span></time>
+        
+           | <a href="/posts/2015/12/09/deal-with-octopress-theme-oscailte-articles-list-cannot-show-problem/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2015/12/09/deal-with-octopress-theme-oscailte-articles-list-cannot-show-problem/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>問題: Oscailte 的主題 (theme)安裝後， 部落格頁面無法顯示文章列表</h1>
+
+<p>最近自己架設了 Octopress 的部落格，並且放在 github 上吃自己的 domain name. 一切都很順利
+但是一直在找好看，符合需求的 theme 來妝點。發現了 Oscailte 的時候很開心覺得做得真好；又有 index 可以做為landing page 頁面，也有 blog 頁面。</p>
+
+<p><a href="https://coog.ie/blog/">oscailte preview site</a>
+<a href="https://github.com/coogie/oscailte/">oscailte github</a></p>
+
+<p>但是安裝好之後不知道為什麼，部落格首頁的左半邊應該是要出現文章列表才對! 但是就是空白出現不了!
+一開始一直以為是 source 目錄裡面的 template 問題。研究了好幾天，但實在太難懂了  不知道從何改起。</p>
+
+<p>後來才發現問題竟然是出現在 pagination 的參數。
+如果你也有一樣的問題</p>
+
+<p>請打開   <code>_config.yml</code> 檔案
+找到這一行 <code>paginate_path</code>
+本來預設是寫 <code>posts/:num</code>
+我把它改為 <code>blog/:num</code></p>
+
+<p>一切就都正常了!!!</p>
+
+<figure class='code'><figcaption><span>_config.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="err">前略</span>
+</span><span class='line'>
+</span><span class='line'><span class="ss">paginate</span><span class="p">:</span> <span class="mi">10</span>          <span class="c1"># Posts per page on the blog index</span>
+</span><span class='line'><span class="ss">paginate_path</span><span class="p">:</span> <span class="s2">&quot;blog/:num&quot;</span>  <span class="c1"># Directory base for pagination URLs eg. /posts/2/</span>
+</span><span class='line'><span class="ss">recent_posts</span><span class="p">:</span> <span class="mi">5</span>       <span class="c1"># Posts in the sidebar Recent Posts section</span>
+</span><span class='line'><span class="ss">excerpt_link</span><span class="p">:</span> <span class="s2">&quot;Read on &amp;rarr;&quot;</span>  <span class="c1"># &quot;Continue reading&quot; link text at the bottom of excerpted articles</span>
+</span><span class='line'><span class="ss">excerpt_separator</span><span class="p">:</span> <span class="s2">&quot;&lt;!--more--&gt;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我自己的站需要把 本來的 /blog/:year/&hellip;.. 改為 /posts/:year/&hellip;.
+所以另外測試了，就算 perment link 改動，也不會影響到 paginate_path。 還是要維持在 <code>blog/:num</code> 喔!!</p>
+
+<figure class='code'><figcaption><span>_config.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># If publishing to a subdirectory as in http://site.com/project set &#39;root: /project&#39;</span>
+</span><span class='line'><span class="ss">root</span><span class="p">:</span> <span class="sr">/</span>
+</span><span class='line'><span class="sr">permalink: /</span><span class="n">posts</span><span class="o">/</span><span class="ss">:year</span><span class="o">/</span><span class="ss">:month</span><span class="o">/</span><span class="ss">:day</span><span class="o">/</span><span class="ss">:title</span><span class="o">/</span>
+</span><span class='line'><span class="ss">source</span><span class="p">:</span> <span class="n">source</span>
+</span><span class='line'><span class="ss">destination</span><span class="p">:</span> <span class="kp">public</span>
+</span><span class='line'><span class="ss">plugins</span><span class="p">:</span> <span class="n">plugins</span>
+</span><span class='line'><span class="ss">code_dir</span><span class="p">:</span> <span class="n">downloads</span><span class="o">/</span><span class="n">code</span>
+</span><span class='line'><span class="ss">category_dir</span><span class="p">:</span> <span class="n">blog</span><span class="o">/</span><span class="n">categories</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2015/12/04/how-to-use-google-font-source-han-sans-traditional-chinese-logdown/">在部落格使用 Google 思源字體　　　( Logdown 篇 )</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-12-04T01:26:00+08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:26 am</span></time>
+        
+           | <a href="/posts/2015/12/04/how-to-use-google-font-source-han-sans-traditional-chinese-logdown/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2015/12/04/how-to-use-google-font-source-han-sans-traditional-chinese-logdown/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>新細明體與黑體的字呈現在網頁或PowerPoint上的視覺感受不同</h1>
+
+<h2>新細明體與黑體的超級比一比</h2>
+
+<p>先看看差別，左邊是預設的新細明體(我用firefox的網頁工具箱看，顯示為PMingLiu) ，右邊是 Google 的思源黑體
+不知道你們看起來感覺哪一邊比較舒服呢?</p>
+
+<p><img src="http://user-image.logdown.io/user/359/blog/359/post/341822/gh1rwq9STOeJX5h1QI0p_compare.png" alt="compare.png" /></p>
+
+<p>之前使用過 justfont 的 webfont 試用，感覺不錯。
+但是因為目前本部落格流量也沒很大，所以覺得暫時不需要每月付費租用；無意間搜尋別的解法的時候，發現了 adobe 台的字型平台 <strong><a href="https://typekit.com/">typekit</a></strong>有提供 free tier 可以每月使用。 free tier 每月的瀏覽量是 25,000 PAGEVIEW. 如果有超過的話我再來煩惱 :p</p>
+
+<h2>申請帳號及字型</h2>
+
+<p>註冊好帳號之後
+第一步就是 Create new kit 這時候會跳出另一個新視窗
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/mLH18btoSvyEnC8Sre3U_setting1.PNG" alt="setting1.PNG" />
+第二步，填寫這個 kit 的名稱以及很重要的要把自己的網站的 domain name 填上去
+像我的站我就填上了   tech.guojheng-lin.com
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/DfZB0joGTsi6rRJo54WX_setting3.PNG" alt="setting3.PNG" />
+第三步，我們先直接按 continue 及 browse all fonts 的按鈕，回到原本的視窗的網頁。
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/G6Biss7SC6ox9GciN2cb_setting4.PNG" alt="setting4.PNG" />
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/NOJ49hpLRSyHQL7GDZhp_setting5.PNG" alt="setting5.PNG" /></p>
+
+<p>第四步，到左上方的搜尋框內輸入 <code>" Source Han Sans Traditional Chinese "</code>
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/3GZy047zRxiipBu1fDH5_setting6.PNG" alt="setting6.PNG" />
+第五步，找到後，我們滑鼠移過去，下滑出下圖的選項，我們點 Use Fonts
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/RCbz1q56QSCueB2lVE0D_setting7.PNG" alt="setting7.PNG" />
+第六步，接著我們點 <code>web</code> 的頁籤， 依照下圖的順序， 1. 選剛剛自己建立的 kit , 2 按下 <code>Convert to dynamic  kit</code>
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/uL5HOOgQRSGWUc8uuFJd_setting8.PNG" alt="setting8.PNG" />
+第七步，回到了字型細部設定，我自己是會把左手邊的 light 選起來，另外就是保留了 regular , bold ，這樣總共三種粗細可用，然後最後就是按下左下角的 <code>publish</code> 按鈕。 所有字型細部設定改動過後都需要按 publish 喔!
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/DfpdN4GQd6j7ja1mcdow_setting9.PNG" alt="setting9.PNG" />
+第八步，點右上角的 <code>Embed Code</code>
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/zDEfDqpEQqu468jcbxOg_setting10.PNG" alt="setting10.PNG" />
+第九步，可以插入的 javascript code 有分為簡單版跟進階版，我自己是直接切換到 show advanced 的頁面，把裡面的程式碼複製下來，接著就可以去 logdown 裡面做設定囉。<br/>
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/E3Rz5PX7QpSMQZXh59HK_setting11.PNG" alt="setting11.PNG" />
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/6T9Aco6YQEqewKt1F21N_setting12.PNG" alt="setting12.PNG" /></p>
+
+<h2>Logdown的設定</h2>
+
+<p>很簡單，我們去客製化我們的CSS檔案即可
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/Rkb3coC8QZvx8dfl62IJ_setting13.PNG" alt="setting13.PNG" /></p>
+
+<p>把剛剛 type kit 複製的 javascript 檔案貼到這個位置， 我是貼在 logdown 引入 css檔案後的下一行
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/ORrQBmkRHuOIkjYaqY7Q_setting14.PNG" alt="setting14.PNG" /></p>
+
+<p>然後接著在貼上去的 javascript 下面再貼上下面這段 inline css code 。 本來我以為只要貼好 javascript 就好了，但是沒有作用，我只好想到 workaround 用後面覆蓋前面的方式手動補上了。基本上下面這些 tag 應該都涵蓋了所有的文章會用到的 html code, 如果還缺漏的話就自行補上囉。
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/Z47WBXzGRyKdue6qaWxR_setting15.PNG" alt="setting15.PNG" /></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'> <span class="o">&lt;</span><span class="nt">style</span> <span class="nt">type</span><span class="o">=</span><span class="s2">&quot;text/css&quot;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="nt">html</span><span class="o">,</span> <span class="nt">body</span><span class="o">,</span> <span class="nt">div</span><span class="o">,</span> <span class="nt">span</span><span class="o">,</span> <span class="nt">applet</span><span class="o">,</span> <span class="nt">object</span><span class="o">,</span> <span class="nt">iframe</span><span class="o">,</span> <span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span><span class="o">,</span> <span class="nt">p</span><span class="o">,</span> <span class="nt">blockquote</span><span class="o">,</span> <span class="nt">pre</span><span class="o">,</span> <span class="nt">a</span><span class="o">,</span> <span class="nt">abbr</span><span class="o">,</span> <span class="nt">acronym</span><span class="o">,</span> <span class="nt">address</span><span class="o">,</span> <span class="nt">big</span><span class="o">,</span> <span class="nt">cite</span><span class="o">,</span> <span class="nt">code</span><span class="o">,</span> <span class="nt">del</span><span class="o">,</span> <span class="nt">dfn</span><span class="o">,</span> <span class="nt">em</span><span class="o">,</span> <span class="nt">img</span><span class="o">,</span> <span class="nt">ins</span><span class="o">,</span> <span class="nt">kbd</span><span class="o">,</span> <span class="nt">q</span><span class="o">,</span> <span class="nt">s</span><span class="o">,</span> <span class="nt">samp</span><span class="o">,</span> <span class="nt">small</span><span class="o">,</span> <span class="nt">strike</span><span class="o">,</span> <span class="nt">strong</span><span class="o">,</span> <span class="nt">sub</span><span class="o">,</span> <span class="nt">sup</span><span class="o">,</span> <span class="nt">tt</span><span class="o">,</span> <span class="nt">var</span><span class="o">,</span> <span class="nt">b</span><span class="o">,</span> <span class="nt">u</span><span class="o">,</span> <span class="nt">i</span><span class="o">,</span> <span class="nt">center</span><span class="o">,</span> <span class="nt">dl</span><span class="o">,</span> <span class="nt">dt</span><span class="o">,</span> <span class="nt">dd</span><span class="o">,</span> <span class="nt">ol</span><span class="o">,</span> <span class="nt">ul</span><span class="o">,</span> <span class="nt">li</span><span class="o">,</span> <span class="nt">fieldset</span><span class="o">,</span> <span class="nt">form</span><span class="o">,</span> <span class="nt">label</span><span class="o">,</span> <span class="nt">legend</span><span class="o">,</span> <span class="nt">table</span><span class="o">,</span> <span class="nt">caption</span><span class="o">,</span> <span class="nt">tbody</span><span class="o">,</span> <span class="nt">tfoot</span><span class="o">,</span> <span class="nt">thead</span><span class="o">,</span> <span class="nt">tr</span><span class="o">,</span> <span class="nt">th</span><span class="o">,</span> <span class="nt">td</span><span class="o">,</span> <span class="nt">article</span><span class="o">,</span> <span class="nt">aside</span><span class="o">,</span> <span class="nt">canvas</span><span class="o">,</span> <span class="nt">details</span><span class="o">,</span> <span class="nt">embed</span><span class="o">,</span> <span class="nt">figure</span><span class="o">,</span> <span class="nt">figcaption</span><span class="o">,</span> <span class="nt">footer</span><span class="o">,</span> <span class="nt">header</span><span class="o">,</span> <span class="nt">hgroup</span><span class="o">,</span> <span class="nt">menu</span><span class="o">,</span> <span class="nt">nav</span><span class="o">,</span> <span class="nt">output</span><span class="o">,</span> <span class="nt">ruby</span><span class="o">,</span> <span class="nt">section</span><span class="o">,</span> <span class="nt">summary</span><span class="o">,</span> <span class="nt">time</span><span class="o">,</span> <span class="nt">mark</span><span class="o">,</span> <span class="nt">audio</span><span class="o">,</span> <span class="nt">video</span> <span class="p">{</span>
+</span><span class='line'><span class="k">font-family</span><span class="o">:</span> <span class="s2">&quot;source-han-sans-traditional&quot;</span><span class="o">,</span><span class="k">sans-serif</span><span class="p">;</span>
+</span><span class='line'><span class="k">font-style</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+</span><span class='line'><span class="k">font-weight</span><span class="o">:</span> <span class="m">200</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>於是乎，我們就完成啦~ 有漂亮的字型字體可以看了，手機看也很舒服。</h3>
+
+<p><img src="http://user-image.logdown.io/user/359/blog/359/post/341822/maoonbWSFe1YxkIhIcMo_IMG_4689.PNG" alt="IMG_4689.PNG" /></p>
+
+<h2>typekit webfont 用量的檢視</h2>
+
+<p>我們可以點主頁面的 Account ，然後就可以在左手邊看到已使用了多少
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/PbKDXTwoQS20CKgbAwb4_volume0.PNG" alt="volume0.PNG" />
+<img src="http://user-image.logdown.io/user/359/blog/359/post/341822/rTbH3GsQQvqA7dRe5uOH_volume.PNG" alt="volume.PNG" />
+之後再來寫一篇 google blogger 篇。(待續)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2015/12/03/write-a-ruby-file-regularly-to-catch-crawling-web-page-data/">寫一隻Ruby 檔案定時抓爬網頁資料</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-12-03T05:12:00+08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>5:12 am</span></time>
+        
+           | <a href="/posts/2015/12/03/write-a-ruby-file-regularly-to-catch-crawling-web-page-data/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2015/12/03/write-a-ruby-file-regularly-to-catch-crawling-web-page-data/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>如何使用 Ruby 檔案定時抓爬固定網頁的資料</h1>
+
+<h2>固定抓資料的ruby程式碼</h2>
+
+<p>你需要的 Ruby Gem 有
+<code>nokogiri</code>
+<code>mechanize</code>
+<code>active_record</code>
+假設我們命名成 : <code>get_stock_price.rb</code>。
+起手式這樣，如果你不需要寫入資料庫，則可忽視 ActiveRecord 那幾行；但我想通常是需要的。</p>
+
+<figure class='code'><figcaption><span>get_stock_price.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;nokogiri&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;mechanize&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;active_record&#39;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="no">Logger</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;log/database.log&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">))</span>
+</span><span class='line'>  <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">establish_connection</span><span class="p">(</span>
+</span><span class='line'>    <span class="ss">:adapter</span>  <span class="o">=&gt;</span> <span class="s1">&#39;sqlite3&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">:database</span> <span class="o">=&gt;</span> <span class="s1">&#39;db/development.sqlite3&#39;</span>
+</span><span class='line'>  <span class="p">)</span>
+</span><span class='line'><span class="c1"># 上面請自行更換成你需要的 database adapter</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Futurequote</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著，通常我的固定語法會這樣寫: 我們以抓取台灣股票期貨價格的YAHOO網頁為範例</p>
+
+<figure class='code'><figcaption><span>get_stock_price.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://tw.screener.finance.yahoo.net/future/aa03?fumr=futurepart&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">parse_html</span> <span class="o">=</span> <span class="no">Nokogiri</span><span class="o">::</span><span class="no">HTML</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">to_html</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著這邊有點 tricky ,  我們要利用 nokogiri 的 method :  xpath 來定位我們要找的資料欄位 ，這邊是要抓上市的收盤價
+通常我都是使用  firefox 裡面的 firebug 套件幫助我去訂出我要鎖定的資料項目的 xpath .</p>
+
+<figure class='code'><figcaption><span>get_stock_price.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">close_price_spot</span> <span class="o">=</span> <span class="n">parse_html</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//*[@id=&#39;ext-wrap&#39;]/table[2]/tbody/tr[1]/td[4]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">to_f</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>至於後面會加上 children 則要看每一次 xpath 抓取回傳的資料的結構如何，不見得每次都需要。請自行判斷。
+後面的 to_s , to_f  是因為我後續要做運算，所以轉成浮點數型態
+我常常都會先省略成下面這一行 ，然後會到 rails console or irb 裡面打 <code>close_price_spot.methods</code> 看看有什麼 method 可以用；或者你要去瀏覽 nokogiri 的說明文件也是可以。 但我都是 try and error 的方式嘗試組出我要的資料內容</p>
+
+<figure class='code'><figcaption><span>get_stock_price.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">close_price_spot</span> <span class="o">=</span> <span class="n">parse_html</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//*[@id=&#39;ext-wrap&#39;]/table[2]/tbody/tr[1]/td[4]&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接下來放一段如何把擷取的資料寫入檔案及資料庫
+請先在資料庫內建立好資料表，及所需要的欄位，然後利用 ActtiveRecord 去做ORM的對應</p>
+
+<figure class='code'><figcaption><span>get_stock_price.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="nb">puts</span> <span class="n">close_price_spot</span>
+</span><span class='line'>  <span class="c1"># write file</span>
+</span><span class='line'>    <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;tw_future_price.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span> <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">close_price_spot</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># write database</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot; writing table price &quot;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">quote</span> <span class="o">=</span> <span class="no">Futurequote</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>      <span class="n">quote</span><span class="o">.</span><span class="n">close_price</span> <span class="o">=</span> <span class="n">close_price_spot</span>
+</span><span class='line'>      <span class="n">quote</span><span class="o">.</span><span class="n">save</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如此就先完成了抓爬固定欄位的資料的 ruby 檔案。</p>
+
+<p>接下來是要如何讓我們的SERVER可以固定時間抓取一次
+我們這邊是透過 Rails 的 Rake file 以及 server 本身的 cronjob 的方式來定時執行
+這邊的做法其實有很多種，我只是剛好選用了其中一種而已，大家可以再找尋適合自己環境的方法。</p>
+
+<h2>新增一個 rake file</h2>
+
+<p>我們要到 Rails 專案目錄裡面找到 lib/tasks 這個目錄，然後新增一個自己命名的檔案 例如 my_namespace.rake
+裡面放上這樣的內容</p>
+
+<figure class='code'><figcaption><span>my_namespace.rake</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">namespace</span> <span class="ss">:STOCK</span> <span class="k">do</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">desc</span>  <span class="s2">&quot;go to lookup quote data from yahoo finance tw&quot;</span>
+</span><span class='line'>  <span class="n">task</span> <span class="ss">:get_stock_price</span> <span class="k">do</span>
+</span><span class='line'>  <span class="c1"># the ruby file&#39;s path is in the project root, the file should be placed in there</span>
+</span><span class='line'>  <span class="n">ruby</span> <span class="s2">&quot;get_stock_price.rb&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>設定固定時間抓取</h2>
+
+<p>我這邊有看到有一個 gem 是比較人性化的幫我們去更新 cronjob 的內容
+我們在使用了 <code>whenever</code> 這個 gem   <a href="https://github.com/javan/whenever">github: whenever </a>
+whenever 支援的語法有很多種寫法, 可以到 github 那邊看，其中我選用了呼叫 rake 命令的方式
+在 Gemfile 裡面加上  gem &lsquo;whenever'；
+bundle install 後，要做初始化，所以要輸入  <code>wheneverize .</code> 這樣的指令
+這樣會在 rails 專案目錄裡面的  config 目錄下 產生了一個  <code>schedule.rb</code> 檔案
+我們打開這個檔案，修改一下</p>
+
+<figure class='code'><figcaption><span>schedule.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Use this file to easily define all of your cron jobs.</span>
+</span><span class='line'><span class="c1"># It&#39;s helpful, but not entirely necessary to understand cron before proceeding.</span>
+</span><span class='line'><span class="c1"># http://en.wikipedia.org/wiki/Cron</span>
+</span><span class='line'><span class="c1">#   set :output, &quot;log/cron_log.log&quot;</span>
+</span><span class='line'>  <span class="n">set</span> <span class="ss">:output</span><span class="p">,</span> <span class="p">{</span> <span class="ss">error</span><span class="p">:</span> <span class="s1">&#39;log/cron_error.log&#39;</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">every</span> <span class="mi">1</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="ss">:at</span> <span class="o">=&gt;</span> <span class="s1">&#39;06:00 am&#39;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">rake</span> <span class="s2">&quot;STOCK:get_stock_price&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="c1"># after alter this file , please use &quot;whenever -w &quot; to write to crontab file</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這邊要注意的是
+1. 裡面的時間是 server 主機的時間!!所以要看一下你的 server 放置國家與你所在國家的時間(例如台灣)是有差別的。
+2. 這個檔案儲存後請記得執行 <code>whenever -w</code> 的指令，這樣才會去更新 crontab 檔案</p>
+
+<p>更新後我們在命令列輸入這個指令 <code>crontab -l</code>  可以列出 crontab 目前的內容
+shell crontab</p>
+
+<figure class='code'><figcaption><span>schedule.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Begin Whenever generated tasks for: /home/ubuntu/workspace/config/schedule.rb</span>
+</span><span class='line'><span class="mi">0</span> <span class="mi">6</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="sr">/bin/</span><span class="n">bash</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;cd /home/ubuntu/workspace &amp;&amp; RAILS_ENV=production bundle exec rake STOCK:get_stock_price --silent 2&gt;&gt; log/cron_error.log&#39;</span>
+</span><span class='line'><span class="c1"># End Whenever generated tasks for: /home/ubuntu/workspace/config/schedule.rb</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>無意間發現村長大大的筆記，可以變更 whenever 的時區
+<a href="http://disco26.logdown.com/posts/284638-whenever-is-set-in-utc-timezone">http://disco26.logdown.com/posts/284638-whenever-is-set-in-utc-timezone</a></p>
+
+<p>最後最重要的一點，常常會忘記，就是要叫你的 server 啟動 cron (定時排程)  的功能
+我們會下 <code>sudo cron start</code> 的指令來啟動他
+以及可以下  <code>ps -aux</code> 的指令來檢視是否有啟動了。</p>
+
+<p>有時候很奇怪，時間到了但是不執行
+我在 ubuntu裡面，每次 whenever -w 做完之後，我就會多執行一次 cron restart
+<code>sudo service cron restart</code></p>
+
+<p>以上就是我如何依據自己的需求實做出來的簡單定時爬蟲。</p>
+
+<p>ps log很重要，剛開始的時候請都要留下紀錄。有log可以幫助查找一開始run的不順的問題</p>
+
+<blockquote><p>補充說明，如果你是使用 Heroku 作為你的正式環境的網站
+可以啟用 Heroku Scheduler  的服務，
+然後在 Scheduler 的設定頁面上，把指令 <code>rake "STOCK:get_stock_price"</code> 的定時頻率時間設定好，這樣也會在背景定時執行了。 我試過了，就算你的 production site 因為 free 的方案而正在睡覺也沒關係。 他還是會乖乖的去寫檔案和寫資料庫。</p></blockquote>
+
+<p>赫然發現，如果只是要抓固定某個特定網頁的某個特定欄位的話，其實可以用 excel 的工具去抓， 只要解決 &ldquo;定時&rdquo; 抓的問題就好。 但這支程式的價值在於 Mechanize 這支 Gem 可以做到模擬人在點擊按鈕後然後送出，接著程式再接回網站回傳的畫面，然後你再繼續刻意設計下一步動作，或要抓取的動態變化的資料。
+例如:
+1. 如果購物網站的商品的網址是跳動的，每天都在跳動，那麼 excel 的方式就失效了。 但是可能可以透過刻意分析過的程式碼去查詢商品的網址，然後打開網頁，然後抓取固定欄位。
+2. 我最想做的一個案例，例如我每次都要查詢三四個網站比較書的價錢，或是查找是否有二手書可以買，以前的做法一定是一個網站一個網站找，但是如果每個網站的查詢頁面都是固定的話，那麼我就可以寫好程式，查一次後讓程式自動去每個網站查一次再把結果排出來。  我想這才是自動化的意義所在。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2015/10/24/japan-real-estate-30-years-trend/">日本房地產30年走勢</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-24T09:56:00+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:56 am</span></time>
+        
+           | <a href="/posts/2015/10/24/japan-real-estate-30-years-trend/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2015/10/24/japan-real-estate-30-years-trend/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>氣憤房地產的由來</h2>
+
+<p>我很生氣房地產被炒作。 原因無他，當你邁入三十而立的歲月光景，想成家立業，腦中開始有了要獨立成戶的念頭時，一看，這是什麼鬼價格?   板橋新成屋都要喊到50萬/坪以上 (新板特區不管了，那邊都破100萬/坪。 俗稱的天龍國不用講，絕對都是 70萬/坪 ~ 200萬/坪的範圍內。 所以在板橋買新屋30坪，隨便算都要1500萬以上。你告訴我上班族怎麼有辦法買?
+薪水有成長嗎?  國內工商團體沒賺錢嗎? 去看十年來的企業盈餘增長就知道了，賺了錢從來都不是回饋到員工身上的。 這個可以另外開一篇來寫。
+我總跟身旁親近的好友或生疏的朋友也罷，說我是房地產死空頭者，我全力看空房地產，當然這是一個賭注，賭未來買不買得起任何一間房子?  我不怕我未來沒房子買、沒房子住。 是地點的問題、大小的問題，要買一間房子安身立命，未來往鄉下搬也無妨。</p>
+
+<h2>日本房地產指數、匯率、利率三十年走勢</h2>
+
+<p>粗略的找出日本房地產三十年來的走勢圖。大家耳熟能詳的日本1990經濟泡沫，造成後來失落的20年，喔不，現在算已經是失落的25年了。 1990年你如果在房地產指數300以上買入不動產，很抱歉，到現在為止它的平均價格只剩下1/3 左右。 跌價的過程當中，賣掉房子你都還欠銀行錢，這就是俗稱的溺水屋。更遑論跌下來的過程當中，銀行可能會因為房屋擔保價值不足而緊縮銀根要求貸款者提前還款。</p>
+
+<p>從維基百科查這個條目【日本泡沫經濟】<a href="https://zh.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E6%B3%A1%E6%B2%AB%E7%BB%8F%E6%B5%8E">https://zh.wikipedia.org/wiki/日</a>  發現這一段:
+【泡沫破裂】
+1989年12月29日，日經平均股價達到最高38957.44點，此後開始下跌，土地價格也在1991年左右開始下跌，泡沫經濟開始正式破裂。到了1992年3月，日經平均股價跌破2萬點，僅達到1989年最高點的一半，8月，進一步下跌到14000點左右。大量帳面資產在短短的一兩年間化為烏有。
+1990年3月，日本大藏省發布《關於控制土地相關融資的規定》，對土地金融進行總量控制，這一人為的急剎車導致了本已走向自然衰退的泡沫經濟加速下落，並導致支撐日本經濟核心的長期信用體系陷入崩潰。此後，日本銀行也採取金融緊縮的政策，進一步導致了泡沫的破裂。由於土地價格也急速下跌，由土地作擔保的貸款也出現了極大風險。當時日本各大銀行的不良貸款紛紛暴露，對日本金融造成了嚴重打擊。
+總而言之大幅短期衰退的可怕在於各項資本投資標的物都出現了來不及脫身大量「套牢族」，從房屋、土地到股市、融資都有人或公司大量破產，之後產生的恐慌心理使得消費和投資緊縮的加乘效應，不只毀掉泡沫成分也砍傷了實體經濟，且由於土地與股市的套牢金額通常極大；動輒超過一個人一生所能賺取的金額，導致許多家庭悲劇，所以這四年爆起爆落的經濟大洗牌等於轉移了全社會的財富在少數贏家手中，而多數的輸家和高點買屋的一般家庭則成為背債者，對日後長達一代人的日本社會消費萎縮經濟不振種下了因子。</p>
+
+<p>hmmm 時空背景條件果然與現在不太一樣。 主要有 :
+1. 當初日本企業大量投入房地產，甚至舉債投入
+2. 日本央行當初緊縮銀根 ( 1989年5月至1990年8月，日本銀行5次上調中央銀行貼現率從2.5％至6.0％ )
+3. 日本大藏省(我們台灣的財政部) 宣布土地金融管制。
+我相信目前房地產炒作到噴天的地方，如中國、台灣、香港等地，鑑於日本25年前的作為及後果，絕對不敢貿然升息或緊縮銀根。我想，這有量無市的緩慢下跌過程&hellip;.. 應該會是相當漫長，台灣人啊~ 儘管背負著超過收入1/2以上的房貸也是應該會咬緊牙根，隱忍繼續過日子。</p>
+
+<p>我總是戲謔地看著，認為台灣這個小又年輕的國家，你沒經歷過房地產崩盤，你怎麼以為一輩子100年都不會崩盤?  老一輩的長輩、大人，你的生命經驗有限，你們又不讀書，你就只會灌輸年輕一輩死都要背一個不合理的房貸，難怪炒房地產爽快也爽賺。</p>
+
+<p><img src="http://user-image.logdown.io/user/359/blog/359/post/306205/ITvP9EDCT0ipubfQCr2G_japan%20%20tokyo%20real%20estate%20index.png" alt="japan  tokyo real estate index.png" /></p>
+
+<p>資料來源: <a href="http://tochi.mlit.go.jp/kakaku/shisuu">http://tochi.mlit.go.jp/kakaku/shisuu</a>  【報導発表】不動產価格指數（住宅）及び不動產取引件數・面積（住宅）（平成27年6月分）PDFファイル</p>
+
+<h2>日本當初的匯率走勢</h2>
+
+<p><img src="http://user-image.logdown.io/user/359/blog/359/post/306205/823J2osyQC6nQu4Y2cLv_japenese_yen_historical_chart.png" alt="japenese_yen_historical_chart.png" /></p>
+
+<h2>日本長期利率走勢</h2>
+
+<p><img src="http://user-image.logdown.io/user/359/blog/359/post/306205/VlEEjhuIRwe109pRgYU1_japan%20interest%20rate%20historical.png" alt="japan interest rate historical.png" /></p>
+
+<h2>日本央行1989年把重貼現率上調到6%</h2>
+
+<p><img src="http://user-image.logdown.io/user/359/blog/359/post/306205/GHSXKc17RiyDsBXJfKZ4_japan%20discount%20rate%20chart.png" alt="japan discount rate chart.png" /></p>
+
+<p>很多經濟學家這些年來都不斷地分析日本泡沫經濟崩跌、房地產崩跌的原因，到底是因為1985年廣場協議，美國要求日圓升值所導致?還是因為1989~1990日本央行連續升息所導致? 我也不是專家我不懂。總之後來的結果就是泡泡破了。
+刺激經濟的方式就是經濟學裏面的貨幣政策和財政政策，降息你可以降到零，歐美開始討論負利率，或是印鈔票，但是會帶來通貨膨脹，財政政策是就是擴大政府支出，蓋一大堆基礎建設，我們都可以從歐美日的經濟體去學得經驗。  我是不認為台灣有什麼籌碼可以比照歐美日這樣刺激經濟啦~</p>
+
+<p>另外還有人口紅利的問題，2015年是台灣人口紅利最高點了，未來勞動人口的增長將會開始下滑，請看下面的圖表。 勞動人口開始下滑，賺錢的人口開始下滑，有能力背負房貸者是不是可能會開始減少呢?</p>
+
+<p><img src="http://user-image.logdown.io/user/359/blog/359/post/306205/hf9KIcNGRNOnYwS0KKnW_%E4%BA%BA%E5%8F%A3%E7%B4%85%E5%88%A9.png" alt="人口紅利.png" /></p>
+
+<p>房地產的炒作永遠都是A賣給B ，B賣給C ，C賣給D ， 看看有沒有哪個笨蛋願意用更高的價錢接走，然後直到沒有人願意或是能夠承接為止。
+房地產泡沫的崩潰是全民之苦，大家不願意面對，但我認為它不是不會來。而我們現在只能繼續儲蓄，提早準備，面對經濟寒冬的時期。
+補一篇文章，看來是針對我今天分享的那篇【 <a href="http://www.cmoney.tw/notes/note-detail.aspx?nid=10219">台灣炒房10年，經濟沉淪30年</a> 】的補充，沒想到這篇文章已經快兩年了 : <a href="http://appnews.fanswong.com/show.php?id=394096">http://appnews.fanswong.com/show.php?id=394096</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2015/09/22/self-book-scan-starts-fujitsu-ix500-yunguang-858-a4-cutter/">自炊生活啟動 Fujitsu iX500 + 雲廣858 A4 裁刀</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-09-22T01:32:00+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>1:32 am</span></time>
+        
+           | <a href="/posts/2015/09/22/self-book-scan-starts-fujitsu-ix500-yunguang-858-a4-cutter/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2015/09/22/self-book-scan-starts-fujitsu-ix500-yunguang-858-a4-cutter/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>現成的Solution 組合，Survey的成本很低</h1>
+
+<p>我關注這個自炊這個主題已經很久了，原因就是因為家裡的購入書籍已經超過400本了，大小書櫃共六個都不夠用，床底下、地上、桌上、床上都放置了數量不等的書籍，實在是都快要比我本人要住的地方還占空間了。 心想這不是辦法，就想了幾個 solution。</p>
+
+<ol>
+<li>二手書賣掉，這是最直覺的想法。但是有幾個小問題: 1) 很多書讀冊已經不收了  2) 茉莉收購價真的很低  3) 書寶的話 我還是得整理後裝箱送去</li>
+<li>捐圖書館， 要裝箱然後運去，但最重要的是，我實在太多簡體書籍了，我不知道圖書館會怎麼處理他們。不知道是不是會被丟掉</li>
+<li>自炊，如果要自己研究就太麻煩了，當然因為xdite 早就發過一篇自炊組合最佳解，後來蔡校長也這麼做了，看自炊社團裡面也有朋友陸陸續續採用這個組合，省去了自己研究的時間。 但是一開始覺得機器太貴，台灣要賣 19800 &hellip; 所以本來沒有要考慮的。</li>
+</ol>
+
+
+<p>說到底，我還是有捨不得的心情，覺得好多書也還沒讀，或者是好多書覺得可以留作參考查閱。 割捨不下就造成了越堆越多占滿空間的窘境。</p>
+
+<p>後來查了一下價格，我覺得真的很扯，沒想到可以這樣買&hellip;
+ </div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/posts/2015/09/22/self-book-scan-starts-fujitsu-ix500-yunguang-858-a4-cutter/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2015/08/06/growth-hacking-class-memo/">Growth Hacking 上課心得</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-08-06T16:03:00+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:03 pm</span></time>
+        
+           | <a href="/posts/2015/08/06/growth-hacking-class-memo/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2015/08/06/growth-hacking-class-memo/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>結論</h1>
+
+<p>如果你從來都不知道什麼叫做 Growth Hacking，需要一個有架構脈絡、有類比到真實世界的範例，及各種手法跟心法導覽的話，而且你又沒空上網看一大堆英文資料的話，那麼xdite最近開的 [ Growth Hack 入門心法班 ] 這是挺不錯的一門 Intro 課。
+做好 AARRR =  <code>$$$$$$$$$$$$</code> XD
+<img src="http://user-image.logdown.io/user/359/blog/359/post/289834/7ZPtFsmSi6YQ2TF1lad9_2015-08-06%2020.37.40.jpg" alt="2015-08-06 20.37.40.jpg" /></p>
+
+<h1>服藥前提</h1>
+
+<p>服用growth hacking 藥方的大前提是，你要先有 MVP (Minimum Viable Product ) 接著進入 PMF (Product Market Fit) 之後再來談 Growth Hacking。 否則根本就是搞錯重點，白費力氣。</p>
+
+<h1>Key Take Away</h1>
+
+<p>印象最深的是 xidte 提到的幾個概念</p>
+
+<ol>
+<li><p>因為大家都在問 MVP 怎麼找啊、PMF怎麼找啊，直接不囉唆，提出兩種方式，雖然說出來很簡單，但是就是有很多人不是循著這條路走。 你要開鹹酥雞攤就兩種啊， 1. 你的攤真的是超獨特超有賣點，滿足了客人的需求 2. 方圓百里內就是沒人賣鹹酥雞。意思是，你要做你專長的事情，然後找到願意付你錢的人 。或者是你就是在整個市場上有需求，但是沒人提出解決之道的服務。</p></li>
+<li><p>你以為是因為xdite已小有名氣，所以他不管要賣什麼都好像爆炸性成長，輕鬆啟動印鈔模式嗎？（我一開始也有這個想法）
+不，我錯了。 xidte說，每個人都有自己領域的專長，都是在別人身邊是小有名氣的人（或是在某個圈子內有自己的價值），因此你要想，你要提供什麼服務，可以讓別人願意付你錢，然後再來利用 growth hacking 的方式 scale 上去。</p></li>
+<li><p>明明線下的實體商店我們都知道要好好招呼客人、經營客人，為什麼走到線上就不知道要這麼做？
+經營線上的心法奧義就是：<strong>降低疑慮、增強信心</strong>。   具體怎麼做? 這門 Intro 就是帶給你基礎概念的介紹。讓你有超多子學門可以回家繼續 google 跟鑽研。</p></li>
+<li><p>聽清楚你的客戶要甚麼？不管是他的反饋，還是他的抱怨。他要什麼，你就要盡量滿足客戶，不是你只想著自己的產品很厲害，或自己幻想自己的服務或產品市場一定會buyin。勇敢訂一個價格去測試市場，反正先不虧錢就好，接著再來走 AARRR 的模式。</p></li>
+</ol>
+
+
+<blockquote><p>AARRR 是指， Acquisition、Activation、Retention、Revenue、Referrel  五大 Growth Hacking 的支柱。</p></blockquote>
+
+<p>從這門 Intro 課程讓我感受到，不見得一定要是網頁工程師才能做 Growth Hacking ，重要的是這個心法與知道怎麼利用工具來持續不斷的tuning &amp; engaging 。
+就算你只是個說故事的文案，就算你是傳統行業的一只達人。甚至，你就只是個在公司上班的上班族，你還是有辦法利用 AARRR 的模式來擴大自己品牌及影響力。</p>
+
+<h1>後續行動</h1>
+
+<ul>
+<li>嘗試找出自己 side project 的 MVP</li>
+<li>分析紀錄所看到的線上＆線下的 AARRR</li>
+<li>按照 xdite 上課的 Landing Page 心法及架構，生一個 Landing Page 出來</li>
+</ul>
+
+
+<p>會接觸到部落格的人都是新進來的用戶，你要怎麼讓他留下來呢？你要怎麼讓他願意成為你的粉絲呢？你要怎麼讓他願意付錢，甚至為你推薦呢？</p>
+
+<p>後記：
+1. 剛開始覺得有點貴，但是上完之後，還是必須說一句，是值得的，因為省了自己摸索及組織架構的時間了。xdite 風格一向沒有廢話，實戰導向。 做就對了！
+2. xdite 整個規劃這個課程的過程，從課程設計，到行銷，到加開班，到放大，都是依循著這個 AARRR 的脈絡，真的是知行合一的最佳典範。
+3. 因為她講話實在太快，害我根本無法使用宣澤的筆記心法，哈。 但還是秉持著不爆雷的原則以及重點是後續要執行的行動，寫下了這一篇心得。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2015/06/26/30-of-my-30-year-cash-flow-stocks/">我的30年的30檔現金流美股</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-06-26T02:01:00+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>2:01 am</span></time>
+        
+           | <a href="/posts/2015/06/26/30-of-my-30-year-cash-flow-stocks/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2015/06/26/30-of-my-30-year-cash-flow-stocks/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>因為我本身持有了星巴克200股，因此很關心星巴克的營運狀況。
+本篇文章來自 <a href="http://seekingalpha.com/article/3274915-my-30-stocks-for-30-years-starbucks-q2-15-buy">http://seekingalpha.com/article/3274915-my-30-stocks-for-30-years-starbucks-q2-15-buy</a></p>
+
+<h1>30年的30檔現金流美股 &lt;結論></h1>
+
+<ul>
+<li>星巴克已經被證明是一檔有持續性、能夠持續一段都維持強勁績效表現，並且給予正向報酬的公司</li>
+<li>我有著強烈的信念，相信星巴克的商業模式能夠持續長期的成功，並且每季帶來正向報酬</li>
+<li>我期待著星巴克在未來能夠長期的帶來穩定的股利，因此在近期內我買進了星巴克的股票</li>
+</ul>
+
+
+<p>我正在發展著被動收入的現金流，透過公司配發股利，來達到財務自由的目標。
+因此，我正在蒐集著一系列的高品質的、會穩定配發股利的公司的股票有哪些標的。
+我的策略是: 透過低成本的證券經紀商，讓我每一季去累積30家公司的股票，僅僅需要透過幾千塊美元投資在這些標的上。
+星巴克(NASDAQ: SBUX) 是我投資組合的其中一檔標的。</p>
+
+<p>購買歷史:</p>
+
+<table>
+<thead>
+<tr>
+<th>   Date of Purchase  </th>
+<th>  Investment Amount </th>
+<th> Current Valuation  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>  2014.09  </td>
+<td> $50.00  </td>
+<td>   |   |   </td>
+</tr>
+<tr>
+<td>  2014.10 </td>
+<td> $50.00  </td>
+<td>   |   |   </td>
+</tr>
+<tr>
+<td>  2014.11  </td>
+<td> $16.27  </td>
+<td>   |   |   </td>
+</tr>
+<tr>
+<td>  2015.03  </td>
+<td> $78.40  </td>
+<td>   |   |   </td>
+</tr>
+<tr>
+<td>  2015.06  </td>
+<td> $106.24  </td>
+<td>   |   |   </td>
+</tr>
+<tr>
+<td>  TOTAL  </td>
+<td> $300.91  </td>
+<td> $364.35  |   |   </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>我從2014年中開始小批量的累積星巴克的股票，把它納入我的投資組合的一份子，到今年2015年6月的時候我開始把它納入為我的產生股利的投資組合的一份子。雖然現在還是占比很小，但是我預期他將會隨著時間越占越大的比例。</p>
+
+<p>星巴克有著長期的紀錄證明著他可以提供相當好的回報給他的股東，事實上，如果你在1992年的時候投資了1萬美元在星巴克上的話，直到現在，過了23年了，這一萬美金現在已經價值了174萬美元了。這代表著，平均下來等於每年約有25%的獲利。
+就是因為這樣的長期紀錄以及這間公司的創新表現，讓我對這家公司有著充分的信心，相信他還是會帶給股東優渥的報酬。
+當公司在2010年的時候配發了股利，接連著幾年都穩定的配發股利，這顯示出來這間公司未來長期將會穩定的配發股利給他的股東。</p>
+
+<h2>行動訂單的創新及交付產品</h2>
+
+<p>星巴克總是可以作為一個先鋒者，不斷地創造店內的顧客體驗價值。 他的行動POS策略，在零售銷售市場的付款方式上建立了一個標竿，星巴克最近指出，他目前有著1千3百萬的行動用戶，並且創造了每周超過7百萬筆交易訂單。整體來說，星巴克16%的交易來自行動交易。</p>
+
+<p>星巴克目前正在擴展他們的行動裝置下訂單的能力，以便讓他們的客戶可以預先訂他們要的品項，然後在它們抵達店內的時候就可以直接取得商品。這是服務的加強，可以避免讓客戶看到因為很長的排隊所以就放棄要買星巴克的飲料。</p>
+
+<p>最近星巴克也推出了另一項創新服務，可以讓顧客透過快遞寄送的方式，來取得他們的飲料。
+這樣的服務可以讓一些沒有辦法直接臨店的顧客們也可以採購它們的飲料，慢慢的我們可以觀察這樣的創新對營收的貢獻如何。</p>
+
+<h2>La Boulange 的挫折</h2>
+
+<p>星巴克一直以來都是有著創新新產品的的能量與歷史，例如包含了 Teavana 的茶品和 Frizio Fizzy 飲料的概念。
+但是星巴克最近宣布了將會關閉它在LA的全部的 La Boulange 的麵包店。</p>
+
+<p>它原本代表著星巴克可以提供了一些食物，以便可以再對星巴克可以貢獻一些營收。無庸置疑的，星巴克必須緊緊盯著看看這個麵包店是否可以像麥當勞或是Dunkin Donuts 一樣，在早餐的品項或麵包糕點品項上對公司帶來顯著的貢獻。</p>
+
+<p>但是，很明顯的，決定要關閉 La Boulange 代表著，這個食品的策略，對公司其實沒有帶來如預期般的收益。很遺憾的，競爭者搶食了這塊食品的市場，儘管如此，雖然星巴克嘗試在這個領域採取了廣泛地創新但我們仍仍無法看到它獲得成功。</p>
+
+<h2>持續的營運毛利 (營業利益 / 營收 )成長</h2>
+
+<p>星巴克強勁的經營能力，可以在2009年開始看得出來他強勁的營業毛利率。我們可以持續看到這間公司是可以如何持續的改善帶動營收的成長。 在近幾年來，我們可以看到星巴克穩定的在營業毛利上的改善及成長，可以看到從2009年的 55% 到2014年的 58% 。</p>
+
+<p>星巴克的顧客們也展示了，就算價格調升，但是顧客們其實也反應冷淡毫無動搖，因此這便是反映到營業毛利上的結果。
+老實說，這對食品行業來說真的是不可思議，營業毛利的改善，對於一間企業的營業效率改善來說，可是從2008年的  4.9% 提升到2014年的 18.9% ，這在在地顯示出來星巴克在營運效率的管理上是如何的卓越。</p>
+
+<h2>評價提高了，但仍在合理範圍內</h2>
+
+<p>雖然星巴克的股票跟我去年2014年開始累積的時點相比，已經不再划算了，今年已經漲了快30%了。而且星巴克的本益比已經來到29倍了。它的 price/book , price/sales , price/cash flow 都比去年五年的平均來得高。  但儘管如此，它的 PEG 比值，仍然是落在穩定的 1.6 左右。  而 Morningstar 仍然對此檔股票標記了 3 顆星，表示仍然是個正常股價評價的水準。
+(註: 本益成長比（Price/Earnings to Growth Ratio，PEG )</p>
+
+<p>雖然星巴克最近將要關閉處分 La Boulange ，我仍然認為這間公司是一間具有前景的公司，因此我將會長期地繼續累積這間公司的股票，並且每一季定期的買進。我將會持續地觀察這間公司在行動訂單的創新上面的增長，看看是否真的能對營收帶來貢獻，</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2015/05/25/nlp-presupppositions/">NLP的前提假設</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-05-25T03:25:00+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:25 am</span></time>
+        
+           | <a href="/posts/2015/05/25/nlp-presupppositions/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2015/05/25/nlp-presupppositions/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>NLP 的前提假設</h1>
+
+<p>本篇文章來自於 <a href="http://niutou.teacher.nlp.cn/article/5599.html">http://niutou.teacher.nlp.cn/article/5599.html</a>
+NLP的前提假設（完整版）</p>
+
+<p>什麼是前提假設：</p>
+
+<p><code>NLP有一個重要的思想是，「有效果比有道理更重要」，所以，NLP提出「前提假設」，這些假設是NLP中一些重要的觀念，對於NLP的修習者，你不需要理會這些觀念是不是正確的重要的是，它們是有效的。當你相信它們時，它們就會在你的身心上發生作用。</code></p>
+
+<p>下面是NLP16條重要的前提假設：</p>
+
+<pre><code>    1. 每個人都已具備使自己成功快樂的資源。
+    2. 地圖不是實際的疆域，只有經由感官經驗所塑造出來的世界,而沒有絕對真實的世界。
+    3. 重複舊的做法，只能得到舊的結果。
+    4. 有效果比有道理更重要。
+    5. 凡事至少有三個解決方法。
+    6. 沒有兩個人是完全一樣的。
+    7. 一個人不能改變另外一個人。
+    8. 每一個人都選擇給自己最佳利益的行為。
+    9. 在任何一個系統中，最靈活的部分就是最能影響大局的部分。
+    10. 沒有失敗，只有回饋訊息；沒有錯誤,只有結果。
+    11. 動機和情緒總不會錯，只是行為沒有效果而已。
+    12. 潛意識的心是仁慈的。
+    13. 大腦與身體是同一個系統的兩個部分。
+    14. 溝通的意義取決於對方的回應。
+    15. 抗拒是對講者不夠靈活的說明。
+    16. 有選擇就是有能力。
+</code></pre>
+
+<p>以上16條是NLP神經語言程序的基本前提假設，而NLP的前提假設並不侷限於這16條，因為NLP的精神就是鼓勵不斷地創新與發展。所有創新與發展的NLP前提假設都是建立在這些基本前提假設之上的。</p>
+
+<p>對於任何想迅速在NLP中獲得益處的朋友，牛頭的建議是，仔細閱讀，深思上面的條前提假設，它們是NLP的思想的精髓，當你能把它們溶入你的思想中去時，你即使一個NLP技巧也不會，你也能經歷一次思想上的大洗禮。</p>
+
+<p>牛頭NLP學習小技巧：拿一張紙，把上面的16條假設抄下來。放在身上。空閒的時候拿出來看一看，讀一讀，思考它們的含義。有不懂的地方，到論壇上發問。然後，試著用這些前提假設的觀點來分析事情，判斷事情。這些，你就邁進NLP學習的第一步：掌握NLP的核心觀念。</p>
+
+<p>當然，NLP的前提假設不只是上面16條，下面是牛頭在網絡上看到他人收集的一些前提假設，列於此給大家參考。</p>
+
+<pre><code>第1條 行不通就改變！
+第2條 平衡（Ecology）才能持久。
+第3條 假如你想要有所瞭解,去行動。
+第4條 我們每一個人所認知的世界與別人一定是不同的,也不等於實際的世界。
+第5條 溝通是多管其下的。
+第6條 別人能，我也能。
+第7條 任何人都能活得完美無缺。
+第8條 有選擇比沒選擇好。
+第9條 人總是會選擇眼前最好的方法。
+第10條 過去的僅僅代表過去，並不等於未來。
+第11條 把動機與行為分開。
+第12條 任何行為在某種情況下都是有用的。
+第13條 你所得到的反應就是你溝通的意義。
+第14條 沒有未來只有現在。
+第15條 做任何一件事情的方法都是無限的。
+第16條 人是最偉大的資源。
+第17條 成功沒有「盡力而為」只有「全力以赴」。
+第18條 看到的都是過去。
+第19條 沒有效果的道理就是沒有道理。
+第20條 任何情緒都是一種推動力。
+第21條 愈小的工作愈易處理。
+第22條 任何事物都沒有意義，除非你給它下個定義。包括這句話本身。
+第23條 靈活和彈性就是影響力。
+第24條 我們所生存的宇宙是友善而且資源豐富的。
+第25條 方法總在行動中產生。
+第26條 有責任才有成長。
+第27條 任何事情的發生必有其必然的原因和目的而且有助於我。
+第28條 我們一生所有的經驗都被編碼儲存在我們的神經系統裡。
+第29條 我們透過影像、聲音、感覺(含觸覺)、氣味、口味來處理我們所有的信息。
+第30條 生態是追求平衡的，宇宙的一切也是平衡的，所以有一時的定，也有一時的動。
+第31條 改變其實是可以馬上做到的！江山易改,本性也是可移的。
+第32條 人的每一個行為背後，都有其更高的善意存在。
+第33條 世上的每一件事都至少有一種以上的不同見解。
+第34條 身心是在同一大系統下的兩個小系統，改變其一，就能帶動另一。
+第35條 聆聽者才是主動者。
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2015/05/16/within-six-months-how-to-learn-to-be-fluent-in-a-foreign-language/">如何在六個月內學得流利的外語</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-05-16T18:09:00+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>6:09 pm</span></time>
+        
+           | <a href="/posts/2015/05/16/within-six-months-how-to-learn-to-be-fluent-in-a-foreign-language/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2015/05/16/within-six-months-how-to-learn-to-be-fluent-in-a-foreign-language/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>好喜歡這個影片，這個教授主張大部分的人都應該可以有辦法在六個月內學得說流利的任何一門外國語言。 (大驚)   推薦大家一看!!!! (我用1.5倍速 大約12分鐘看完 )  裡面有提到五個核心原則和七個行動~ 只要有依照這個概念作任何一個行動，都會幫助我們的語言進步。  Rising U 課程也提到， 我們要使用高品質的詞彙和簡單的文法來幫助我們與外國人溝通， 腦子的CPU才不會卡住。 你知道嗎? 英文常用溝通的詞彙大約3000，就可以讓我們做到日常溝通呢!   ( 低頭想想我的日文口說 阿阿阿  掩面) <br/>
+教授1980年代在中國六個月就完成可以用中文跟中國人說話了&hellip;<br/>
+<a href="https://www.youtube.com/watch?v=de18lgWJHm8">https://www.youtube.com/watch?v=de18lgWJHm8</a>
+打破兩個迷思:
+1.  要有天賦 (天分)   &lt;=  不需要
+2.  要搬到那個國家去才有辦法學得會 &lt;= 胡扯</p>
+
+<p>五個原則，由四個詞彙交互作用相關連 (Meaning , Relevance, Attention , Memory):
+1. 要把注意力放在與你息息相關的內容上 (工作也好, 生活也好, 跟我們自身最相關的就對了 )
+2. 從第一天開始，就要把學到的新語言的任何東西拿來對外"溝通" , &ldquo;使用&rdquo;
+3. 當你開始理解溝通的時候，對方所描述的訊息涵義時，你將開始潛意識上開始學到了這些用法,吸收了語言 (學術上叫做  comprehension input)
+4. 學語言更像是 Physiological Training ，所以要多說，多練習讓臉部肌肉習慣講這個外國語言，要講講講講講講，多講才多習慣跟健身一樣，肌肉才習慣。
+5. 最後則是心理狀態，我們要讓心理狀態保持在好奇、興奮、開心、輕鬆，而不是負面的心理狀態，這樣才會學得好又快。</p>
+
+<p>七個行動:
+1. 泡腦子 (這邊超可愛的)  意思就是，要大量的聽，聽不懂也沒關係，讓耳朵和腦袋習慣這個外國語的pattern , 語音的感覺, 節奏的感覺
+2. 想辦法在理解詞彙和單字的意義之前，去猜，去推測這個字的意義
+(focus on getting the meaning FIRST before the words ) 交談時，透過肢體動作，臉部表情，比手畫腳之類的，我們要主動去猜 去推敲理解，然後才去查字詞的意義。
+3. Start Mixing 例如我們學10個動詞，10個名詞，10個形容詞，我們將可以組出1000個句子。 have fun
+4. Focus 在核心詞彙上就好了。 3000個常用詞彙可以幫助英文的日常生活98%的溝通。 找出那個外國語的高頻使用詞彙，先專注在這些詞彙上。
+第一周: 使用TOOL BOX :  先學會怎麼講 &ldquo; 那是什麼 &rdquo;  &ldquo; 那是什麼意思 &rdquo;  &ldquo; 那個該怎麼說 &rdquo;  &ldquo; 請重複一次 &rdquo; 這些句子，
+第二周: 開始學一些最常用的主詞、動詞、形容詞， ex: you that , here , give , hot , water me  等等
+第三周第四周開始學一些常用的膠水詞(連接詞): ex : but , and , although , in addition , besides , however.
+5. Get a language parent (找一個語言家長) 意思是找一個可以對話的同伴或老師， 這個同伴、老師要有具備下列五個規則:  讓我們可以自信 放心的講話
+ (1)  Try works hard to understand what you are saying
+ (2)  Does not correct mistakes
+ (3)  feedback his understanding by using correct language
+ (4) Uses words that learner knows
+6. Copy the Face 要去觀察外國人講這個外國語的臉部表情，然後模仿講話的表情、肌肉的動作等等  多聽、多看、多講多修正
+7. Direct Connect to mental image :  意思是我們要用圖像記憶法 用想像畫面、聽到的、看到的、聞到的、碰觸到的印象，去記住這個新的詞彙的意義，不要用死背的方法。  我們的大腦可以做到用自己的母語想這個詞彙的畫面然後連結到外語的說法是什麼。</p>
+
+<p><a href="https://www.youtube.com/watch?v=de18lgWJHm8">https://www.youtube.com/watch?v=de18lgWJHm8</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2015/05/06/long-term-plans-to-use-redmine-to-build-personal/">使用 Redmine 來建立個人的長期計畫</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-05-06T15:00:00+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:00 pm</span></time>
+        
+           | <a href="/posts/2015/05/06/long-term-plans-to-use-redmine-to-build-personal/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2015/05/06/long-term-plans-to-use-redmine-to-build-personal/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>為了要可以嘗試使用 redmine 來建立個人計畫，我們得先安裝好 redmine ,
+我在網路上看到了這篇文章，一步一步做的確可以成功地建立在 Heroku 上喔。
+<a href="http://blog.enoir.tw/2014/05/21/%E5%A6%82%E4%BD%95%E5%9C%A8heroku%E4%B8%8A%E6%9E%B6%E8%A8%ADrdemine%E6%9C%8D%E5%8B%99%EF%BC%8C%E4%BD%BF%E7%94%A8s3%E5%84%B2%E5%AD%98%E9%99%84%E4%BB%B6/">如何在Heroku上架設Rdemine服務，使用S3儲存附件</a></p>
+
+<p>另外也可以使用由德國公司開發的 雲端 SaaS Redmine 服務 : <code>plan.io</code>  網站:  <a href="https://plan.io/">plan.io</a>
+有提供免費的方案給個人使用，缺點就是唯一這個免費的 Project 會被設定為 Public ,而且不可改為 Private,
+註冊的地方在 Pricing 的頁面，請搜尋 <code>Bronze</code> 這個字，
+或點這個連結也可以導過去註冊免費方案 => <a href="https://accounts.plan.io/signup/Bronze?locale=en">https://accounts.plan.io/signup/Bronze?locale=en</a></p>
+
+<p>另外在網路上搜尋著 Redmine 之於個人的使用模式及 know how ，發現了下面這篇，因此很快地把他先翻譯成中文讓大家參考。
+原文文章
+<a href="http://www.rinist.com/entry/2014/01/27/065119">個人的な Redmine で長期計画を立てる</a></p>
+
+<h2>Life Hack</h2>
+
+<p>如果是置身在軟體開發的世界當中，在公司內使用 Redmine 的人 (或是被強迫使用的)是不少的。使用這個軟體來管理個人的專案，這是非常有用的。</p>
+
+<p>參考這篇文章
+<a href="http://www.web-20.net/2007/12/trac_1.html">意外と使われていない「個人用trac」活用のすすめ | ランサーズ(Lancers)社長日記</a>
+翻譯後的中文文章在這 : <a href="http://tech.guojheng-lin.com/posts/2015/03/19/surprisingly-not-in-use-trac-using-the-recommended">推薦您所忽略的出乎意料地沒在使用的[個人用 trac ] 活用術 </a></p>
+
+<h2>好的地方</h2>
+
+<p>1.可以任意的將票(Ticket)分類
+Ticket 就是 Task 或 Job ，Ticket 的 Tracker , 優先順序 , 任意的分類 , 任意的 item 屬性等等，我們都可以自由的設定與分類。 而且，如果使用了客製化的功能，都可以透過自訂的分類或排序來針對現在的狀態一目了然。但是，在高端的工作(Task)管理軟體例如 Omnifocus ，這也是辦得到的。</p>
+
+<p>2.建立長期計畫
+這就是把 Redmine 拿來作為個人使用最大的好處了 。 目前現況用來作為TASK管理的工具及軟體，再怎麼樣最多也是只能拿來建立一年兩年左右的長期計劃。 在使用這樣的軟體時，有一些活動，例如 : 「清理冷氣機」、「為了要參加Seminar使用，要製作個人名片」等等這種粒度比較小的專案 (Project) ，使用這樣的工具是便利的。  但是，如果要統合一堆小的專案(or TASK) 變成一個大的計畫或大專案時，例如，要開一場演奏大提琴表演的演奏會、獨立創業，等大計畫，如果可以有 【版本控制( Version ) 】 和【甘特圖 (Gannt Chart)】的概念的話，那麼，使用 Redmine 是會相當便利的。</p>
+
+<p>3.也可以使用 ネタ帳 (還沒查到什麼意思)
+雖然在<a href="http://www.web-20.net/2007/12/trac_1.html">意外と使われていない「個人用trac」活用のすすめ | ランサーズ(Lancers)社長日記</a>  這篇文章裡面也已經介紹過了，ネタ帳是相當便利的東西。
+使用 Evernote  的方式有很多種，但是只有使用 Tag 和 Notebook　的分類方法，此外，各種不同的idea 的種類要群組起來 (Grouping 起來 ) ，然後要一目了然的依據群族來看是不行的。 因此，使用 Redmine ，把 idea 化作 Ticket 的時候，就可以快速便利的依照分類群組來瀏覽，這樣是非常愉悅的。 當然，每一個各別的 idea 的詳細說明，自然而然就是到 Ticket 的詳細說明欄位去撰寫輸入。 對個人來說， 其次可以用來記錄 idea list 的地方就有 : 手機 App 的開發 List , Blog 的 List</p>
+
+<h2>不好的地方</h2>
+
+<ol>
+<li>建置 redmine 的程序很麻煩
+不論是  IT 工程師，或是不屬於 IT工程師的人，要安裝 Redmine 都是有一點麻煩的。 因為可能為了要達到不論都在哪裡都可以存取這些資料， 因此就考量到必須要有 web server 的建置，這樣的功夫就必須耗費的更大了，造成更多的困難。</li>
+</ol>
+
+
+<h2>個人的使用方法</h2>
+
+<p>ticket = mini project
+切票的粒度大小是很困難的。 舉例來說，「買一台新的洗衣機來更換」這樣的一個 project ，這是可以再分解為一些 task的。
+例如: 「測量現在使用的洗衣機尺寸」這樣的一個 task 是不是要在開一張票呢?  在自己使用redmine管理工作時，「買一台新的洗衣機來更換」是不是就只會開一張票而已呢? 如果這件工作「買一台新的洗衣機來更換」，要實際完成的期限是在近期的話，那麼，這件工作就會被移到 Omnifoucs ，然後在 Omnifoucs 上面列出詳細的子項工作。 具體的行動方案的 task list 的管理，我感覺應該是要使用例如 Omnifouct 等等的 task management tool , project 管理 tool .</p>
+
+<h2>以月為單位的票管理</h2>
+
+<p>再者，不論是這裡，或是<a href="http://www.web-20.net/2007/12/trac_1.html">意外と使われていない「個人用trac」活用のすすめ | ランサーズ(Lancers)社長日記</a>  這篇文章裡都有介紹了，以月為長度的票管理是比較好的。 【版本】用 &ldquo;月別&rdquo; 切換，在月的長度下開票，例如，分別設定了  2014年1月、2014年2月、2014年3月的不同版本，分別把票分配(指派)到各月份去。 此外，2014年4月以後的專案計畫，就放置在 2014年的版本當中。 2015年的專案計畫，就放置在2015年版本當中。  最近的 Task 依照細部的期限去分類，屬於將來的 Task 就使用大的單位去分別分類即可。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/3">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/index.html">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2018/05/02/test-for-new-post/">Test for New Post</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/">如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2017/02/10/how-to-get-improved-to-write-clean-code/">如何寫出clean Code 的參考資料</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/10/05/rails-using-aws-ses-send-mail-service/">Rails Using AWS SES Send Mail Service</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/">Redmine 串 AWS S3 遇到的問題 Hack Workaround</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Daniel Lin 丹哥 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dangjlin';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
