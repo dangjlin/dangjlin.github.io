@@ -9,8 +9,8 @@
   <meta name="author" content="Daniel Lin 丹哥">
 
   
-  <meta name="description" content="測試新文章
-">
+  <meta name="description" content="從provision VM 到自動安裝軟體、到使用 mina 自動化部署 Rails App provision 一台新 ubuntu server 自動裝機 script , 分兩段: 1- 第一段自動裝軟體 ,
+curl -L https://gist.githubusercontent. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,38 +78,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/2018/05/02/test-for-new-post/">Test for New Post</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-05-02T17:02:30+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2018</span></span> <span class='time'>5:02 pm</span></time>
-        
-           | <a href="/posts/2018/05/02/test-for-new-post/#disqus_thread"
-             data-disqus-identifier="http://dangjlin.github.io/posts/2018/05/02/test-for-new-post/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>測試新文章</h1>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -550,7 +518,7 @@ curl -L <a href="https://gist.githubusercontent.com/dangjlin/f57d8713352bfc8b0d3
 
 <ol>
 <li><p>使用 devise gem 時， initializers 目錄裡面的 devise.rb 這一行請不要亂打，AWS會驗證是不是已 verified domain , 否則會拒絕,不讓你寄信．
-config.mailer_sender = &lsquo;<a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#115;&#x65;&#114;&#118;&#105;&#x63;&#101;&#x40;&#x61;&#97;&#97;&#46;&#98;&#98;&#98;&#x2e;&#x63;&#99;&#99;">&#x73;&#101;&#x72;&#118;&#x69;&#99;&#101;&#x40;&#97;&#x61;&#97;&#46;&#98;&#x62;&#x62;&#46;&#x63;&#99;&#99;</a>&rsquo;</p></li>
+config.mailer_sender = &lsquo;<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#x73;&#x65;&#114;&#118;&#105;&#x63;&#x65;&#x40;&#97;&#x61;&#97;&#x2e;&#98;&#x62;&#x62;&#46;&#99;&#99;&#99;">&#x73;&#101;&#x72;&#118;&#x69;&#99;&#x65;&#x40;&#97;&#x61;&#x61;&#46;&#98;&#98;&#98;&#x2e;&#99;&#x63;&#99;</a>&rsquo;</p></li>
 <li><p>username &amp; password 要在 SES 的管理頁面 「SMTP Settings」那邊有一個 create SMTP credentials ，才可以產生 SMTP 的 user &amp; password ,  不是自己跑去 IAM 生一組。</p></li>
 <li><p>測試的時候，請先在SES 管理頁面，左邊有一個 「Email Addresses」先把要測試的收信的 mail address 打進去並且經過驗證，否則填入未經驗證的收信信箱，測試的時候SES也不讓你寄。</p></li>
 <li><p>其餘的話就是在 environment/production.rb 把下面內容設定好</p></li>
@@ -865,7 +833,7 @@ Update the URL in the application if necessary.</p>
 <li>如果是要認證整個 domain 也可以，就是 dns 那邊要做驗證。</li>
 <li>很重要！你要記得去 support center 開一張票，申請 ses mail service increase limitation. 這個很簡單就是幾個問題勾一勾（主要就是問你有沒有讀過使用規定，會不會遵守不寄發垃圾信的規定，會不會處理退信） 以及文字說明為什麼要增加  limitation , 我很簡單寫了需要啟用的原因是 電子商務網站註冊及寄發系統通知使用（當然是要用英文寫） , 其實這封mail 不只是增加 limitation  更是把服務從  sandbox 移到 production 啟用的重要步驟。</li>
 <li><p>在 SES裡面 create 一組 IAM User，這個時候會產生一組 user name &amp; password  很重要，請記錄下來。 這是後面要拿去 wordpress 做 smtp authentication 用的！ 我一開始傻傻的拿  key id 跟 secret key 去當作帳號密碼一直認證不過～後來才知道是要在 SES 產生一組 user name &amp; password ,  key and secret key 應該是 for REST API 調用的時候要寫到 code裡面的。</p></li>
-<li><p>還有一個小坑，  我在 wordpress 那邊設定  sender email 舉例: &ldquo; <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#x44;&#97;&#110;&#105;&#x65;&#108;&#x40;&#103;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#x44;&#97;&#110;&#x69;&#x65;&#108;&#x40;&#103;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#x6d;</a> &rdquo; , 但是我在 SES裡面認證過的是 ” <a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#100;&#97;&#x6e;&#x69;&#x65;&#x6c;&#64;&#x67;&#109;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#109;">&#100;&#97;&#110;&#105;&#101;&#x6c;&#x40;&#103;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a> “ , 只是因為第一個字母的大小寫不一樣，這樣也會寄信失敗，要注意要一模一樣喔！</p></li>
+<li><p>還有一個小坑，  我在 wordpress 那邊設定  sender email 舉例: &ldquo; <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#68;&#x61;&#110;&#105;&#x65;&#x6c;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#111;&#x6d;">&#x44;&#97;&#110;&#x69;&#101;&#x6c;&#64;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a> &rdquo; , 但是我在 SES裡面認證過的是 ” <a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#100;&#x61;&#x6e;&#105;&#101;&#x6c;&#64;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;">&#100;&#97;&#x6e;&#x69;&#x65;&#x6c;&#64;&#x67;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;</a> “ , 只是因為第一個字母的大小寫不一樣，這樣也會寄信失敗，要注意要一模一樣喔！</p></li>
 </ol>
 
 
@@ -961,6 +929,96 @@ Mac OS X 序號：PPRMAC873416580123XYZ8
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2015/12/09/deal-with-octopress-theme-oscailte-articles-list-cannot-show-problem/">解決 Octopress 的 Theme Oscailte 文章列表無法出現的問題</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-12-09T15:22:00+08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>3:22 pm</span></time>
+        
+           | <a href="/posts/2015/12/09/deal-with-octopress-theme-oscailte-articles-list-cannot-show-problem/#disqus_thread"
+             data-disqus-identifier="http://dangjlin.github.io/posts/2015/12/09/deal-with-octopress-theme-oscailte-articles-list-cannot-show-problem/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>問題: Oscailte 的主題 (theme)安裝後， 部落格頁面無法顯示文章列表</h1>
+
+<p>最近自己架設了 Octopress 的部落格，並且放在 github 上吃自己的 domain name. 一切都很順利
+但是一直在找好看，符合需求的 theme 來妝點。發現了 Oscailte 的時候很開心覺得做得真好；又有 index 可以做為landing page 頁面，也有 blog 頁面。</p>
+
+<p><a href="https://coog.ie/blog/">oscailte preview site</a>
+<a href="https://github.com/coogie/oscailte/">oscailte github</a></p>
+
+<p>但是安裝好之後不知道為什麼，部落格首頁的左半邊應該是要出現文章列表才對! 但是就是空白出現不了!
+一開始一直以為是 source 目錄裡面的 template 問題。研究了好幾天，但實在太難懂了  不知道從何改起。</p>
+
+<p>後來才發現問題竟然是出現在 pagination 的參數。
+如果你也有一樣的問題</p>
+
+<p>請打開   <code>_config.yml</code> 檔案
+找到這一行 <code>paginate_path</code>
+本來預設是寫 <code>posts/:num</code>
+我把它改為 <code>blog/:num</code></p>
+
+<p>一切就都正常了!!!</p>
+
+<figure class='code'><figcaption><span>_config.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="err">前略</span>
+</span><span class='line'>
+</span><span class='line'><span class="ss">paginate</span><span class="p">:</span> <span class="mi">10</span>          <span class="c1"># Posts per page on the blog index</span>
+</span><span class='line'><span class="ss">paginate_path</span><span class="p">:</span> <span class="s2">&quot;blog/:num&quot;</span>  <span class="c1"># Directory base for pagination URLs eg. /posts/2/</span>
+</span><span class='line'><span class="ss">recent_posts</span><span class="p">:</span> <span class="mi">5</span>       <span class="c1"># Posts in the sidebar Recent Posts section</span>
+</span><span class='line'><span class="ss">excerpt_link</span><span class="p">:</span> <span class="s2">&quot;Read on &amp;rarr;&quot;</span>  <span class="c1"># &quot;Continue reading&quot; link text at the bottom of excerpted articles</span>
+</span><span class='line'><span class="ss">excerpt_separator</span><span class="p">:</span> <span class="s2">&quot;&lt;!--more--&gt;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我自己的站需要把 本來的 /blog/:year/&hellip;.. 改為 /posts/:year/&hellip;.
+所以另外測試了，就算 perment link 改動，也不會影響到 paginate_path。 還是要維持在 <code>blog/:num</code> 喔!!</p>
+
+<figure class='code'><figcaption><span>_config.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># If publishing to a subdirectory as in http://site.com/project set &#39;root: /project&#39;</span>
+</span><span class='line'><span class="ss">root</span><span class="p">:</span> <span class="sr">/</span>
+</span><span class='line'><span class="sr">permalink: /</span><span class="n">posts</span><span class="o">/</span><span class="ss">:year</span><span class="o">/</span><span class="ss">:month</span><span class="o">/</span><span class="ss">:day</span><span class="o">/</span><span class="ss">:title</span><span class="o">/</span>
+</span><span class='line'><span class="ss">source</span><span class="p">:</span> <span class="n">source</span>
+</span><span class='line'><span class="ss">destination</span><span class="p">:</span> <span class="kp">public</span>
+</span><span class='line'><span class="ss">plugins</span><span class="p">:</span> <span class="n">plugins</span>
+</span><span class='line'><span class="ss">code_dir</span><span class="p">:</span> <span class="n">downloads</span><span class="o">/</span><span class="n">code</span>
+</span><span class='line'><span class="ss">category_dir</span><span class="p">:</span> <span class="n">blog</span><span class="o">/</span><span class="n">categories</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/blog/2">&larr; Older</a>
@@ -976,10 +1034,6 @@ Mac OS X 序號：PPRMAC873416580123XYZ8
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/posts/2018/05/02/test-for-new-post/">Test for New Post</a>
-      </li>
-    
-      <li class="post">
         <a href="/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/">如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx</a>
       </li>
     
@@ -993,6 +1047,10 @@ Mac OS X 序號：PPRMAC873416580123XYZ8
     
       <li class="post">
         <a href="/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/">Redmine 串 AWS S3 遇到的問題 Hack Workaround</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/07/15/rails-stripe-write-code-for-the-payment-step-abstract/">Rails 串 Stripe 付款的寫 Code 幾個步驟（摘要）</a>
       </li>
     
   </ul>
