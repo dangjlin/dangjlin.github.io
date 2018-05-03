@@ -107,7 +107,7 @@
 
 <ol>
 <li><p>使用 devise gem 時， initializers 目錄裡面的 devise.rb 這一行請不要亂打，AWS會驗證是不是已 verified domain , 否則會拒絕,不讓你寄信．
-config.mailer_sender = &lsquo;<a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#115;&#101;&#x72;&#x76;&#105;&#99;&#101;&#64;&#x61;&#x61;&#97;&#x2e;&#98;&#x62;&#98;&#46;&#x63;&#99;&#x63;">&#115;&#x65;&#114;&#118;&#105;&#x63;&#x65;&#64;&#x61;&#97;&#x61;&#x2e;&#98;&#98;&#98;&#x2e;&#99;&#99;&#99;</a>&rsquo;</p></li>
+config.mailer_sender = &lsquo;<a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#115;&#101;&#114;&#x76;&#105;&#x63;&#101;&#64;&#x61;&#97;&#x61;&#x2e;&#98;&#x62;&#x62;&#x2e;&#99;&#x63;&#x63;">&#x73;&#x65;&#114;&#118;&#x69;&#99;&#101;&#x40;&#x61;&#x61;&#x61;&#46;&#98;&#x62;&#98;&#x2e;&#x63;&#x63;&#99;</a>&rsquo;</p></li>
 <li><p>username &amp; password 要在 SES 的管理頁面 「SMTP Settings」那邊有一個 create SMTP credentials ，才可以產生 SMTP 的 user &amp; password ,  不是自己跑去 IAM 生一組。</p></li>
 <li><p>測試的時候，請先在SES 管理頁面，左邊有一個 「Email Addresses」先把要測試的收信的 mail address 打進去並且經過驗證，否則填入未經驗證的收信信箱，測試的時候SES也不讓你寄。</p></li>
 <li><p>其餘的話就是在 environment/production.rb 把下面內容設定好</p></li>
@@ -197,10 +197,6 @@ config.mailer_sender = &lsquo;<a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#58;
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/posts/2018/05/03/test-from-macpro-15/">Test From Macpro 15</a>
-      </li>
-    
-      <li class="post">
         <a href="/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/">如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx</a>
       </li>
     
@@ -214,6 +210,10 @@ config.mailer_sender = &lsquo;<a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#58;
     
       <li class="post">
         <a href="/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/">Redmine 串 AWS S3 遇到的問題 Hack Workaround</a>
+      </li>
+    
+      <li class="post">
+        <a href="/posts/2016/07/15/rails-stripe-write-code-for-the-payment-step-abstract/">Rails 串 Stripe 付款的寫 Code 幾個步驟（摘要）</a>
       </li>
     
   </ul>
