@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Aws | 丹哥的技術培養皿]]></title>
-  <link href="http://dangjlin.github.io/blog/categories/aws/atom.xml" rel="self"/>
-  <link href="http://dangjlin.github.io/"/>
-  <updated>2018-05-02T17:49:05+08:00</updated>
-  <id>http://dangjlin.github.io/</id>
+  <link href="http://tech.guojheng-lin.com/blog/categories/aws/atom.xml" rel="self"/>
+  <link href="http://tech.guojheng-lin.com/"/>
+  <updated>2018-05-03T16:02:28+08:00</updated>
+  <id>http://tech.guojheng-lin.com/</id>
   <author>
     <name><![CDATA[Daniel Lin 丹哥]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Redmine 串 AWS S3 遇到的問題 Hack Workaround]]></title>
-    <link href="http://dangjlin.github.io/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/"/>
     <updated>2016-07-19T08:58:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround</id>
+    <id>http://tech.guojheng-lin.com/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround</id>
     <content type="html"><![CDATA[<p>整個安裝的步驟，請參考 sdlong 大的文章：</p>
 
 <p>但是一直做到要把 file upload 串到 AWS S3 的時候，我們使用了 gem <a href="https://github.com/ka8725/redmine_s3">redmine_s3</a></p>

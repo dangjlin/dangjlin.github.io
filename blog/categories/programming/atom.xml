@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Programming | 丹哥的技術培養皿]]></title>
-  <link href="http://dangjlin.github.io/blog/categories/programming/atom.xml" rel="self"/>
-  <link href="http://dangjlin.github.io/"/>
-  <updated>2018-05-02T17:49:05+08:00</updated>
-  <id>http://dangjlin.github.io/</id>
+  <link href="http://tech.guojheng-lin.com/blog/categories/programming/atom.xml" rel="self"/>
+  <link href="http://tech.guojheng-lin.com/"/>
+  <updated>2018-05-03T16:02:28+08:00</updated>
+  <id>http://tech.guojheng-lin.com/</id>
   <author>
     <name><![CDATA[Daniel Lin 丹哥]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[如何寫出clean Code 的參考資料]]></title>
-    <link href="http://dangjlin.github.io/posts/2017/02/10/how-to-get-improved-to-write-clean-code/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2017/02/10/how-to-get-improved-to-write-clean-code/"/>
     <updated>2017-02-10T14:32:20+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2017/02/10/how-to-get-improved-to-write-clean-code</id>
+    <id>http://tech.guojheng-lin.com/posts/2017/02/10/how-to-get-improved-to-write-clean-code</id>
     <content type="html"><![CDATA[<h1>如何設計好的程式架構跟安排，寫出clean code</h1>
 
 <p>這是在臉書上徵詢請教大大的筆記資料</p>

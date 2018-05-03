@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Deploy | 丹哥的技術培養皿]]></title>
-  <link href="http://dangjlin.github.io/blog/categories/deploy/atom.xml" rel="self"/>
-  <link href="http://dangjlin.github.io/"/>
-  <updated>2018-05-02T17:49:05+08:00</updated>
-  <id>http://dangjlin.github.io/</id>
+  <link href="http://tech.guojheng-lin.com/blog/categories/deploy/atom.xml" rel="self"/>
+  <link href="http://tech.guojheng-lin.com/"/>
+  <updated>2018-05-03T16:02:28+08:00</updated>
+  <id>http://tech.guojheng-lin.com/</id>
   <author>
     <name><![CDATA[Daniel Lin 丹哥]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx]]></title>
-    <link href="http://dangjlin.github.io/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/"/>
     <updated>2017-02-22T17:39:14+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx</id>
+    <id>http://tech.guojheng-lin.com/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx</id>
     <content type="html"><![CDATA[<h1>從provision VM 到自動安裝軟體、到使用 mina 自動化部署 Rails App</h1>
 
 <h2>provision 一台新 ubuntu server</h2>

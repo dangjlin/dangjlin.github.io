@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://dangjlin.github.io/sitemap.xml 
+Sitemap: http://tech.guojheng-lin.com/sitemap.xml 

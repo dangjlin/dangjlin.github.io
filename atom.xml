@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[丹哥的技術培養皿]]></title>
-  <link href="http://dangjlin.github.io/atom.xml" rel="self"/>
-  <link href="http://dangjlin.github.io/"/>
-  <updated>2018-05-02T17:49:05+08:00</updated>
-  <id>http://dangjlin.github.io/</id>
+  <link href="http://tech.guojheng-lin.com/atom.xml" rel="self"/>
+  <link href="http://tech.guojheng-lin.com/"/>
+  <updated>2018-05-03T16:02:28+08:00</updated>
+  <id>http://tech.guojheng-lin.com/</id>
   <author>
     <name><![CDATA[Daniel Lin 丹哥]]></name>
     
@@ -14,10 +14,19 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Test From Macpro 15]]></title>
+    <link href="http://tech.guojheng-lin.com/posts/2018/05/03/test-from-macpro-15/"/>
+    <updated>2018-05-03T16:01:36+08:00</updated>
+    <id>http://tech.guojheng-lin.com/posts/2018/05/03/test-from-macpro-15</id>
+    <content type="html"><![CDATA[<h2>Test from macbook pro 15</h2>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[如何使用 Mina & Puma & Nginx 部署 Rails - Deploy Rails App With Mina &amp; Puma &amp; Nginx]]></title>
-    <link href="http://dangjlin.github.io/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx/"/>
     <updated>2017-02-22T17:39:14+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx</id>
+    <id>http://tech.guojheng-lin.com/posts/2017/02/22/deploy-rails-app-with-mina-and-puma-and-nginx</id>
     <content type="html"><![CDATA[<h1>從provision VM 到自動安裝軟體、到使用 mina 自動化部署 Rails App</h1>
 
 <h2>provision 一台新 ubuntu server</h2>
@@ -334,9 +343,9 @@ curl -L <a href="https://gist.githubusercontent.com/dangjlin/f57d8713352bfc8b0d3
   
   <entry>
     <title type="html"><![CDATA[如何寫出clean Code 的參考資料]]></title>
-    <link href="http://dangjlin.github.io/posts/2017/02/10/how-to-get-improved-to-write-clean-code/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2017/02/10/how-to-get-improved-to-write-clean-code/"/>
     <updated>2017-02-10T14:32:20+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2017/02/10/how-to-get-improved-to-write-clean-code</id>
+    <id>http://tech.guojheng-lin.com/posts/2017/02/10/how-to-get-improved-to-write-clean-code</id>
     <content type="html"><![CDATA[<h1>如何設計好的程式架構跟安排，寫出clean code</h1>
 
 <p>這是在臉書上徵詢請教大大的筆記資料</p>
@@ -376,9 +385,9 @@ curl -L <a href="https://gist.githubusercontent.com/dangjlin/f57d8713352bfc8b0d3
   
   <entry>
     <title type="html"><![CDATA[Rails Using AWS SES Send Mail Service]]></title>
-    <link href="http://dangjlin.github.io/posts/2016/10/05/rails-using-aws-ses-send-mail-service/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2016/10/05/rails-using-aws-ses-send-mail-service/"/>
     <updated>2016-10-05T17:24:59+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2016/10/05/rails-using-aws-ses-send-mail-service</id>
+    <id>http://tech.guojheng-lin.com/posts/2016/10/05/rails-using-aws-ses-send-mail-service</id>
     <content type="html"><![CDATA[<h1>Ruby on Rails 如何使用AWS SES 的寄送MAIL服務</h1>
 
 <p>網站可以 send mail 了 , 感謝 AWS SES service.</p>
@@ -387,7 +396,7 @@ curl -L <a href="https://gist.githubusercontent.com/dangjlin/f57d8713352bfc8b0d3
 
 <ol>
 <li><p>使用 devise gem 時， initializers 目錄裡面的 devise.rb 這一行請不要亂打，AWS會驗證是不是已 verified domain , 否則會拒絕,不讓你寄信．
-config.mailer_sender = &lsquo;<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#x73;&#x65;&#114;&#118;&#105;&#x63;&#x65;&#x40;&#97;&#x61;&#97;&#x2e;&#98;&#x62;&#x62;&#46;&#99;&#99;&#99;">&#x73;&#101;&#x72;&#118;&#x69;&#99;&#x65;&#x40;&#97;&#x61;&#x61;&#46;&#98;&#98;&#98;&#x2e;&#99;&#x63;&#99;</a>&rsquo;</p></li>
+config.mailer_sender = &lsquo;<a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#115;&#101;&#x72;&#x76;&#105;&#99;&#101;&#64;&#x61;&#x61;&#97;&#x2e;&#98;&#x62;&#98;&#46;&#x63;&#99;&#x63;">&#115;&#x65;&#114;&#118;&#105;&#x63;&#x65;&#64;&#x61;&#97;&#x61;&#x2e;&#98;&#98;&#98;&#x2e;&#99;&#99;&#99;</a>&rsquo;</p></li>
 <li><p>username &amp; password 要在 SES 的管理頁面 「SMTP Settings」那邊有一個 create SMTP credentials ，才可以產生 SMTP 的 user &amp; password ,  不是自己跑去 IAM 生一組。</p></li>
 <li><p>測試的時候，請先在SES 管理頁面，左邊有一個 「Email Addresses」先把要測試的收信的 mail address 打進去並且經過驗證，否則填入未經驗證的收信信箱，測試的時候SES也不讓你寄。</p></li>
 <li><p>其餘的話就是在 environment/production.rb 把下面內容設定好</p></li>
@@ -418,9 +427,9 @@ config.mailer_sender = &lsquo;<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#x3a
   
   <entry>
     <title type="html"><![CDATA[Redmine 串 AWS S3 遇到的問題 Hack Workaround]]></title>
-    <link href="http://dangjlin.github.io/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/"/>
     <updated>2016-07-19T08:58:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround</id>
+    <id>http://tech.guojheng-lin.com/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround</id>
     <content type="html"><![CDATA[<p>整個安裝的步驟，請參考 sdlong 大的文章：</p>
 
 <p>但是一直做到要把 file upload 串到 AWS S3 的時候，我們使用了 gem <a href="https://github.com/ka8725/redmine_s3">redmine_s3</a></p>
@@ -448,9 +457,9 @@ config.mailer_sender = &lsquo;<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#x3a
   
   <entry>
     <title type="html"><![CDATA[Rails 串 Stripe 付款的寫 Code 幾個步驟（摘要）]]></title>
-    <link href="http://dangjlin.github.io/posts/2016/07/15/rails-stripe-write-code-for-the-payment-step-abstract/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2016/07/15/rails-stripe-write-code-for-the-payment-step-abstract/"/>
     <updated>2016-07-15T06:40:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2016/07/15/rails-stripe-write-code-for-the-payment-step-abstract</id>
+    <id>http://tech.guojheng-lin.com/posts/2016/07/15/rails-stripe-write-code-for-the-payment-step-abstract</id>
     <content type="html"><![CDATA[<h1>Rails &amp; Stripe</h1>
 
 <p>先摘要筆記下來，細節有機會再來補．
@@ -471,9 +480,9 @@ config.mailer_sender = &lsquo;<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#x3a
   
   <entry>
     <title type="html"><![CDATA[Bitnami Wordpress Apache Subdomain Virtual Host 設定]]></title>
-    <link href="http://dangjlin.github.io/posts/2016/07/05/bitnami-wordpress-apache-subdomain-virtual-host-settings/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2016/07/05/bitnami-wordpress-apache-subdomain-virtual-host-settings/"/>
     <updated>2016-07-05T07:04:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2016/07/05/bitnami-wordpress-apache-subdomain-virtual-host-settings</id>
+    <id>http://tech.guojheng-lin.com/posts/2016/07/05/bitnami-wordpress-apache-subdomain-virtual-host-settings</id>
     <content type="html"><![CDATA[<h1>bitnami wordpress apache subdomain &amp; virtual host 設定</h1>
 
 <p>因為最近要把一個本來住在別的地方還是以 windows server 為 base 的 wordpress 搬家到 AWS
@@ -598,9 +607,9 @@ Update the URL in the application if necessary.</p>
   
   <entry>
     <title type="html"><![CDATA[AWS SES ( Simple Email Service) 服務使用]]></title>
-    <link href="http://dangjlin.github.io/posts/2016/07/05/aws-ses-simple-email-service-service/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2016/07/05/aws-ses-simple-email-service-service/"/>
     <updated>2016-07-05T03:03:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2016/07/05/aws-ses-simple-email-service-service</id>
+    <id>http://tech.guojheng-lin.com/posts/2016/07/05/aws-ses-simple-email-service-service</id>
     <content type="html"><![CDATA[<p>很快地做一個筆記</p>
 
 <ol>
@@ -610,7 +619,7 @@ Update the URL in the application if necessary.</p>
 <li>如果是要認證整個 domain 也可以，就是 dns 那邊要做驗證。</li>
 <li>很重要！你要記得去 support center 開一張票，申請 ses mail service increase limitation. 這個很簡單就是幾個問題勾一勾（主要就是問你有沒有讀過使用規定，會不會遵守不寄發垃圾信的規定，會不會處理退信） 以及文字說明為什麼要增加  limitation , 我很簡單寫了需要啟用的原因是 電子商務網站註冊及寄發系統通知使用（當然是要用英文寫） , 其實這封mail 不只是增加 limitation  更是把服務從  sandbox 移到 production 啟用的重要步驟。</li>
 <li><p>在 SES裡面 create 一組 IAM User，這個時候會產生一組 user name &amp; password  很重要，請記錄下來。 這是後面要拿去 wordpress 做 smtp authentication 用的！ 我一開始傻傻的拿  key id 跟 secret key 去當作帳號密碼一直認證不過～後來才知道是要在 SES 產生一組 user name &amp; password ,  key and secret key 應該是 for REST API 調用的時候要寫到 code裡面的。</p></li>
-<li><p>還有一個小坑，  我在 wordpress 那邊設定  sender email 舉例: &ldquo; <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#68;&#x61;&#110;&#105;&#x65;&#x6c;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#111;&#x6d;">&#x44;&#97;&#110;&#x69;&#101;&#x6c;&#64;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a> &rdquo; , 但是我在 SES裡面認證過的是 ” <a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#100;&#x61;&#x6e;&#105;&#101;&#x6c;&#64;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;">&#100;&#97;&#x6e;&#x69;&#x65;&#x6c;&#64;&#x67;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;</a> “ , 只是因為第一個字母的大小寫不一樣，這樣也會寄信失敗，要注意要一模一樣喔！</p></li>
+<li><p>還有一個小坑，  我在 wordpress 那邊設定  sender email 舉例: &ldquo; <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#68;&#x61;&#x6e;&#105;&#101;&#x6c;&#64;&#103;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#111;&#109;">&#68;&#97;&#110;&#105;&#x65;&#x6c;&#64;&#103;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a> &rdquo; , 但是我在 SES裡面認證過的是 ” <a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x64;&#97;&#x6e;&#105;&#x65;&#108;&#64;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;">&#x64;&#97;&#110;&#x69;&#101;&#x6c;&#x40;&#x67;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;</a> “ , 只是因為第一個字母的大小寫不一樣，這樣也會寄信失敗，要注意要一模一樣喔！</p></li>
 </ol>
 
 
@@ -620,9 +629,9 @@ Update the URL in the application if necessary.</p>
   
   <entry>
     <title type="html"><![CDATA[如何在windows 裡面自動定時螢幕截圖存檔 (Command Line)]]></title>
-    <link href="http://dangjlin.github.io/posts/2016/05/24/how-to-screenshot-in-windows-schedulel-use-command-line/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2016/05/24/how-to-screenshot-in-windows-schedulel-use-command-line/"/>
     <updated>2016-05-24T06:28:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2016/05/24/how-to-screenshot-in-windows-schedulel-use-command-line</id>
+    <id>http://tech.guojheng-lin.com/posts/2016/05/24/how-to-screenshot-in-windows-schedulel-use-command-line</id>
     <content type="html"><![CDATA[<p>目前每天都讓 aws 上面 windows server 自動十二點半開機，然後一點啟動模型下單程式，收盤前會下單，機器兩點關機。
 為了要做一個紀錄，我希望可以在每天收盤之後，讓電腦拍一下螢幕快照做歷史紀錄，否則每天自動關機，都沒有留下紀錄，到時候要回來追蹤的時候都毫無辦法。</p>
 
@@ -644,9 +653,9 @@ Save 10 screenshots in a loop, and wait 60 seconds between the screenshot save c
   
   <entry>
     <title type="html"><![CDATA[PDF Password Remover Free Download 官方免費]]></title>
-    <link href="http://dangjlin.github.io/posts/2016/03/28/pdf-password-remover-free-download-official-free/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2016/03/28/pdf-password-remover-free-download-official-free/"/>
     <updated>2016-03-28T03:22:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2016/03/28/pdf-password-remover-free-download-official-free</id>
+    <id>http://tech.guojheng-lin.com/posts/2016/03/28/pdf-password-remover-free-download-official-free</id>
     <content type="html"><![CDATA[<h2>非常好用的 PDF Password remover 官方版免費限時釋出</h2>
 
 <p>Windows 序號：FLA885301308601237
@@ -658,9 +667,9 @@ Mac OS X 序號：PPRMAC873416580123XYZ8
   
   <entry>
     <title type="html"><![CDATA[解決 Octopress 的 Theme Oscailte 文章列表無法出現的問題]]></title>
-    <link href="http://dangjlin.github.io/posts/2015/12/09/deal-with-octopress-theme-oscailte-articles-list-cannot-show-problem/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2015/12/09/deal-with-octopress-theme-oscailte-articles-list-cannot-show-problem/"/>
     <updated>2015-12-09T15:22:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2015/12/09/deal-with-octopress-theme-oscailte-articles-list-cannot-show-problem</id>
+    <id>http://tech.guojheng-lin.com/posts/2015/12/09/deal-with-octopress-theme-oscailte-articles-list-cannot-show-problem</id>
     <content type="html"><![CDATA[<h1>問題: Oscailte 的主題 (theme)安裝後， 部落格頁面無法顯示文章列表</h1>
 
 <p>最近自己架設了 Octopress 的部落格，並且放在 github 上吃自己的 domain name. 一切都很順利
@@ -725,9 +734,9 @@ Mac OS X 序號：PPRMAC873416580123XYZ8
   
   <entry>
     <title type="html"><![CDATA[在部落格使用 Google 思源字體　　　( Logdown 篇 )]]></title>
-    <link href="http://dangjlin.github.io/posts/2015/12/04/how-to-use-google-font-source-han-sans-traditional-chinese-logdown/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2015/12/04/how-to-use-google-font-source-han-sans-traditional-chinese-logdown/"/>
     <updated>2015-12-04T01:26:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2015/12/04/how-to-use-google-font-source-han-sans-traditional-chinese-logdown</id>
+    <id>http://tech.guojheng-lin.com/posts/2015/12/04/how-to-use-google-font-source-han-sans-traditional-chinese-logdown</id>
     <content type="html"><![CDATA[<h1>新細明體與黑體的字呈現在網頁或PowerPoint上的視覺感受不同</h1>
 
 <h2>新細明體與黑體的超級比一比</h2>
@@ -809,9 +818,9 @@ Mac OS X 序號：PPRMAC873416580123XYZ8
   
   <entry>
     <title type="html"><![CDATA[寫一隻Ruby 檔案定時抓爬網頁資料]]></title>
-    <link href="http://dangjlin.github.io/posts/2015/12/03/write-a-ruby-file-regularly-to-catch-crawling-web-page-data/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2015/12/03/write-a-ruby-file-regularly-to-catch-crawling-web-page-data/"/>
     <updated>2015-12-03T05:12:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2015/12/03/write-a-ruby-file-regularly-to-catch-crawling-web-page-data</id>
+    <id>http://tech.guojheng-lin.com/posts/2015/12/03/write-a-ruby-file-regularly-to-catch-crawling-web-page-data</id>
     <content type="html"><![CDATA[<h1>如何使用 Ruby 檔案定時抓爬固定網頁的資料</h1>
 
 <h2>固定抓資料的ruby程式碼</h2>
@@ -1019,9 +1028,9 @@ shell crontab</p>
   
   <entry>
     <title type="html"><![CDATA[日本房地產30年走勢]]></title>
-    <link href="http://dangjlin.github.io/posts/2015/10/24/japan-real-estate-30-years-trend/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2015/10/24/japan-real-estate-30-years-trend/"/>
     <updated>2015-10-24T09:56:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2015/10/24/japan-real-estate-30-years-trend</id>
+    <id>http://tech.guojheng-lin.com/posts/2015/10/24/japan-real-estate-30-years-trend</id>
     <content type="html"><![CDATA[<h2>氣憤房地產的由來</h2>
 
 <p>我很生氣房地產被炒作。 原因無他，當你邁入三十而立的歲月光景，想成家立業，腦中開始有了要獨立成戶的念頭時，一看，這是什麼鬼價格?   板橋新成屋都要喊到50萬/坪以上 (新板特區不管了，那邊都破100萬/坪。 俗稱的天龍國不用講，絕對都是 70萬/坪 ~ 200萬/坪的範圍內。 所以在板橋買新屋30坪，隨便算都要1500萬以上。你告訴我上班族怎麼有辦法買?
@@ -1077,9 +1086,9 @@ shell crontab</p>
   
   <entry>
     <title type="html"><![CDATA[自炊生活啟動 Fujitsu iX500 + 雲廣858 A4 裁刀]]></title>
-    <link href="http://dangjlin.github.io/posts/2015/09/22/self-book-scan-starts-fujitsu-ix500-yunguang-858-a4-cutter/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2015/09/22/self-book-scan-starts-fujitsu-ix500-yunguang-858-a4-cutter/"/>
     <updated>2015-09-22T01:32:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2015/09/22/self-book-scan-starts-fujitsu-ix500-yunguang-858-a4-cutter</id>
+    <id>http://tech.guojheng-lin.com/posts/2015/09/22/self-book-scan-starts-fujitsu-ix500-yunguang-858-a4-cutter</id>
     <content type="html"><![CDATA[<h1>現成的Solution 組合，Survey的成本很低</h1>
 
 <p>我關注這個自炊這個主題已經很久了，原因就是因為家裡的購入書籍已經超過400本了，大小書櫃共六個都不夠用，床底下、地上、桌上、床上都放置了數量不等的書籍，實在是都快要比我本人要住的地方還占空間了。 心想這不是辦法，就想了幾個 solution。</p>
@@ -1135,9 +1144,9 @@ Fujitsu iX500 掃描器 + 雲廣 858 A4 裁刀總重約 : 20.00 公斤， 透過
   
   <entry>
     <title type="html"><![CDATA[Growth Hacking 上課心得]]></title>
-    <link href="http://dangjlin.github.io/posts/2015/08/06/growth-hacking-class-memo/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2015/08/06/growth-hacking-class-memo/"/>
     <updated>2015-08-06T16:03:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2015/08/06/growth-hacking-class-memo</id>
+    <id>http://tech.guojheng-lin.com/posts/2015/08/06/growth-hacking-class-memo</id>
     <content type="html"><![CDATA[<h1>結論</h1>
 
 <p>如果你從來都不知道什麼叫做 Growth Hacking，需要一個有架構脈絡、有類比到真實世界的範例，及各種手法跟心法導覽的話，而且你又沒空上網看一大堆英文資料的話，那麼xdite最近開的 [ Growth Hack 入門心法班 ] 這是挺不錯的一門 Intro 課。
@@ -1187,9 +1196,9 @@ Fujitsu iX500 掃描器 + 雲廣 858 A4 裁刀總重約 : 20.00 公斤， 透過
   
   <entry>
     <title type="html"><![CDATA[我的30年的30檔現金流美股]]></title>
-    <link href="http://dangjlin.github.io/posts/2015/06/26/30-of-my-30-year-cash-flow-stocks/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2015/06/26/30-of-my-30-year-cash-flow-stocks/"/>
     <updated>2015-06-26T02:01:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2015/06/26/30-of-my-30-year-cash-flow-stocks</id>
+    <id>http://tech.guojheng-lin.com/posts/2015/06/26/30-of-my-30-year-cash-flow-stocks</id>
     <content type="html"><![CDATA[<p>因為我本身持有了星巴克200股，因此很關心星巴克的營運狀況。
 本篇文章來自 <a href="http://seekingalpha.com/article/3274915-my-30-stocks-for-30-years-starbucks-q2-15-buy">http://seekingalpha.com/article/3274915-my-30-stocks-for-30-years-starbucks-q2-15-buy</a></p>
 
@@ -1294,9 +1303,9 @@ Fujitsu iX500 掃描器 + 雲廣 858 A4 裁刀總重約 : 20.00 公斤， 透過
   
   <entry>
     <title type="html"><![CDATA[NLP的前提假設]]></title>
-    <link href="http://dangjlin.github.io/posts/2015/05/25/nlp-presupppositions/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2015/05/25/nlp-presupppositions/"/>
     <updated>2015-05-25T03:25:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2015/05/25/nlp-presupppositions</id>
+    <id>http://tech.guojheng-lin.com/posts/2015/05/25/nlp-presupppositions</id>
     <content type="html"><![CDATA[<h1>NLP 的前提假設</h1>
 
 <p>本篇文章來自於 <a href="http://niutou.teacher.nlp.cn/article/5599.html">http://niutou.teacher.nlp.cn/article/5599.html</a>
@@ -1375,9 +1384,9 @@ NLP的前提假設（完整版）</p>
   
   <entry>
     <title type="html"><![CDATA[如何在六個月內學得流利的外語]]></title>
-    <link href="http://dangjlin.github.io/posts/2015/05/16/within-six-months-how-to-learn-to-be-fluent-in-a-foreign-language/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2015/05/16/within-six-months-how-to-learn-to-be-fluent-in-a-foreign-language/"/>
     <updated>2015-05-16T18:09:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2015/05/16/within-six-months-how-to-learn-to-be-fluent-in-a-foreign-language</id>
+    <id>http://tech.guojheng-lin.com/posts/2015/05/16/within-six-months-how-to-learn-to-be-fluent-in-a-foreign-language</id>
     <content type="html"><![CDATA[<p>好喜歡這個影片，這個教授主張大部分的人都應該可以有辦法在六個月內學得說流利的任何一門外國語言。 (大驚)   推薦大家一看!!!! (我用1.5倍速 大約12分鐘看完 )  裡面有提到五個核心原則和七個行動~ 只要有依照這個概念作任何一個行動，都會幫助我們的語言進步。  Rising U 課程也提到， 我們要使用高品質的詞彙和簡單的文法來幫助我們與外國人溝通， 腦子的CPU才不會卡住。 你知道嗎? 英文常用溝通的詞彙大約3000，就可以讓我們做到日常溝通呢!   ( 低頭想想我的日文口說 阿阿阿  掩面) <br/>
 教授1980年代在中國六個月就完成可以用中文跟中國人說話了&hellip;<br/>
 <a href="https://www.youtube.com/watch?v=de18lgWJHm8">https://www.youtube.com/watch?v=de18lgWJHm8</a>
@@ -1415,9 +1424,9 @@ NLP的前提假設（完整版）</p>
   
   <entry>
     <title type="html"><![CDATA[使用 Redmine 來建立個人的長期計畫]]></title>
-    <link href="http://dangjlin.github.io/posts/2015/05/06/long-term-plans-to-use-redmine-to-build-personal/"/>
+    <link href="http://tech.guojheng-lin.com/posts/2015/05/06/long-term-plans-to-use-redmine-to-build-personal/"/>
     <updated>2015-05-06T15:00:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2015/05/06/long-term-plans-to-use-redmine-to-build-personal</id>
+    <id>http://tech.guojheng-lin.com/posts/2015/05/06/long-term-plans-to-use-redmine-to-build-personal</id>
     <content type="html"><![CDATA[<p>為了要可以嘗試使用 redmine 來建立個人計畫，我們得先安裝好 redmine ,
 我在網路上看到了這篇文章，一步一步做的確可以成功地建立在 Heroku 上喔。
 <a href="http://blog.enoir.tw/2014/05/21/%E5%A6%82%E4%BD%95%E5%9C%A8heroku%E4%B8%8A%E6%9E%B6%E8%A8%ADrdemine%E6%9C%8D%E5%8B%99%EF%BC%8C%E4%BD%BF%E7%94%A8s3%E5%84%B2%E5%AD%98%E9%99%84%E4%BB%B6/">如何在Heroku上架設Rdemine服務，使用S3儲存附件</a></p>
@@ -1468,60 +1477,6 @@ Ticket 就是 Task 或 Job ，Ticket 的 Tracker , 優先順序 , 任意的分�
 <h2>以月為單位的票管理</h2>
 
 <p>再者，不論是這裡，或是<a href="http://www.web-20.net/2007/12/trac_1.html">意外と使われていない「個人用trac」活用のすすめ | ランサーズ(Lancers)社長日記</a>  這篇文章裡都有介紹了，以月為長度的票管理是比較好的。 【版本】用 &ldquo;月別&rdquo; 切換，在月的長度下開票，例如，分別設定了  2014年1月、2014年2月、2014年3月的不同版本，分別把票分配(指派)到各月份去。 此外，2014年4月以後的專案計畫，就放置在 2014年的版本當中。 2015年的專案計畫，就放置在2015年版本當中。  最近的 Task 依照細部的期限去分類，屬於將來的 Task 就使用大的單位去分別分類即可。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[給新畢業的軟體工程師的技術書籍100冊LIST]]></title>
-    <link href="http://dangjlin.github.io/posts/2015/04/03/technical-books-to-the-newly-graduated-software-engineer-100-copies/"/>
-    <updated>2015-04-03T13:00:00+08:00</updated>
-    <id>http://dangjlin.github.io/posts/2015/04/03/technical-books-to-the-newly-graduated-software-engineer-100-copies</id>
-    <content type="html"><![CDATA[<p>本篇原文來自於日本知名食譜網站 cookpad 的部落格:
-<a href="http://techlife.cookpad.com/entry/2015/03/31/093000">新卒ソフトウェアエンジニアのための技術書100冊 http://techlife.cookpad.com/entry/2015/03/31/093000 </a>
-以下為粗略的大意上的翻譯，提供給自己及朋友閱讀。 應該會有一些小錯誤，敬請見諒。</p>
-
-<hr />
-
-<p>春天阿，就是新鮮人的季節。 這個部落格的讀者群當中的你們，明天開始也是會有要以工程師為職業踏進社會的人吧? 我們COOKPAD也準備好了要迎接新的夥伴們了，準備工作的其中一部分呢，我們製作了「給新畢業的軟體工程師技術書100冊LIST」。</p>
-
-<p>這100冊，是給那些以職業軟體工程師作為職業發展的累積為方向的人，若你們苦惱於應該讀哪些書的話，我們做了一個讓你們大家首先可以從這個LIST裡面去選擇的提案。</p>
-
-<p>在這個LIST裡面，一些是依照興趣、一些是依照我自己的主意來放進去的，雖然我相信你們會安心和氣地接受這份清單，然而還是要提一下，我是用一種認為身為一個職業的Programmer應該要知道哪些知識的心情來蒐集這個LIST的。</p>
-
-<p>我只會取那些被稱為經典的書籍、然後會避免那些獨立學習時難以理解的電腦書籍。 雖然有許多都是被稱作必讀的書，但是有可能有一些書都已經絕版或者是有難以入手的情況存在的話，這樣這些書我也不會放到LIST裡面來。 （我是真的很希望你們能讀這些書的，因此） 我也會避免列一些英文(外文)的書籍。</p>
-
-<p>而且，為了方便查閱，我也做了分類和難易度的區分。 沒有星星的標記的項目，則是那些就算不是以作為軟體工程師為目標的人也都是會看得懂的書。 一顆星的呢，則是入門者可以看得懂的書，隨著星星數量的增加，表示這些書的難度就越趨困難。</p>
-
-<p>這100冊書，都是相當值得一讀的。 雖然如此阿，但是隨著經驗的不同，有些書可能也是會有看不懂、無法理解的時候。我想，我們所不理解的事情、不知道的事情被寫在書裏面這當然是理所當然的阿。</p>
-
-<p>有一個我們社內很尊敬的軟體工程師前輩，ただただしさん也是在 「電腦的名著，古典100冊改訂新板」這本書裡面的一篇文章提到，讀技術的書，一定會有 <strong>&ldquo; 阿~~怎麼都看不懂 &rdquo;</strong> 這樣的經驗。 然後，關於會讓你產生這種感覺的這種書，是因為書裡面的內容是那種  「只讀一次是會讀不懂的書，先放下一會兒，然後再回來讀一讀，之後他能產生的價值可是會以數倍的回報」的內容阿!!</p>
-
-<p>軟體工程師的工作是很困難的，在很多時候，我們必須要具備各式各樣的知識去應對問題。 因此，請務必讓這100冊的書能夠陪伴你成功的職涯之路。</p>
-
-<p>(以下是各分類的日文-中文對照, 幫助大家看自己有興趣的分類)</p>
-
-<p>アルゴリズム : algorithm 演算法
-エッセイ:  essay
-オブジェクト指向 :  object oriented  : 物件導向
-サービス開発 :  Service 開發
-セキュリティ:  Security 安全
-ソフトウェア開発:  Software 開發
-データベース : Database
-デザイン : Design
-テスト  :  Test 測試
-ネットワーク : Network
-バージョン管理 : Version 管理 , 版本管理
-プログラミング : Programming
-プロジェクト : Project 專案
-関数プログラミング :  Funtional Programming
-機械学習 :  Machine Learning
-数学 : 數學
-設計 : Design</p>
-
-<hr />
-
-<p>書的LIST 請連到cookpad 的 blog 去看喔。 我就不複製貼上到我這裡來了，裡面的書都是日文的， 有一些是日文原著，有一些是從英文翻譯成日文的，所以有一些可以找英文版來看噢。
-<a href="http://techlife.cookpad.com/entry/2015/03/31/093000">新卒ソフトウェアエンジニアのための技術書100冊 http://techlife.cookpad.com/entry/2015/03/31/093000 </a></p>
 ]]></content>
   </entry>
   
