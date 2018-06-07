@@ -1,0 +1,122 @@
+---
+layout: post
+title: "RubyKaigi 2018 心得"
+date: 2018-06-07 18:05:29 +0800
+comments: true
+categories: ruby, rails, japan
+---
+
+# 2018 RubyKaigi 參加心得
+## 場地
+今年的場地在仙台的國際會議中心，一樣是一個品質很好，水準很高的會議中心。其中的 Main Hall 的容量達到了 1000 個座位之多。 
+難怪，第一天 KeyNote 的時候，就感覺為什麼非常擁擠，大家都在找空位坐，那時候還以為只有三四百人而已，沒想到第三天的時候公布今年的 RubyKaigi  2018 達到了 1017 人之多。 是歷年來參加者最多的一場 RubyKaigi 。真的是辦得很盛大。
+
+## 議程
+### 第一天：
+第一天的 KeyNote 是由 Matz 桑主講，題目是「箴言」
+大概圍繞在的議題是，命名的重要性，以及還是要每年幽默一次，說，
+`每一年都有人在說 Ruby 要死了 `  ` Ruby is going to dead every year `
+接著我就選聽了一場跟 crypto currency 有關的題目，
+[bancor: Token economy made with Ruby      - RubyKaigi 2018](http://rubykaigi.org/2018/presentations/kurotaky.html#may31)
+大意是說國外有人做了一個 protocal 是用來計算當 based on Ehtereum 乙太坊架構的 Token 之間要做交換的話，因為涉及到 Gas (乙太坊執行 smart contract 的必要花費) 或轉換費率的重重計算，所以有人就做了一個 protocal & API 。這個 talk 就是在講利用 Ruby 實作了這個 Protocal ，作用就是可以用在兩種不同價值的 token 的交換時的轉換 API 。
+
+接著去聽了 Stripe 這家公司裡面有三個人去做了一個  Type System  用來辨識 Ruby 的  codebase 裡面的 type 的狀態。 
+[A practical type system for Ruby at Stripe.      - RubyKaigi 2018](http://rubykaigi.org/2018/presentations/DarkDimius.html#may31)
+今年有蠻多 talk 都圍繞在 Type 型別的辨識跟處理。 應該是我的眼界還不夠大，接觸的語言不夠多，所以其實不太懂為什麼辨識 Type 那麼重要。而每一年的 Ruby Commiter VS World 的時候也常常會討論 ~爭辯~  動態型別還是靜態型別比較好。 
+
+然後再去聽了一場用 Ruby 來開發  Command Line Tool  的 Library ：TTY 
+[TTY - Ruby alchemist’s secret potion      - RubyKaigi 2018](http://rubykaigi.org/2018/presentations/piotr_murach.html#may31)
+覺得是蠻酷炫的，作者設計了很多小工具小 Library  ，在 Command Line 的環境介面當中多了一些視覺化的體驗。 例如 Spin , status bar ,  打勾打叉符號的等等。 
+吃完下午中場休息的點心
+
+去聽了一場 資料 ETL (Extract , Transform , Load ) 的 Talk 
+是一個法國人來講，命名成 Kiba （牙），因為他認為處理資料，就像咬住一個東西一樣。 （笑）
+[Kiba 2 - Past, present & future of data processing with Ruby      - RubyKaigi 2018](http://rubykaigi.org/2018/presentations/thibaut_barrere.html#may31)
+
+第一天的最後一場是聽了 Hanami 的作者又再說了一次 Hanami. 的整體架構，說明為什麼要採用這樣的架構。  Slides 超多，有200多頁， 就是圍繞在他所設計的 framework 架構。 
+[Architecture of hanami applications // Speaker Deck](https://speakerdeck.com/davydovanton/architecture-of-hanami-applications)
+作者蠻酷的，說他是從 Moscow 飛到東京，再搭新幹線到仙台。 
+這是他第二次到日本，他還是很喜歡日本。
+
+接著第一天最後就是 Lightening Talk 了。
+[2018 RubyKaigi - lightening Talk](http://rubykaigi.org/2018/presentations/lt/)
+因為我第一天其實有點在發燒，頭痛得不得了，所以 Lightening Talk. 總長度超過了一個小時讓我很痛苦。  
+除了 Lulalala 介紹  Rib （一個改良版的 irb 工具 ) 讓我印象深刻之外，
+還有五倍的蒼時介紹他的 tamashi IOT 軟體，
+還有一個人不知道為啥要 5 分鐘做一個  todo list 的 APP 
+還有一個 commiter 又來幽默每年 ruby 都會 dead 的話題，原因就是因為每年的聖誕節都會出新的版本，但是人力不足以維護所有舊的版本，所以每年其實都有舊的版本會 EOL (end of life)  
+其他的我已經有點忘記了。
+
+### 第二天
+一大早就錯過  KeyNote  Q_Q
+10:30去聽了一場作者研究如何在現今時代我們雖然利用了諸多不同的工具或套件幫忙處理網路世界的資料，但是這些每一樣的工具，能否都用 Ruby 實作或是有相同一樣功能的替代品呢？ 
+覺得作者對 Ruby 真的蠻有愛的！也因為有他的研究，所以讓我知道，真的每一種功能（大概除了 RDBMS之外）幾乎都有人用 Ruby 實作過。
+而且大家很愛詬病的效能問題，作者也做了很多的BenchMark，希望可以證明其實並沒有慢多少。  算是一個蠻特別的 Talk 。 
+http://rubykaigi.org/2018/presentations/wyhaines.html#jun01
+用完餐後，繼續接著下午的議程
+選聽了一個講述升級 gem 的  know how trick 
+[Journey of a complex gem upgrade      - RubyKaigi 2018](http://rubykaigi.org/2018/presentations/Edouard-chin.html#jun01)
+這是由 Shopify 的工程師來分享的。
+他提出了一個方法是：在 Gemfile 裡面設計 variable 去控制要不要採用新的版本的 Gem，接著，他還要去改 test code base 裡面先去宣告讓採用新版本gem 的 code 測試 allow failed . ( i.e. 就是故意要先讓他pass).  接著就可以去繼續開發新功能 ＆ 把那些 test failed 的 test case 標記出來，整理到 excel 表去，設計改善專案時程，發給不同的團隊去啟動修正 test failed 之處，然後他說用excel 表整理一個大表，然後有標記了紅色綠色的底色，可以像是一種 Gaminification （遊戲化的象徵）讓過程可以比較像競賽一樣有趣。
+他說通常要順利升級所有的 gem version 都要耗時 6 months to 1 year. 
+聽了之後覺得也是一個蠻新的做法。 
+
+接著聽了一場 mruby & mruby/c 的實作，是日文講者
+[Firmware programming with mruby/c      - RubyKaigi 2018](http://rubykaigi.org/2018/presentations/hasumon.html#jun01)
+很特別的地方是，講者的專案是跟 獺祭的酒廠 旭酒造合作
+他幫酒廠的製程設計了監控溫度、濕度、空氣中的co2 等等屬性的 IOT 裝置。並且會把數據傳送到手機的 APP 上。 
+他分享了採用哪一種 micro processor 比較好，以及採用了 mruby/c 會遇到哪些問題，以及解法等等。
+
+看到他做了這樣的東西，就讓我覺得 ruby 可以實作應用的場合真的蠻多的。 
+
+最後就去聽了一場講 web socket 的應用
+ [One cable to rule them all      - RubyKaigi 2018](http://rubykaigi.org/2018/presentations/palkan_tula.html#jun01)
+先是揶揄了一下 Rails 5 的 action cable  雖然有設計了 web-socket & sub/pub 功能。 但是實際上好像很少有人敢用在 production 環境。 原因是效能太差，以及實際上在 publish 的時候好像還會掉訊息，所以可靠度也太差。 
+於是作者就介紹了自己以 Ruby 也是實做出來的另一個 web socket 工具
+叫做 anycable . 
+但是因為實際使用的情境跟經驗太少，所以我也有點聽不懂。 
+
+### 第三天
+一大早，又錯過了 KeyNote Q_Q  據說是在講如何 parallel run ruby 以便達到效能提升 ｘ倍的一個 talk , 看 twitter 內是驚嘆連連，但我想應該是適用在某種 compute intensive 的條件下吧。 因為作者說，不適用 rails .  哈哈
+
+第三天只有聽了下面這幾個talk
+ [Deep into Ruby Code Coverage      - RubyKaigi 2018](http://rubykaigi.org/2018/presentations/malafortune.html#jun02)
+在講述作者開發了一個 Gem. 
+可以用來標記 test code 對實作的 coverage 範圍
+尤其是那種 if else then 的測試，甚至可以標記到有些 test case 沒有設計到測試不同 condition 的結果。 
+以及聽了一場 [JRuby 9.2 and Rails 5.x      - RubyKaigi 2018](http://rubykaigi.org/2018/presentations/tom_enebo.html#jun02)
+基本上就是在講 JRuby 上到 9.2 了，然後改善了哪些東西
+以及講一點點關於使用 JRuby 在 Rails 5.x 上的狀況
+作者有show 了一些圖表去顯示效能，但除了某個 update  column 的情境是 JRuby 比較厲害之外，其他其實並沒有顯著的優化。 
+
+接著最後一場就是很特別的一個 Trick 2018 contest 大賞發表。文章稍後下面另外獨立寫一段。 
+
+## 特別之處
+### Pair Programming 
+今年 Dekai 巨人外人 Jonan  在會場架設了錄影直播設備，也邀請了一些 Developer 其中還包括了 Ｍatz !! 做一些 Kata 的 Pair Programming !
+然後放到 Twitch 上直播。 真的是蠻特別的～
+[Jonan Show - Pair Programming](http://twitch.tv/thejonanshow)
+
+### Ruby Trick 2018
+所謂的 Ruby Trick 的全名是
+`Transcendental Ruby Imbroglio Contest for rubyKaigi`
+[Reference Github](https://github.com/tric/trick2018)
+意思就是如何用 Ruby 寫出廢code ，雖然名為廢  code ，但是實際上參加者每一個都是絕世高手啊！如果不是對 Ruby 有透徹的了解的話，基本上是不可能有能力寫出這些作品的。 
+
+印象最深的有三個：
+一個是執行後 redner 出了很類似 3D 動畫的聖誕樹  `11-tompng`
+另一個是用最少的 code 寫出了一個 IRB 的環境。 `12-jan`
+還有一個是執行後， Ruby 會在  console 開始逐個 byte 印出，然後會螺旋狀像貪食蛇一樣的像漩渦一樣的往中心繞進去。
+最話顯示在畫面上的就是 source code ! 超神奇的。`02-mame`
+
+推薦大家上 Reference Github Repo 找到那些參加者的  folder 執行看看 
+
+### 人數最多&贊助商最多
+今年人數達到了 1017 人
+贊助商來到了 71 家
+今年有好幾家前兩年都沒有來參加的贊助商，可見規模是逐漸擴大了，而採用 Ruby 語言甚至願意贊助，參加擺攤位以及招募 Ruby 工程師的氣氛也是相當濃厚。 
+
+## 2019 RubyKaigi 
+明年要移到九州 - 福岡 舉辦囉。 時間就定在 2019-04-18 ~ 2019-04-20 
+感覺是一個適合賞櫻花的日子呢。 
+
