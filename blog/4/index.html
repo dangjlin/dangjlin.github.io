@@ -9,11 +9,8 @@
   <meta name="author" content="Daniel Lin 丹哥">
 
   
-  <meta name="description" content="以下是更新的指令，前提是你的版本中沒有尚未commit的東西，不然會更複雜一些。
-git remote add upstream &ldquo;來源的git位置&rdquo;
-git fetch upstream
-git checkout master
-git merge upstream/ &hellip;">
+  <meta name="description" content="本篇的概念來自於這篇stackover flow 的文章，筆記一下，否則每次看code都會卡住看不懂，不習慣背後的道理就都會很不直覺阿。
+When do we use the “||=” operator in Rails ? What is its significance? 例如: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +78,132 @@ git merge upstream/ &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/07/22/ruby-rails-operator-the-priority/">Ruby (Rails) 內運算式 (Operator)的優先順序 " && " , " == " , " || " 符號</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-22T03:31:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>3:31 am</span></time>
+        
+           | <a href="/posts/2014/07/22/ruby-rails-operator-the-priority/#disqus_thread"
+             data-disqus-identifier="http://tech.guojheng-lin.com/posts/2014/07/22/ruby-rails-operator-the-priority/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>本篇的概念來自於這篇stackover flow 的文章，筆記一下，否則每次看code都會卡住看不懂，不習慣背後的道理就都會很不直覺阿。
+<a href="http://stackoverflow.com/questions/5691390/when-do-we-use-the-operator-in-rails-what-is-its-significance">When do we use the “||=” operator in Rails ? What is its significance?</a></p>
+
+<p>例如:  我們可能會看到這種程式碼，一開始的時候都是無法理解這代表什麼含意，是做了什麼判斷? 傳回什麼值? 誰跟誰比對? 優先順序又是什麼?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="vi">@_current_user</span> <span class="o">||=</span> <span class="n">session</span><span class="o">[</span><span class="ss">:current_user_id</span><span class="o">]</span> <span class="o">&amp;&amp;</span>
+</span><span class='line'>      <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">session</span><span class="o">[</span><span class="ss">:current_user_id</span><span class="o">]</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我們要先講一個觀念是當看到 <code>a ||= b</code> 這種code的時候，要知道它其實是
+<code>a || a = b</code> ,
+而他所代表的含意是如果 a 本身自己是 nil or false 的時候，則他就會等於 b 的值。 反之，如果 a 不是 nil , 不是 false的時候，那就保持原狀。
+詳細的解說可以看這一篇文章
+<a href="http://www.rubyinside.com/what-rubys-double-pipe-or-equals-really-does-5488.html">What Ruby’s ||= (Double Pipe / Or Equals) Really Does</a></p>
+
+<p>讓我們來拆解這段程式碼，一步一步的解讀，</p>
+
+<blockquote><p>第一步</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="vi">@_current_user</span> <span class="o">||=</span> <span class="p">(</span> <span class="n">session</span><span class="o">[</span><span class="ss">:current_user_id</span><span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">session</span><span class="o">[</span><span class="ss">:current_user_id</span><span class="o">]</span><span class="p">)</span> <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>等同於</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="vi">@_current_user</span> <span class="o">||</span> <span class="vi">@_current_user</span> <span class="o">=</span> <span class="p">(</span> <span class="n">session</span><span class="o">[</span><span class="ss">:current_user_id</span><span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">session</span><span class="o">[</span><span class="ss">:current_user_id</span><span class="o">]</span><span class="p">)</span> <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>代表的是如果 @_current_user 是 nil or false 的時候， 就指定為<code>||=</code> 符號右邊的數值，但是右邊又是另一個判斷式，我們進一步解讀。</p>
+
+<blockquote><p>第二步</p></blockquote>
+
+<p>第二個觀念: 這一串  ( session[:current_user_id] &amp;&amp; User.find(session[:current_user_id]) ) 是什麼意思?<br/>
+這邊有一個小技巧，如果 session[:current_user_id] 不是 nil or false 那麼 ruby 就會去判斷 &amp;&amp; 符號的右邊的內容 :  如果  User.find(session[:current_user_id]) 也不是 nil ,這樣的話就會傳回 User.find(session[:current_user_id]) 的值。</p>
+
+<p>可以參考這一篇 :  <a href="http://www.appallingfarrago.com/rails/ruby/&amp;&amp;/2013/11/03/ruby-%26%26-shortcut.html">Ruby&rsquo;s &amp;&amp; operator for params</a> 術語上似乎是叫做 <code>short circuit evaluation.</code></p>
+
+<p>第三個觀念: 優先順序的問題
+我們可以從 <a href="http://ruby-doc.org/core-2.1.2/doc/syntax/precedence_rdoc.html">ruby document</a> 看到運算子的優先順序，我將這個表複製如下，規則是 <strong><em>越上面的越先運算、執行、判斷</em></strong> ( PS: ruby version 2.1.2 )</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">!</span><span class="p">,</span> <span class="o">~</span><span class="p">,</span> <span class="n">unary</span> <span class="o">+</span>
+</span><span class='line'><span class="o">**</span>
+</span><span class='line'><span class="n">unary</span> <span class="o">-</span>
+</span><span class='line'><span class="o">*</span><span class="p">,</span> <span class="sr">/, %</span>
+</span><span class='line'><span class="sr">+, -</span>
+</span><span class='line'><span class="sr">&lt;&lt;, &gt;&gt;</span>
+</span><span class='line'><span class="sr">&amp;</span>
+</span><span class='line'><span class="sr">|, ^</span>
+</span><span class='line'><span class="sr">&gt;, &gt;=, &lt;, &lt;=</span>
+</span><span class='line'><span class="sr">&lt;=&gt;, ==, ===, !=, =~, !~</span>
+</span><span class='line'><span class="sr">&amp;&amp;</span>
+</span><span class='line'><span class="sr">||</span>
+</span><span class='line'><span class="sr">.., ...</span>
+</span><span class='line'><span class="sr">?, :</span>
+</span><span class='line'><span class="sr">modifier-rescue</span>
+</span><span class='line'><span class="sr">=, +=, -=, etc.</span>
+</span><span class='line'><span class="sr">defined?</span>
+</span><span class='line'><span class="sr">not</span>
+</span><span class='line'><span class="sr">or, and</span>
+</span><span class='line'><span class="sr">modifier-if, modifier-unless, modifier-while, modifier-until</span>
+</span><span class='line'><span class="sr">{ } blocks</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>第三步</p></blockquote>
+
+<p>所以啦，回到原本的程式碼
+當這一串 <code>( session[:current_user_id] &amp;&amp; User.find(session[:current_user_id]) )</code> 先判斷完之後，就知道是 nil 或者是 &amp;&amp; 右邊的值，接著再看  || 的左邊 <code>@_current_user</code> 如果不是 nil or false 就決定是保持原狀，否則就把  User.find(session[:current_user_id]) 指定給  @_current_user 。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1518,109 +1641,6 @@ model一般都用单数, 复数的model会有歧义, 比如当你创建model的�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/2014/06/22/week2-homework-note/">Week2 Homework Note</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-06-22T14:15:00+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>2:15 pm</span></time>
-        
-           | <a href="/posts/2014/06/22/week2-homework-note/#disqus_thread"
-             data-disqus-identifier="http://tech.guojheng-lin.com/posts/2014/06/22/week2-homework-note/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>上課的時候有講到一個技巧，如果 controller 的 method 要給 view 用的時候
-可以使用 <code>helper_method</code> 這個技巧</p>
-
-<p>在 controllers/application_controller.rb  可以放入這段 CODE</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'> <span class="n">helper_method</span> <span class="ss">:current_cart</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">current_cart</span>
-</span><span class='line'>    <span class="vi">@current_cart</span> <span class="o">||=</span> <span class="n">find_cart</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">find_cart</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">cart</span> <span class="o">=</span> <span class="no">Cart</span><span class="o">.</span><span class="n">find_by</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="n">session</span><span class="o">[</span><span class="ss">:cart_id</span><span class="o">]</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">unless</span>  <span class="n">cart</span><span class="o">.</span><span class="n">present?</span>
-</span><span class='line'>      <span class="n">cart</span> <span class="o">=</span> <span class="no">Cart</span><span class="o">.</span><span class="n">create</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">session</span><span class="o">[</span><span class="ss">:cart_id</span><span class="o">]</span> <span class="o">=</span> <span class="n">cart</span><span class="o">.</span><span class="n">id</span>
-</span><span class='line'>    <span class="n">cart</span>
-</span><span class='line'>  <span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>其中一開始看不懂的是這個符號  &ldquo; ||= &rdquo;  這什麼鬼阿!
-可以看這篇的解釋，
-<a href="http://rubyer.me/blog/568/"> 解釋 ||= 這個符號的意義 </a></p>
-
-<p>因為現在是 many to many 的關聯性 ,
-剛剛採了一個雷
-就是在找購物車的商品的時候，我傳遞了選擇的 product id 去 carts 的 controller, 把 product.id 帶過去
-然後因為我要在 cart_items 這個 table 去找出商品
-所以一開始這樣寫</p>
-
-<blockquote><p>def remove_item</p>
-
-<p> @item = <code>Cart_Item</code>.find_by(product_id: params[:id])
- if @item.destroy
-   flash[:notice] = &ldquo;你已成功移除這項商品&rdquo;
-   else
-     flash[:warning] = &ldquo;Something Wrong when remove item!&rdquo;
-  end
-   redirect_to carts_path
-end</p></blockquote>
-
-<p>(sorry 為了凸顯那個我錯的地方 ,所以用引用的方式show 程式碼 , 結果無法縮排 )
-雖然 table name 是  cart_items ,  但是在上面的時候正確應該是要打   @item = <code>CartItem</code>.find_by(product_id: params[:id])
-這應該是命名慣例阿~ 踩過一次就記得了吧</p>
-
-<p>問題好多
-1. 信用卡付款之後跳轉訂單畫面，但是應該要清空購物車 ，想法是可以先去走 cart/destory 的controller , 但是裡面會跳出 你已成功清除購物車 ,  理論上結帳過來的動作不應該跳出這段字才對
-2. 不同USER的訂單編號應該都要從 1 開始&hellip;. 而不是直接顯示 order table 裡面的編號 , 那是全部系統訂單的編號
-3.
-4.  如果已經變更了 aasm 裡面的狀態，結果要變更第二次的時候就噴error了，所以應該要有 error handling 的機制</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/5">&larr; Older</a>
@@ -1638,6 +1658,10 @@ end</p></blockquote>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/posts/2018/06/07/rubykaigi-2018-xin-de/">RubyKaigi 2018 心得</a>
+      </li>
+    
+      <li class="post">
         <a href="/posts/2018/05/03/octopress-multi-dev-env-setting-step/">Octopress Multi Dev Env Setting Step</a>
       </li>
     
@@ -1651,10 +1675,6 @@ end</p></blockquote>
     
       <li class="post">
         <a href="/posts/2016/10/05/rails-using-aws-ses-send-mail-service/">Rails Using AWS SES Send Mail Service</a>
-      </li>
-    
-      <li class="post">
-        <a href="/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/">Redmine 串 AWS S3 遇到的問題 Hack Workaround</a>
       </li>
     
   </ul>

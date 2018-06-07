@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Rails, | 丹哥的技術培養皿]]></title>
-  <link href="http://tech.guojheng-lin.com/blog/categories/rails/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Japan | 丹哥的技術培養皿]]></title>
+  <link href="http://tech.guojheng-lin.com/blog/categories/japan/atom.xml" rel="self"/>
   <link href="http://tech.guojheng-lin.com/"/>
   <updated>2018-06-07T18:06:25+08:00</updated>
   <id>http://tech.guojheng-lin.com/</id>

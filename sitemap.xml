@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://tech.guojheng-lin.com/posts/2018/06/07/rubykaigi-2018-xin-de/</loc>
+<lastmod>2018-06-07T18:05:29+08:00</lastmod>
+</url>
+<url>
 <loc>http://tech.guojheng-lin.com/posts/2018/05/03/octopress-multi-dev-env-setting-step/</loc>
 <lastmod>2018-05-03T16:23:27+08:00</lastmod>
 </url>
@@ -238,5 +242,29 @@
 </url>
 <url>
 <loc>http://tech.guojheng-lin.com/blog/categories/devops/</loc>
+</url>
+<url>
+<loc>http://tech.guojheng-lin.com/blog/categories/ruby/</loc>
+</url>
+<url>
+<loc>http://tech.guojheng-lin.com/blog/categories/rails/</loc>
+</url>
+<url>
+<loc>http://tech.guojheng-lin.com/blog/categories/japan/</loc>
+</url>
+<url>
+<loc>http://tech.guojheng-lin.com/blog/2/</loc>
+</url>
+<url>
+<loc>http://tech.guojheng-lin.com/blog/3/</loc>
+</url>
+<url>
+<loc>http://tech.guojheng-lin.com/blog/4/</loc>
+</url>
+<url>
+<loc>http://tech.guojheng-lin.com/blog/5/</loc>
+</url>
+<url>
+<loc>http://tech.guojheng-lin.com/blog/6/</loc>
 </url>
 </urlset>

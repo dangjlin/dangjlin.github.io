@@ -9,10 +9,18 @@
   <meta name="author" content="Daniel Lin 丹哥">
 
   
-  <meta name="description" content="今天在把原本在 github 上的 branch 要 clone 下來到 nitrous.io 網站的時候發生了一些問題
-先講到底要怎麼去拉自己在遠端的repo branch .
-假設這個在 github 上的repo 叫做 artstore ,
-有 Master 的主 branch &hellip;">
+  <meta name="description" content="上課的時候有講到一個技巧，如果 controller 的 method 要給 view 用的時候
+可以使用 helper_method 這個技巧 在 controllers/application_controller.rb 可以放入這段 CODE 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +88,109 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/posts/2014/06/22/week2-homework-note/">Week2 Homework Note</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-06-22T14:15:00+08:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>2:15 pm</span></time>
+        
+           | <a href="/posts/2014/06/22/week2-homework-note/#disqus_thread"
+             data-disqus-identifier="http://tech.guojheng-lin.com/posts/2014/06/22/week2-homework-note/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>上課的時候有講到一個技巧，如果 controller 的 method 要給 view 用的時候
+可以使用 <code>helper_method</code> 這個技巧</p>
+
+<p>在 controllers/application_controller.rb  可以放入這段 CODE</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'> <span class="n">helper_method</span> <span class="ss">:current_cart</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">current_cart</span>
+</span><span class='line'>    <span class="vi">@current_cart</span> <span class="o">||=</span> <span class="n">find_cart</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">find_cart</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">cart</span> <span class="o">=</span> <span class="no">Cart</span><span class="o">.</span><span class="n">find_by</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="n">session</span><span class="o">[</span><span class="ss">:cart_id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">unless</span>  <span class="n">cart</span><span class="o">.</span><span class="n">present?</span>
+</span><span class='line'>      <span class="n">cart</span> <span class="o">=</span> <span class="no">Cart</span><span class="o">.</span><span class="n">create</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">session</span><span class="o">[</span><span class="ss">:cart_id</span><span class="o">]</span> <span class="o">=</span> <span class="n">cart</span><span class="o">.</span><span class="n">id</span>
+</span><span class='line'>    <span class="n">cart</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中一開始看不懂的是這個符號  &ldquo; ||= &rdquo;  這什麼鬼阿!
+可以看這篇的解釋，
+<a href="http://rubyer.me/blog/568/"> 解釋 ||= 這個符號的意義 </a></p>
+
+<p>因為現在是 many to many 的關聯性 ,
+剛剛採了一個雷
+就是在找購物車的商品的時候，我傳遞了選擇的 product id 去 carts 的 controller, 把 product.id 帶過去
+然後因為我要在 cart_items 這個 table 去找出商品
+所以一開始這樣寫</p>
+
+<blockquote><p>def remove_item</p>
+
+<p> @item = <code>Cart_Item</code>.find_by(product_id: params[:id])
+ if @item.destroy
+   flash[:notice] = &ldquo;你已成功移除這項商品&rdquo;
+   else
+     flash[:warning] = &ldquo;Something Wrong when remove item!&rdquo;
+  end
+   redirect_to carts_path
+end</p></blockquote>
+
+<p>(sorry 為了凸顯那個我錯的地方 ,所以用引用的方式show 程式碼 , 結果無法縮排 )
+雖然 table name 是  cart_items ,  但是在上面的時候正確應該是要打   @item = <code>CartItem</code>.find_by(product_id: params[:id])
+這應該是命名慣例阿~ 踩過一次就記得了吧</p>
+
+<p>問題好多
+1. 信用卡付款之後跳轉訂單畫面，但是應該要清空購物車 ，想法是可以先去走 cart/destory 的controller , 但是裡面會跳出 你已成功清除購物車 ,  理論上結帳過來的動作不應該跳出這段字才對
+2. 不同USER的訂單編號應該都要從 1 開始&hellip;. 而不是直接顯示 order table 裡面的編號 , 那是全部系統訂單的編號
+3.
+4.  如果已經變更了 aasm 裡面的狀態，結果要變更第二次的時候就噴error了，所以應該要有 error handling 的機制</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1345,410 +1456,9 @@ d) 問你是否有新加坡PR (Permanent Residence 永久居民) 身份、或新
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/posts/2013/10/06/convert-excel-to-word-program-code/">EXCEL 內容轉換至 Word 的程式碼</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2013-10-06T07:34:00+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>7:34 am</span></time>
-        
-           | <a href="/posts/2013/10/06/convert-excel-to-word-program-code/#disqus_thread"
-             data-disqus-identifier="http://tech.guojheng-lin.com/posts/2013/10/06/convert-excel-to-word-program-code/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>嘔心瀝血到處蒐集拼湊出來的把 excel 內容，自動轉換貼到 word 表格的程式碼
-我受夠了，一直MAINTAIN 兩份不同的檔案了阿。</p>
-
-<p>VBA 裡面要先做一個動作，要去 include word 的函式庫進來
-Step 1 , 先從VBA的選單 <code>" 工具 "</code> -> <code>"設定引用項目"</code>
-Step 2 , 按瀏覽 , 接著去路徑
-<code>  C:\Program Files\Microsoft Office\Office12\</code></p>
-
-<p>裡面會有一個 <code>MSWORD.OLB</code>的檔案 ，再按確定就可以引用完成了。</p>
-
-<p><img src="http://user-image.logdown.io/user/359/blog/359/post/144475/MB3g5k2uQHCfjsEXI1UA_sample.jpg" alt="sample.jpg" /></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-<span class='line-number'>93</span>
-<span class='line-number'>94</span>
-<span class='line-number'>95</span>
-<span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
-<span class='line-number'>100</span>
-<span class='line-number'>101</span>
-<span class='line-number'>102</span>
-<span class='line-number'>103</span>
-<span class='line-number'>104</span>
-<span class='line-number'>105</span>
-<span class='line-number'>106</span>
-<span class='line-number'>107</span>
-<span class='line-number'>108</span>
-<span class='line-number'>109</span>
-<span class='line-number'>110</span>
-<span class='line-number'>111</span>
-<span class='line-number'>112</span>
-<span class='line-number'>113</span>
-<span class='line-number'>114</span>
-<span class='line-number'>115</span>
-<span class='line-number'>116</span>
-<span class='line-number'>117</span>
-<span class='line-number'>118</span>
-<span class='line-number'>119</span>
-<span class='line-number'>120</span>
-<span class='line-number'>121</span>
-<span class='line-number'>122</span>
-<span class='line-number'>123</span>
-<span class='line-number'>124</span>
-<span class='line-number'>125</span>
-<span class='line-number'>126</span>
-<span class='line-number'>127</span>
-<span class='line-number'>128</span>
-<span class='line-number'>129</span>
-<span class='line-number'>130</span>
-<span class='line-number'>131</span>
-<span class='line-number'>132</span>
-<span class='line-number'>133</span>
-<span class='line-number'>134</span>
-<span class='line-number'>135</span>
-<span class='line-number'>136</span>
-<span class='line-number'>137</span>
-<span class='line-number'>138</span>
-<span class='line-number'>139</span>
-<span class='line-number'>140</span>
-<span class='line-number'>141</span>
-<span class='line-number'>142</span>
-<span class='line-number'>143</span>
-<span class='line-number'>144</span>
-<span class='line-number'>145</span>
-<span class='line-number'>146</span>
-<span class='line-number'>147</span>
-<span class='line-number'>148</span>
-<span class='line-number'>149</span>
-<span class='line-number'>150</span>
-<span class='line-number'>151</span>
-<span class='line-number'>152</span>
-<span class='line-number'>153</span>
-<span class='line-number'>154</span>
-<span class='line-number'>155</span>
-<span class='line-number'>156</span>
-<span class='line-number'>157</span>
-<span class='line-number'>158</span>
-<span class='line-number'>159</span>
-<span class='line-number'>160</span>
-<span class='line-number'>161</span>
-<span class='line-number'>162</span>
-<span class='line-number'>163</span>
-<span class='line-number'>164</span>
-<span class='line-number'>165</span>
-<span class='line-number'>166</span>
-<span class='line-number'>167</span>
-<span class='line-number'>168</span>
-<span class='line-number'>169</span>
-<span class='line-number'>170</span>
-<span class='line-number'>171</span>
-<span class='line-number'>172</span>
-<span class='line-number'>173</span>
-<span class='line-number'>174</span>
-<span class='line-number'>175</span>
-<span class='line-number'>176</span>
-<span class='line-number'>177</span>
-<span class='line-number'>178</span>
-<span class='line-number'>179</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Sub transfer()
-</span><span class='line'>
-</span><span class='line'>'宣告指向 Microsoft Word 文件的變數
-</span><span class='line'>Dim appWD As Word.Application
-</span><span class='line'>
-</span><span class='line'>Set appWD = Nothing  '使用完後將appWD變數釋放掉，避免佔用記憶體
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>'在其他應用程式中，使用要處理物件的 OLE 程式識別符號 作為 CreateObject 函數，
-</span><span class='line'>Set appWD = CreateObject("Word.Application")
-</span><span class='line'>
-</span><span class='line'>'如果要檢視其他應用程式的階段作業，請將 Visible 屬性設定為 True。
-</span><span class='line'>appWD.Visible = True
-</span><span class='line'>appWD.Documents.Add
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>' 設定word 版面為橫版面
-</span><span class='line'>
-</span><span class='line'>appWD.ActiveDocument.PageSetup.Orientation = wdOrientLandscape
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>'填入指定格式的文字並而後新增空白段落
-</span><span class='line'>
-</span><span class='line'>appWD.Selection.Font.Size = 22
-</span><span class='line'>appWD.Selection.Font.Bold = True
-</span><span class='line'>appWD.Selection.TypeText ("Excel 2 Word")  '插入指定的文字
-</span><span class='line'>appWD.Selection.TypeParagraph  '插入一個新的空白段落
-</span><span class='line'>
-</span><span class='line'>'複製Excel儲存格某範圍至word檔 -- 評估原則一
-</span><span class='line'>
-</span><span class='line'>appWD.Selection.Font.Size = 16
-</span><span class='line'>appWD.Selection.TypeText ("評估原則一、保護標的與生命循環")  '插入指定的文字
-</span><span class='line'>
-</span><span class='line'>Range("C2:H5").Copy
-</span><span class='line'>appWD.Selection.Paste
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第一段結束")  '插入指定的文字
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>
-</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則二
-</span><span class='line'>
-</span><span class='line'>appWD.Selection.Font.Size = 16
-</span><span class='line'>appWD.Selection.TypeText ("評估原則二、預防損害原則")  '插入指定的文字
-</span><span class='line'>
-</span><span class='line'>Range("C6:H12").Copy
-</span><span class='line'>appWD.Selection.Paste
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第二段結束")  '插入指定的文字
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>
-</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則三
-</span><span class='line'>
-</span><span class='line'>appWD.Selection.Font.Size = 16
-</span><span class='line'>appWD.Selection.TypeText ("評估原則三、告知原則")  '插入指定的文字
-</span><span class='line'>
-</span><span class='line'>Range("C19:H26").Copy
-</span><span class='line'>appWD.Selection.Paste
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第三段結束")  '插入指定的文字
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>
-</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則四
-</span><span class='line'>
-</span><span class='line'>appWD.Selection.Font.Size = 16
-</span><span class='line'>appWD.Selection.TypeText ("評估原則四、蒐集限制原則")  '插入指定的文字
-</span><span class='line'>
-</span><span class='line'>Range("C27:H32").Copy
-</span><span class='line'>appWD.Selection.Paste
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第四段結束")  '插入指定的文字
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>
-</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則五
-</span><span class='line'>
-</span><span class='line'>appWD.Selection.Font.Size = 16
-</span><span class='line'>appWD.Selection.TypeText ("評估原則五、個人資料利用原則")  '插入指定的文字
-</span><span class='line'>
-</span><span class='line'>Range("C33:H36").Copy
-</span><span class='line'>appWD.Selection.Paste
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第五段結束")  '插入指定的文字
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>
-</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則六
-</span><span class='line'>
-</span><span class='line'>appWD.Selection.Font.Size = 16
-</span><span class='line'>appWD.Selection.TypeText ("評估原則六、當事人自主原則及查閱及更正原則")  '插入指定的文字
-</span><span class='line'>
-</span><span class='line'>Range("C37:H39").Copy
-</span><span class='line'>appWD.Selection.Paste
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第六段結束")  '插入指定的文字
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>
-</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則七
-</span><span class='line'>
-</span><span class='line'>appWD.Selection.Font.Size = 16
-</span><span class='line'>appWD.Selection.TypeText ("評估原則七、個人資料完整性原則")  '插入指定的文字
-</span><span class='line'>
-</span><span class='line'>Range("C40:H42").Copy
-</span><span class='line'>appWD.Selection.Paste
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第七段結束")  '插入指定的文字
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>
-</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則八
-</span><span class='line'>
-</span><span class='line'>appWD.Selection.Font.Size = 16
-</span><span class='line'>appWD.Selection.TypeText ("評估原則八、安全管理原則")  '插入指定的文字
-</span><span class='line'>
-</span><span class='line'>Range("C43:H70").Copy
-</span><span class='line'>appWD.Selection.Paste
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第八段結束")  '插入指定的文字
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>
-</span><span class='line'>'複製Excel儲存格某範圍至word檔  -- 評估原則九
-</span><span class='line'>
-</span><span class='line'>appWD.Selection.Font.Size = 16
-</span><span class='line'>appWD.Selection.TypeText ("評估原則九、責任原則")  '插入指定的文字
-</span><span class='line'>
-</span><span class='line'>Range("C71:H79").Copy
-</span><span class='line'>appWD.Selection.Paste
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>'appWD.Selection.TypeText ("測試這列文字停在哪邊第九段結束")  '插入指定的文字
-</span><span class='line'>appWD.Selection.TypeParagraph
-</span><span class='line'>
-</span><span class='line'>For i = 1 To 9
-</span><span class='line'>
-</span><span class='line'>' 設定每一欄位的固定寬度，先至 word  量測過後，再回來調整這邊的數據, 單位是公分
-</span><span class='line'>
-</span><span class='line'>appWD.ActiveDocument.Tables(i).Columns(1).Width = CentimetersToPoints(2)
-</span><span class='line'>appWD.ActiveDocument.Tables(i).Columns(2).Width = CentimetersToPoints(3.5)
-</span><span class='line'>appWD.ActiveDocument.Tables(i).Columns(3).Width = CentimetersToPoints(8)
-</span><span class='line'>appWD.ActiveDocument.Tables(i).Columns(4).Width = CentimetersToPoints(8)
-</span><span class='line'>appWD.ActiveDocument.Tables(i).Columns(5).Width = CentimetersToPoints(2)
-</span><span class='line'>appWD.ActiveDocument.Tables(i).Columns(6).Width = CentimetersToPoints(2)
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>'需設定每個table 裡面的  row 可以跨分頁
-</span><span class='line'>appWD.ActiveDocument.Tables(i).Rows.AllowBreakAcrossPages = True
-</span><span class='line'>
-</span><span class='line'>   ' 網路上找來的解法 : 設定每個table 的第一列為標題列，必須重複
-</span><span class='line'>    Dim oTable As Table
-</span><span class='line'>    Dim oCell As Cell
-</span><span class='line'>    Set oTable = appWD.ActiveDocument.Tables(i)
-</span><span class='line'>    For Each oCell In oTable.Range.Cells
-</span><span class='line'>    If oCell.Range.Information(wdEndOfRangeRowNumber) = 1 Then
-</span><span class='line'>    oCell.Range.Rows.HeadingFormat = True
-</span><span class='line'>    End If
-</span><span class='line'>    Next
-</span><span class='line'>    Set oCell = Nothing
-</span><span class='line'>    Set oTable = Nothing
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>appWD.ActiveDocument.Tables(i).Select
-</span><span class='line'>
-</span><span class='line'>'所有段落統一靠左
-</span><span class='line'>appWD.Selection.Paragraphs.Alignment = wdAlignParagraphLeft
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>'所有段落設定為最小行高
-</span><span class='line'>
-</span><span class='line'>appWD.Selection.ParagraphFormat.LineSpacingRule = wdLineSpaceExactly
-</span><span class='line'>appWD.Selection.ParagraphFormat.LineSpacing = 21
-</span><span class='line'>
-</span><span class='line'>Next i
-</span><span class='line'>
-</span><span class='line'>'複製Excel圖表至word檔
-</span><span class='line'>'ActiveSheet.ChartObjects("圖表 2").Activate
-</span><span class='line'>'ActiveChart.ChartArea.Select
-</span><span class='line'>'ActiveChart.ChartArea.Copy
-</span><span class='line'>'appWD.Selection.PasteAndFormat (wdChartPicture)
-</span><span class='line'>
-</span><span class='line'>Set appWD = Nothing  '使用完後將appWD變數釋放掉，避免佔用記憶體
-</span><span class='line'>
-</span><span class='line'>MsgBox (" Copy to Word is done ")
-</span><span class='line'>'
-</span><span class='line'>End Sub
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/6">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -1761,6 +1471,10 @@ Step 2 , 按瀏覽 , 接著去路徑
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/posts/2018/06/07/rubykaigi-2018-xin-de/">RubyKaigi 2018 心得</a>
+      </li>
     
       <li class="post">
         <a href="/posts/2018/05/03/octopress-multi-dev-env-setting-step/">Octopress Multi Dev Env Setting Step</a>
@@ -1776,10 +1490,6 @@ Step 2 , 按瀏覽 , 接著去路徑
     
       <li class="post">
         <a href="/posts/2016/10/05/rails-using-aws-ses-send-mail-service/">Rails Using AWS SES Send Mail Service</a>
-      </li>
-    
-      <li class="post">
-        <a href="/posts/2016/07/19/redmine-aws-s3-problem-hack-workaround/">Redmine 串 AWS S3 遇到的問題 Hack Workaround</a>
       </li>
     
   </ul>
